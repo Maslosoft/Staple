@@ -1,0 +1,23 @@
+{
+    "name": "maslosoft/staple",
+    "description": "Staple is \"Static Page Lightweight Enchancer\"",
+    "require": {
+        "maslosoft/miniview": "*",
+        "fxp/composer-asset-plugin": "*"
+    },
+    "require-dev": {
+        "maslosoft/hedron": "*"
+    },
+    "autoload": {
+	"psr-4": {
+	    "Maslosoft\\Staple\\": "src"
+	}
+    },
+    "license": "AGLP",
+    "authors": [
+        {
+            "name": "Peter Maselkowski",
+            "email": "pmaselkowski@gmail.com"
+        }
+    ]
+}
