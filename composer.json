@@ -3,7 +3,8 @@
     "description": "Staple is \"Static Page Lightweight Enchancer\"",
     "require": {
         "maslosoft/miniview": "*",
-        "fxp/composer-asset-plugin": "*"
+        "fxp/composer-asset-plugin": "*",
+        "maslosoft/embedi": "*"
     },
     "require-dev": {
         "maslosoft/hedron": "*"
