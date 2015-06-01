@@ -16,7 +16,7 @@
 	}
     },
 	"scripts": {
-		"post-install-cmd": "Maslosoft\\Staple\\Helpers\\Composer::postInstall"
+		"post-package-install": "Maslosoft\\Staple\\Helpers\\Composer::postInstall"
 	},
     "license": "AGLP",
     "authors": [

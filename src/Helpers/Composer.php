@@ -2,13 +2,13 @@
 
 namespace Maslosoft\Staple\Helpers;
 
-use Composer\Script\Event;
+use Composer\Installer\PackageEvent;
 use Maslosoft\Staple\Staple;
 
 class Composer
 {
 
-	public static function postInstall(Event $event)
+	public static function postInstall(PackageEvent $event)
 	{
 		$src = __DIR__ . '/../' . Staple::BootstrapName;
 		$dst = getcwd() . '/' . Staple::BootstrapName;
