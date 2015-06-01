@@ -15,6 +15,8 @@ use Maslosoft\Staple\Renderers\PhpRenderer;
 class Staple implements RequestAwareInterface
 {
 
+	const BootstrapName = '_bootstrap.php';
+
 	/**
 	 * Version number holder
 	 * @var string
