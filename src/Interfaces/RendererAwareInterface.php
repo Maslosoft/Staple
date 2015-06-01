@@ -4,8 +4,9 @@ namespace Maslosoft\Staple\Interfaces;
 
 interface RendererAwareInterface
 {
+
 	/**
 	 * @return RendererInterface
 	 */
-	public function getRenderer($filename)
+	public function getRenderer($filename);
 }

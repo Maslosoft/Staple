@@ -4,7 +4,8 @@
     "require": {
         "maslosoft/miniview": "*",
         "fxp/composer-asset-plugin": "*",
-        "maslosoft/embedi": "*"
+        "maslosoft/embedi": "*",
+        "erusev/parsedown": "^1.5"
     },
     "require-dev": {
         "maslosoft/hedron": "*"
