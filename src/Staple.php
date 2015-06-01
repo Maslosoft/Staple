@@ -3,19 +3,62 @@
 namespace Maslosoft\Staple;
 
 use Maslosoft\EmbeDi\EmbeDi;
+use Maslosoft\Staple\Interfaces\RendererInterface;
 use Maslosoft\Staple\Interfaces\RequestAwareInterface;
 use Maslosoft\Staple\Interfaces\RequestInterface;
+use Maslosoft\Staple\Renderers\HtmlRenderer;
+use Maslosoft\Staple\Renderers\MdRenderer;
+use Maslosoft\Staple\Renderers\NullRenderer;
+use Maslosoft\Staple\Renderers\PhpMdRenderer;
+use Maslosoft\Staple\Renderers\PhpRenderer;
 
 class Staple implements RequestAwareInterface
 {
 
+	/**
+	 * Version number holder
+	 * @var string
+	 */
+	private static $_version;
+
+	/**
+	 * Renderers configuration. Keys are file extensions,
+	 * values are renderers class name or configuration supported by EmbeDi.
+	 *
+	 * For available configuration options see renderer class.
+	 *
+	 * Example configuration:
+	 * ```
+	 * public $renderers = [
+	 * 		'php' => PhpRenderer::class,
+	 * 		'php.md' => PhpMdRenderer::class,
+	 * 		'md' => [
+	 * 			'class' => MdRenderer::class,
+	 * 			'extension' => 'mkd'
+	 * 		],
+	 * 		'html' => [
+	 * 			'class' => HtmlRenderer::class,
+	 * 			'extension' => 'htm'
+	 * 		],
+	 * 	];
+	 * ```
+	 * @var mixed[]
+	 */
 	public $renderers = [
 		'php' => PhpRenderer::class,
 		'php.md' => PhpMdRenderer::class,
 		'md' => MdRenderer::class,
-		''
+		'html' => HtmlRenderer::class,
 	];
-	private static $_version;
+	public $preProcessors = [
+	];
+	public $postProcessors = [
+	];
+
+	/**
+	 * Root path of website
+	 * @var string
+	 */
 	private $_rootPath = '';
 
 	/**
@@ -48,6 +91,11 @@ class Staple implements RequestAwareInterface
 		return self::$_version;
 	}
 
+	/**
+	 * Get renderer
+	 * @param string $fileName
+	 * @return RendererInterface
+	 */
 	public function getRenderer($fileName)
 	{
 		$renderers = $this->renderers;
@@ -56,15 +104,13 @@ class Staple implements RequestAwareInterface
 		foreach ($renderers as $extension => $config)
 		{
 			$ext = preg_quote($extension);
-			if (preg_match("~$ext$~"))
+			if (preg_match("~$ext$~", $fileName))
 			{
-				/**
-				 * TODO Use DI here to allow configurable renderers
-				 */
-				$this->_di->apply($config);
-				return new $config;
+				return $this->_di->apply($config);
 			}
 		}
+// Fallback to null renderer if not found
+		return new NullRenderer;
 	}
 
 	public function getExtensions()
@@ -74,7 +120,7 @@ class Staple implements RequestAwareInterface
 
 	public function handle(RequestInterface $request)
 	{
-		$request->dispatch($this);
+		return $request->dispatch($this);
 	}
 
 }
