@@ -1,28 +1,25 @@
 {
-    "name": "maslosoft/staple",
-    "description": "Staple is \"Static Page Lightweight Enchancer\"",
-    "require": {
-        "maslosoft/miniview": "*",
-        "fxp/composer-asset-plugin": "*",
-        "maslosoft/embedi": "*",
-        "erusev/parsedown": "^1.5"
-    },
-    "require-dev": {
-        "maslosoft/hedron": "*"
-    },
-    "autoload": {
-	"psr-4": {
-	    "Maslosoft\\Staple\\": "src"
-	}
-    },
-	"scripts": {
-		"post-package-install": "Maslosoft\\Staple\\Helpers\\Composer::postInstall"
+	"name": "maslosoft/staple",
+	"description": "Staple is \"Static Page Lightweight Enchancer\"",
+	"require": {
+		"maslosoft/miniview": "*",
+		"fxp/composer-asset-plugin": "*",
+		"maslosoft/embedi": "*",
+		"erusev/parsedown": "^1.5"
 	},
-    "license": "AGLP",
-    "authors": [
-        {
-            "name": "Peter Maselkowski",
-            "email": "pmaselkowski@gmail.com"
-        }
-    ]
+	"require-dev": {
+		"maslosoft/hedron": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Maslosoft\\Staple\\": "src"
+		}
+	},
+	"license": "AGLP",
+	"authors": [
+		{
+			"name": "Peter Maselkowski",
+			"email": "pmaselkowski@gmail.com"
+		}
+	]
 }

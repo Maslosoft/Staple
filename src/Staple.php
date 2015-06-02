@@ -16,6 +16,7 @@ class Staple implements RequestAwareInterface
 {
 
 	const BootstrapName = '_bootstrap.php';
+	const ContentPath = '_content';
 
 	/**
 	 * Version number holder
@@ -52,16 +53,34 @@ class Staple implements RequestAwareInterface
 		'md' => MdRenderer::class,
 		'html' => HtmlRenderer::class,
 	];
-	public $preProcessors = [
+	public $preRender = [
 	];
-	public $postProcessors = [
+	public $postRender = [
 	];
 
 	/**
-	 * Root path of website
+	 * Absolute root path of website.
+	 * This should be path where your main index file resides.
 	 * @var string
 	 */
 	private $_rootPath = '';
+
+	/**
+	 * Relative path to content files. This defaults to `_content`
+	 * @var string
+	 */
+	private $_contentPath = self::ContentPath;
+
+	public function get_contentPath()
+	{
+		return $this->_contentPath;
+	}
+
+	public function set_contentPath($_contentPath)
+	{
+		$this->_contentPath = $_contentPath;
+		return $this;
+	}
 
 	/**
 	 * DI container
@@ -69,21 +88,45 @@ class Staple implements RequestAwareInterface
 	 */
 	private $_di = null;
 
-	public function __construct()
+	/**
+	 *
+	 * @param string $rootPath
+	 */
+	public function __construct($rootPath = '')
 	{
 		$this->_di = new EmbeDi();
+		$this->setRootPath($rootPath);
 	}
 
+	/**
+	 * Set absolute root path
+	 * @param string $path
+	 * @return Staple
+	 */
 	public function setRootPath($path)
 	{
 		$this->_rootPath = $path;
+		return $this;
 	}
 
+	/**
+	 * Get root path. Will try to autodetect if empty.
+	 * @return string
+	 */
 	public function getRootPath()
 	{
+		// Guess if empty
+		if (empty($this->_rootPath))
+		{
+			$this->_rootPath = __DIR__ . '../../../../';
+		}
 		return $this->_rootPath;
 	}
 
+	/**
+	 * Get current staple version
+	 * @return string
+	 */
 	public function getVersion()
 	{
 		if (null === self::$_version)
@@ -111,15 +154,30 @@ class Staple implements RequestAwareInterface
 				return $this->_di->apply($config);
 			}
 		}
-// Fallback to null renderer if not found
-		return new NullRenderer;
+		// Fallback to null renderer if not found
+		/**
+		 * TODO Change to ErrorRenderer, this should display error code and error message.
+		 * TODO Or pass any content as is. 
+		 * ```
+		 * ```
+		 */
+		new ErrorRenderer(500, sprintf('Unsupported file extension: `%s`', $ext));
 	}
 
+	/**
+	 * Get supported file extensions, based on `renderers` configuration.
+	 * @return string[]
+	 */
 	public function getExtensions()
 	{
 		return array_keys($this->renderers);
 	}
 
+	/**
+	 * Handle request. This is entry point for staple.
+	 * @param RequestInterface $request
+	 * @return string
+	 */
 	public function handle(RequestInterface $request)
 	{
 		return $request->dispatch($this);

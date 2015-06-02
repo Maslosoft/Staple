@@ -8,6 +8,8 @@
 
 namespace Maslosoft\Staple\Renderers;
 
+use Maslosoft\Staple\Interfaces\RendererInterface;
+
 /**
  * AbstractRender
  *
@@ -25,10 +27,12 @@ abstract class AbstractRenderer
 	/**
 	 * Set base path
 	 * @param string $path
+	 * @return RendererInterface
 	 */
 	public function setBasePath($path)
 	{
 		$this->_basePath = $path;
+		return $this;
 	}
 
 	/**
