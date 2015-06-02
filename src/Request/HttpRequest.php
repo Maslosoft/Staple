@@ -5,6 +5,7 @@ namespace Maslosoft\Staple\Request;
 use Maslosoft\Staple\Interfaces\RequestAwareInterface;
 use Maslosoft\Staple\Interfaces\RequestInterface;
 use Maslosoft\Staple\Renderers\ErrorRenderer;
+use Maslosoft\Staple\Renderers\PassThroughRenderer;
 
 class HttpRequest implements RequestInterface
 {
@@ -12,14 +13,16 @@ class HttpRequest implements RequestInterface
 	public function dispatch(RequestAwareInterface $owner)
 	{
 		$urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-		$basePath = $this->_sanitizePath($owner, $urlPath);
-		$path = '';
+		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizePath($urlPath));
+		$path = null;
 		foreach ($owner->getExtensions() as $ext)
 		{
 			// Check for file
 			$path = $this->_getFilename($basePath, $ext);
+			$extRegexp = preg_quote($ext);
 			if (false !== $path)
 			{
+				$view = $this->_sanitizePath(preg_replace("~\.$extRegexp$~", '', $urlPath));
 				break;
 			}
 
@@ -27,23 +30,25 @@ class HttpRequest implements RequestInterface
 			$path = $this->_getFilename(sprintf('%s/index.%s', $basePath, $ext), $ext);
 			if (false !== $path)
 			{
+				$view = $this->_sanitizePath(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~", '', basename($path))));
 				break;
 			}
 		}
 
+		// Other file extension
 		if (empty($path))
 		{
-			return (new ErrorRenderer('404', 'File not found'))->setBasePath($owner->getRootPath())->render();
+			if (file_exists($basePath))
+			{
+				return (new PassThroughRenderer($basePath))->setOwner($owner)->render();
+			}
+			else
+			{
+				return (new ErrorRenderer('404', 'File not found'))->setOwner($owner)->render();
+			}
 		}
 
-		$extRegexp = preg_quote($ext);
-
-		// Remove extension for view
-		$view = preg_replace("~$extRegexp$~", '', basename($path));
-
-		$renderer = $owner->getRenderer();
-		$renderer->setBasePath($owner->getRootPath());
-		return $renderer->render($view);
+		return $owner->getRenderer($path)->render($view);
 	}
 
 	/**
@@ -71,14 +76,14 @@ class HttpRequest implements RequestInterface
 	 * @param string $urlPath
 	 * @return string
 	 */
-	private function _sanitizePath(RequestAwareInterface $owner, $urlPath)
+	private function _sanitizePath($urlPath)
 	{
-		$path = sprintf("%s/%s/%s", $owner->getRootPath(), $owner->getContentPath(), $urlPath);
 		$patterns = [
 			'~/+~' => '/',
-			'~/$~' => ''
+			'~/$~' => '',
+			'~^/~' => ''
 		];
-		return preg_replace(array_keys($patterns), array_values($patterns), $path);
+		return preg_replace(array_keys($patterns), array_values($patterns), $urlPath);
 	}
 
 }

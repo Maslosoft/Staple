@@ -8,6 +8,7 @@
 
 namespace Maslosoft\Staple\Renderers;
 
+use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 
 /**
@@ -19,29 +20,29 @@ abstract class AbstractRenderer
 {
 
 	/**
-	 * Base path
-	 * @var string
+	 * Owner
+	 * @var RendererAwareInterface
 	 */
-	private $_basePath = '';
+	private $_owner = null;
 
 	/**
-	 * Set base path
-	 * @param string $path
+	 * Set owner
+	 * @param RendererAwareInterface $owner
 	 * @return RendererInterface
 	 */
-	public function setBasePath($path)
+	public function setOwner(RendererAwareInterface $owner)
 	{
-		$this->_basePath = $path;
+		$this->_owner = $owner;
 		return $this;
 	}
 
 	/**
-	 * Get base path
-	 * @return string
+	 * Get owner
+	 * @return RendererAwareInterface
 	 */
-	public function getBasePath()
+	public function getOwner()
 	{
-		return $this->_basePath;
+		return $this->_owner;
 	}
 
 }

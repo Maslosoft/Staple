@@ -9,4 +9,8 @@ interface RendererAwareInterface
 	 * @return RendererInterface
 	 */
 	public function getRenderer($filename);
+
+	public function getRootPath();
+
+	public function getContentPath();
 }

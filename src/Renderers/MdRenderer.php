@@ -9,6 +9,7 @@
 namespace Maslosoft\Staple\Renderers;
 
 use Maslosoft\Staple\Interfaces\RendererInterface;
+use Parsedown;
 
 /**
  * MdRenderer
@@ -26,7 +27,9 @@ class MdRenderer extends AbstractRenderer implements RendererInterface
 
 	public function render($view = 'index')
 	{
-		return (new \ParseDown)->text(sprintf('%s/%s/%s'), $this->getBasePath(), $view, $this->extension);
+		$path = sprintf('%s/%s/%s.%s', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $view, $this->extension);
+		$text = file_get_contents($path);
+		return (new Parsedown)->text($text);
 	}
 
 }

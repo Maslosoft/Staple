@@ -10,7 +10,9 @@ class PhpRenderer extends AbstractRenderer implements RendererInterface
 
 	public function render($view = 'index')
 	{
-		return (new MiniView($this, $this->getBasePath()))->render($view);
+		$mv = new MiniView($this, $this->getOwner()->getRootPath());
+		$mv->setViewsPath($this->getOwner()->getContentPath());
+		return $mv->render($view);
 	}
 
 }

@@ -35,10 +35,10 @@ class ErrorRenderer extends AbstractRenderer implements RendererInterface
 		{
 			$message .= ": $this->_message";
 		}
-		$path = sprintf('%s/_%d.php', $this->getBasePath(), $this->_code);
+		$path = sprintf('%s/%s/_%s.php', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $this->_code);
 		if (file_exists($path))
 		{
-			return (new MiniView($this, $this->getBasePath()))->render(sprintf('_%s', $this->_code), [
+			return (new MiniView($this, $this->getOwner()->getRootPath()))->setViewsPath($this->getOwner()->getContentPath())->render(sprintf('_%s', $this->_code), [
 						'code' => $this->_code,
 						'message' => $this->_message
 							], true);

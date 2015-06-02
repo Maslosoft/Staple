@@ -71,17 +71,6 @@ class Staple implements RequestAwareInterface
 	 */
 	private $_contentPath = self::ContentPath;
 
-	public function get_contentPath()
-	{
-		return $this->_contentPath;
-	}
-
-	public function set_contentPath($_contentPath)
-	{
-		$this->_contentPath = $_contentPath;
-		return $this;
-	}
-
 	/**
 	 * DI container
 	 * @var EmbeDi
@@ -123,6 +112,17 @@ class Staple implements RequestAwareInterface
 		return $this->_rootPath;
 	}
 
+	public function getContentPath()
+	{
+		return $this->_contentPath;
+	}
+
+	public function setContentPath($contentPath)
+	{
+		$this->_contentPath = $contentPath;
+		return $this;
+	}
+
 	/**
 	 * Get current staple version
 	 * @return string
@@ -151,13 +151,17 @@ class Staple implements RequestAwareInterface
 			$ext = preg_quote($extension);
 			if (preg_match("~$ext$~", $fileName))
 			{
-				return $this->_di->apply($config);
+				$renderer = $this->_di->apply($config);
+				/* @var $renderer RendererInterface */
+				$renderer->setOwner($this);
+				return $renderer;
 			}
 		}
 		// Fallback to null renderer if not found
+		return new Renderers\PassThroughRenderer($fileName);
 		/**
 		 * TODO Change to ErrorRenderer, this should display error code and error message.
-		 * TODO Or pass any content as is. 
+		 * TODO Or pass any content as is.
 		 * ```
 		 * ```
 		 */
