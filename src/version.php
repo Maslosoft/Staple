@@ -1,2 +1,3 @@
 <?php
-return 'dev';
+
+return '1.0.0';
