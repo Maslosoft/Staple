@@ -35,6 +35,7 @@ class ErrorRenderer extends AbstractRenderer implements RendererInterface
 		{
 			$message .= ": $this->_message";
 		}
+		header("HTTP/1.0 $this->_code");
 		$path = sprintf('%s/%s/_%s.php', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $this->_code);
 		if (file_exists($path))
 		{

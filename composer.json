@@ -5,7 +5,8 @@
 		"maslosoft/miniview": "*",
 		"fxp/composer-asset-plugin": "*",
 		"maslosoft/embedi": "*",
-		"erusev/parsedown": "^1.5"
+		"erusev/parsedown": "^1.5",
+		"bower-asset/bootstrap": "~3"
 	},
 	"require-dev": {
 		"maslosoft/hedron": "*"

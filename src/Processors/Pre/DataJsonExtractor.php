@@ -30,12 +30,10 @@ class DataJsonExtractor implements PreProcessorInterface
 	{
 		$data = [];
 		$path = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->filename);
-		var_dump($path);
 		if (file_exists($path))
 		{
 			$data = (array) json_decode(file_get_contents($path));
 		}
-		var_dump($data);
 		return $data;
 	}
 
