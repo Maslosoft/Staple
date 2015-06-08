@@ -39,7 +39,9 @@ class ErrorRenderer extends AbstractRenderer implements RendererInterface
 		$path = sprintf('%s/%s/_%s.php', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $this->_code);
 		if (file_exists($path))
 		{
-			return (new MiniView($this, $this->getOwner()->getRootPath()))->setViewsPath($this->getOwner()->getContentPath())->render(sprintf('_%s', $this->_code), [
+			$mv = new MiniView($this, $this->getOwner()->getRootPath());
+			$mv->setViewsPath($this->getOwner()->getContentPath());
+			return $mv->render(sprintf('_%s', $this->_code), [
 						'code' => $this->_code,
 						'message' => $this->_message
 							], true);
