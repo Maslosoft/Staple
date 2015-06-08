@@ -13,4 +13,8 @@ interface RendererAwareInterface
 	public function getRootPath();
 
 	public function getContentPath();
+
+	public function getLayoutPath();
+
+	public function setLayoutPath($layoutPath);
 }

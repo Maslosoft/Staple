@@ -8,7 +8,7 @@
 
 namespace Maslosoft\Staple\Helpers;
 
-use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
+use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 
 /**
  * PostProcessor
@@ -18,11 +18,11 @@ use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 class PostProcessor
 {
 
-	public function decorate(ProcessorAwareInterface $owner, &$content, $data)
+	public function decorate(RendererAwareInterface $owner, &$content, $data)
 	{
 		foreach ($owner->getPostProcessors() as $postProcessor)
 		{
-			$postProcessor->decorate($content, $data);
+			$postProcessor->decorate($owner, $content, $data);
 		}
 	}
 

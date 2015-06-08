@@ -2,12 +2,8 @@
 
 namespace Maslosoft\Staple\Interfaces;
 
-interface RequestAwareInterface extends RendererAwareInterface
+interface RequestAwareInterface extends RendererAwareInterface, ProcessorAwareInterface
 {
 
 	public function getExtensions();
-
-	public function getRootPath();
-
-	public function getContentPath();
 }

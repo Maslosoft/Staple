@@ -16,6 +16,7 @@ class HttpRequest implements RequestInterface
 		$urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizeUrl($urlPath));
 		$path = null;
+		$view = null;
 		foreach ($owner->getExtensions() as $ext)
 		{
 			// Check for file
@@ -28,28 +29,14 @@ class HttpRequest implements RequestInterface
 			}
 
 			// Check for index if folder like url
-			$path = $this->_getFilename(sprintf('%sindex.%s', $basePath, $ext), $ext);
+			$path = $this->_getFilename(sprintf('%s/index.%s', $basePath, $ext), $ext);
 			if (false !== $path)
 			{
 				$view = $this->_sanitizeUrl(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~", '', basename($path))));
 				break;
 			}
 		}
-
-		// Other file extension
-		if (empty($path))
-		{
-			if (file_exists($basePath))
-			{
-				return (new PassThroughRenderer($basePath))->setOwner($owner)->render();
-			}
-			else
-			{
-				return (new ErrorRenderer('404', 'File not found'))->setOwner($owner)->render();
-			}
-		}
-
-		return (new RequestHandler)->handle($owner, $path, $view);
+		return (new RequestHandler)->handle($owner, $basePath, $path, $view);
 	}
 
 	/**

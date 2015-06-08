@@ -5,11 +5,11 @@ namespace Maslosoft\Staple;
 use Maslosoft\EmbeDi\EmbeDi;
 use Maslosoft\Staple\Interfaces\PostProcessorInterface;
 use Maslosoft\Staple\Interfaces\PreProcessorInterface;
-use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Maslosoft\Staple\Interfaces\RequestAwareInterface;
 use Maslosoft\Staple\Interfaces\RequestInterface;
 use Maslosoft\Staple\Processors\Post\TemplateApplier;
+use Maslosoft\Staple\Processors\Pre\DataJsonExtractor;
 use Maslosoft\Staple\Processors\Pre\TagExtractor;
 use Maslosoft\Staple\Renderers\ErrorRenderer;
 use Maslosoft\Staple\Renderers\HtmlRenderer;
@@ -18,11 +18,12 @@ use Maslosoft\Staple\Renderers\PassThroughRenderer;
 use Maslosoft\Staple\Renderers\PhpMdRenderer;
 use Maslosoft\Staple\Renderers\PhpRenderer;
 
-class Staple implements RequestAwareInterface, ProcessorAwareInterface
+class Staple implements RequestAwareInterface
 {
 
 	const BootstrapName = '_bootstrap.php';
 	const ContentPath = '_content';
+	const LayoutPath = '_layout';
 
 	/**
 	 * Version number holder
@@ -60,6 +61,7 @@ class Staple implements RequestAwareInterface, ProcessorAwareInterface
 		'html' => HtmlRenderer::class,
 	];
 	public $preProcessors = [
+		DataJsonExtractor::class,
 		TagExtractor::class
 	];
 	public $postProcessors = [
@@ -78,6 +80,12 @@ class Staple implements RequestAwareInterface, ProcessorAwareInterface
 	 * @var string
 	 */
 	private $_contentPath = self::ContentPath;
+
+	/**
+	 * Relative path to layout files. This defaults to `_layout`
+	 * @var string
+	 */
+	private $_layoutPath = self::LayoutPath;
 
 	/**
 	 * DI container
@@ -159,6 +167,17 @@ class Staple implements RequestAwareInterface, ProcessorAwareInterface
 		return $this;
 	}
 
+	public function getLayoutPath()
+	{
+		return $this->_layoutPath;
+	}
+
+	public function setLayoutPath($layoutPath)
+	{
+		$this->_layoutPath = $layoutPath;
+		return $this;
+	}
+
 	/**
 	 * Get current staple version
 	 * @return string
@@ -179,6 +198,10 @@ class Staple implements RequestAwareInterface, ProcessorAwareInterface
 	 */
 	public function getRenderer($fileName)
 	{
+		if (empty($fileName))
+		{
+			return (new ErrorRenderer('404', 'File not found'))->setOwner($this);
+		}
 		$renderers = $this->renderers;
 		$keys = array_map('strlen', array_keys($renderers));
 		array_multisort($keys, SORT_DESC, $renderers);

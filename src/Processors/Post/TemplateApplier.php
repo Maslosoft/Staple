@@ -8,7 +8,9 @@
 
 namespace Maslosoft\Staple\Processors\Post;
 
+use Maslosoft\MiniView\MiniView;
 use Maslosoft\Staple\Interfaces\PostProcessorInterface;
+use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 
 /**
  * TemplateApplier
@@ -20,10 +22,16 @@ class TemplateApplier implements PostProcessorInterface
 
 	public $template = 'main';
 
-	public function decorate(&$content, $data)
+	public function decorate(RendererAwareInterface $owner, &$content, $data)
 	{
-		$content = sprintf("DRAFT OF %s and %s %s", __CLASS__, PostProcessorInterface::class, $content);
-		$content = "<html><head><title>{$data['title']}</title></head><body>$content</body></html>";
+		$template = empty($data['template']) ? $this->template : $data['template'];
+		$view = new MiniView($this, sprintf('%s/%s', $owner->getRootPath(), $owner->getLayoutPath()));
+		$view->setViewsPath('');
+		$data['content'] = $content;
+		$content = $view->render($template, [
+			'data' => (object) $data,
+			'view' => $view,
+		]);
 	}
 
 }

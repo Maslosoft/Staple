@@ -15,5 +15,5 @@ namespace Maslosoft\Staple\Interfaces;
 interface PostProcessorInterface
 {
 
-	public function decorate(&$content, $data);
+	public function decorate(RendererAwareInterface $owner, &$content, $data);
 }

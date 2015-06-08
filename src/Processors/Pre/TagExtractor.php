@@ -8,12 +8,15 @@
 
 namespace Maslosoft\Staple\Processors\Pre;
 
+use Maslosoft\Staple\Interfaces\PreProcessorInterface;
+use Maslosoft\Staple\Interfaces\RendererAwareInterface;
+
 /**
  * TagExtractor
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class TagExtractor implements \Maslosoft\Staple\Interfaces\PreProcessorInterface
+class TagExtractor implements PreProcessorInterface
 {
 
 	public $tags = [
@@ -22,7 +25,7 @@ class TagExtractor implements \Maslosoft\Staple\Interfaces\PreProcessorInterface
 		'description'
 	];
 
-	public function decorate(&$content, $data)
+	public function decorate(RendererAwareInterface $owner, &$content, $data)
 	{
 		foreach ($this->tags as $tag)
 		{
@@ -35,13 +38,19 @@ class TagExtractor implements \Maslosoft\Staple\Interfaces\PreProcessorInterface
 		}
 	}
 
-	public function getData($filename, $view)
+	public function getData(RendererAwareInterface $owner, $filename, $view)
 	{
-		$content = file_get_contents($filename);
+		$content = '';
+		if (!empty($filename))
+		{
+			$content = file_get_contents($filename);
+		}
+
 		$data = [];
 		foreach ($this->tags as $tag)
 		{
 			$matches = [];
+			$data[$tag] = '';
 			if (preg_match($this->_getPattern($tag), $content, $matches))
 			{
 				$data[$tag] = $matches[1];

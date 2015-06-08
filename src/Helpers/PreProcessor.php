@@ -8,7 +8,7 @@
 
 namespace Maslosoft\Staple\Helpers;
 
-use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
+use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 
 /**
  * PreProcessor
@@ -18,21 +18,21 @@ use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 class PreProcessor
 {
 
-	public function getData(ProcessorAwareInterface $owner, $path, $view)
+	public function getData(RendererAwareInterface $owner, $path, $view)
 	{
 		$data = [];
 		foreach ($owner->getPreProcessors() as $preProcessor)
 		{
-			$data = array_merge($data, $preProcessor->getData($path, $view));
+			$data = array_merge($data, $preProcessor->getData($owner, $path, $view));
 		}
 		return $data;
 	}
 
-	public function decorate(ProcessorAwareInterface $owner, &$content, $data)
+	public function decorate(RendererAwareInterface $owner, &$content, $data)
 	{
 		foreach ($owner->getPreProcessors() as $preProcessor)
 		{
-			$preProcessor->decorate($content, $data);
+			$preProcessor->decorate($owner, $content, $data);
 		}
 	}
 
