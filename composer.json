@@ -6,7 +6,9 @@
 		"fxp/composer-asset-plugin": "*",
 		"maslosoft/embedi": "*",
 		"erusev/parsedown": "^1.5",
-		"bower-asset/bootstrap": "~3"
+		"bower-asset/bootstrap": "~3",
+		"bower-asset/jquery": "~2",
+		"bower-asset/fontawesome": "~4"
 	},
 	"require-dev": {
 		"maslosoft/hedron": "*"
