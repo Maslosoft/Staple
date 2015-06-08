@@ -3,16 +3,22 @@
 namespace Maslosoft\Staple;
 
 use Maslosoft\EmbeDi\EmbeDi;
+use Maslosoft\Staple\Interfaces\PostProcessorInterface;
+use Maslosoft\Staple\Interfaces\PreProcessorInterface;
+use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Maslosoft\Staple\Interfaces\RequestAwareInterface;
 use Maslosoft\Staple\Interfaces\RequestInterface;
+use Maslosoft\Staple\Processors\Post\TemplateApplier;
+use Maslosoft\Staple\Processors\Pre\TagExtractor;
+use Maslosoft\Staple\Renderers\ErrorRenderer;
 use Maslosoft\Staple\Renderers\HtmlRenderer;
 use Maslosoft\Staple\Renderers\MdRenderer;
-use Maslosoft\Staple\Renderers\NullRenderer;
+use Maslosoft\Staple\Renderers\PassThroughRenderer;
 use Maslosoft\Staple\Renderers\PhpMdRenderer;
 use Maslosoft\Staple\Renderers\PhpRenderer;
 
-class Staple implements RequestAwareInterface
+class Staple implements RequestAwareInterface, ProcessorAwareInterface
 {
 
 	const BootstrapName = '_bootstrap.php';
@@ -53,9 +59,11 @@ class Staple implements RequestAwareInterface
 		'md' => MdRenderer::class,
 		'html' => HtmlRenderer::class,
 	];
-	public $preRender = [
+	public $preProcessors = [
+		TagExtractor::class
 	];
-	public $postRender = [
+	public $postProcessors = [
+		TemplateApplier::class
 	];
 
 	/**
@@ -85,6 +93,34 @@ class Staple implements RequestAwareInterface
 	{
 		$this->_di = new EmbeDi();
 		$this->setRootPath($rootPath);
+	}
+
+	/**
+	 * Get Post processors
+	 * @return PostProcessorInterface[]
+	 */
+	public function getPostProcessors()
+	{
+		$post = [];
+		foreach ($this->postProcessors as $config)
+		{
+			$post[] = $this->_di->apply($config);
+		}
+		return $post;
+	}
+
+	/**
+	 * Get Pre Processors
+	 * @return PreProcessorInterface[]
+	 */
+	public function getPreProcessors()
+	{
+		$pre = [];
+		foreach ($this->preProcessors as $config)
+		{
+			$pre[] = $this->_di->apply($config);
+		}
+		return $pre;
 	}
 
 	/**
@@ -158,7 +194,7 @@ class Staple implements RequestAwareInterface
 			}
 		}
 		// Fallback to null renderer if not found
-		return new Renderers\PassThroughRenderer($fileName);
+		return new PassThroughRenderer($fileName);
 		/**
 		 * TODO Change to ErrorRenderer, this should display error code and error message.
 		 * TODO Or pass any content as is.

@@ -22,7 +22,7 @@ class HtmlRenderer extends AbstractRenderer implements \Maslosoft\Staple\Interfa
 	 */
 	public $extension = 'html';
 
-	public function render($view = 'index')
+	public function render($view = 'index', $data = [])
 	{
 		return file_get_contents(sprintf('%s/%s.%s', $this->getBasePath(), $view, $this->extension));
 	}

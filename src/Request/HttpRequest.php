@@ -2,6 +2,7 @@
 
 namespace Maslosoft\Staple\Request;
 
+use Maslosoft\Staple\Helpers\RequestHandler;
 use Maslosoft\Staple\Interfaces\RequestAwareInterface;
 use Maslosoft\Staple\Interfaces\RequestInterface;
 use Maslosoft\Staple\Renderers\ErrorRenderer;
@@ -13,7 +14,7 @@ class HttpRequest implements RequestInterface
 	public function dispatch(RequestAwareInterface $owner)
 	{
 		$urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizePath($urlPath));
+		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizeUrl($urlPath));
 		$path = null;
 		foreach ($owner->getExtensions() as $ext)
 		{
@@ -22,15 +23,15 @@ class HttpRequest implements RequestInterface
 			$extRegexp = preg_quote($ext);
 			if (false !== $path)
 			{
-				$view = $this->_sanitizePath(preg_replace("~\.$extRegexp$~", '', $urlPath));
+				$view = $this->_sanitizeUrl(preg_replace("~\.$extRegexp$~", '', $urlPath));
 				break;
 			}
 
 			// Check for index if folder like url
-			$path = $this->_getFilename(sprintf('%s/index.%s', $basePath, $ext), $ext);
+			$path = $this->_getFilename(sprintf('%sindex.%s', $basePath, $ext), $ext);
 			if (false !== $path)
 			{
-				$view = $this->_sanitizePath(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~", '', basename($path))));
+				$view = $this->_sanitizeUrl(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~", '', basename($path))));
 				break;
 			}
 		}
@@ -48,7 +49,7 @@ class HttpRequest implements RequestInterface
 			}
 		}
 
-		return $owner->getRenderer($path)->render($view);
+		return (new RequestHandler)->handle($owner, $path, $view);
 	}
 
 	/**
@@ -76,7 +77,7 @@ class HttpRequest implements RequestInterface
 	 * @param string $urlPath
 	 * @return string
 	 */
-	private function _sanitizePath($urlPath)
+	private function _sanitizeUrl($urlPath)
 	{
 		$patterns = [
 			'~/+~' => '/',

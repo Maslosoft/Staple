@@ -25,7 +25,7 @@ class MdRenderer extends AbstractRenderer implements RendererInterface
 	 */
 	public $extension = 'md';
 
-	public function render($view = 'index')
+	public function render($view = 'index', $data = [])
 	{
 		$path = sprintf('%s/%s/%s.%s', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $view, $this->extension);
 		$text = file_get_contents($path);

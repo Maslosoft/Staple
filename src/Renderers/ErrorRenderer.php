@@ -28,7 +28,7 @@ class ErrorRenderer extends AbstractRenderer implements RendererInterface
 		$this->_message = $message;
 	}
 
-	public function render($view = 'index')
+	public function render($view = 'index', $data = [])
 	{
 		$message = $this->_code;
 		if (!empty($this->_message))

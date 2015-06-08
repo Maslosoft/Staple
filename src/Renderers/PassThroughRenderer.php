@@ -23,7 +23,7 @@ class PassThroughRenderer extends AbstractRenderer implements \Maslosoft\Staple\
 		$this->_fileName = $fileName;
 	}
 
-	public function render($view = 'index')
+	public function render($view = 'index', $data = [])
 	{
 		$fileName = empty($this->_fileName) ? $view : $this->_fileName;
 		header("X-Sendfile: $fileName");

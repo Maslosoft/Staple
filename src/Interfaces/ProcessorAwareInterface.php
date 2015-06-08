@@ -6,21 +6,22 @@
  * and open the template in the editor.
  */
 
-namespace Maslosoft\Staple\Renderers;
-
-use Parsedown;
+namespace Maslosoft\Staple\Interfaces;
 
 /**
- * PhpMdRendere
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class PhpMdRenderer extends PhpRenderer
+interface ProcessorAwareInterface
 {
 
-	public function render($view = 'index', $data = [])
-	{
-		return (new Parsedown)->text(parent::render($view, $data));
-	}
+	/**
+	 * @return PreProcessorInterface[]
+	 */
+	public function getPreProcessors();
 
+	/**
+	 * @return PostProcessorInterface[]
+	 */
+	public function getPostProcessors();
 }

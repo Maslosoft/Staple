@@ -7,5 +7,7 @@ interface RendererInterface
 
 	public function setOwner(RendererAwareInterface $owner);
 
-	public function render($view = 'index');
+	public function getOwner();
+
+	public function render($view = 'index', $data = []);
 }

@@ -18,7 +18,7 @@ use Maslosoft\Staple\Interfaces\RendererInterface;
 class NullRenderer extends AbstractRenderer implements RendererInterface
 {
 
-	public function render($view = 'index')
+	public function render($view = 'index', $data = [])
 	{
 		return '';
 	}

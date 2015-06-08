@@ -6,21 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace Maslosoft\Staple\Renderers;
-
-use Parsedown;
+namespace Maslosoft\Staple\Interfaces;
 
 /**
- * PhpMdRendere
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class PhpMdRenderer extends PhpRenderer
+interface PostProcessorInterface
 {
 
-	public function render($view = 'index', $data = [])
-	{
-		return (new Parsedown)->text(parent::render($view, $data));
-	}
-
+	public function decorate(&$content, $data);
 }
