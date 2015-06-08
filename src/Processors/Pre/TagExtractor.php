@@ -50,7 +50,6 @@ class TagExtractor implements PreProcessorInterface
 		foreach ($this->tags as $tag)
 		{
 			$matches = [];
-			$data[$tag] = '';
 			if (preg_match($this->_getPattern($tag), $content, $matches))
 			{
 				$data[$tag] = $matches[1];

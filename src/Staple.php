@@ -11,6 +11,7 @@ use Maslosoft\Staple\Interfaces\RequestInterface;
 use Maslosoft\Staple\Processors\Post\TemplateApplier;
 use Maslosoft\Staple\Processors\Pre\DataJsonExtractor;
 use Maslosoft\Staple\Processors\Pre\TagExtractor;
+use Maslosoft\Staple\Processors\Pre\ViewJsonExtractor;
 use Maslosoft\Staple\Renderers\ErrorRenderer;
 use Maslosoft\Staple\Renderers\HtmlRenderer;
 use Maslosoft\Staple\Renderers\MdRenderer;
@@ -62,6 +63,7 @@ class Staple implements RequestAwareInterface
 	];
 	public $preProcessors = [
 		DataJsonExtractor::class,
+		ViewJsonExtractor::class,
 		TagExtractor::class
 	];
 	public $postProcessors = [
