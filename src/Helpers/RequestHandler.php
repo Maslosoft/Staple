@@ -9,7 +9,6 @@
 namespace Maslosoft\Staple\Helpers;
 
 use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
-use Maslosoft\Staple\Renderers\PassThroughRenderer;
 
 /**
  * RequestHandler
@@ -21,16 +20,6 @@ class RequestHandler
 
 	public function handle(ProcessorAwareInterface $owner, $basePath, $path, $view)
 	{
-
-		// Other file extension
-		if (empty($path))
-		{
-			if (file_exists($basePath))
-			{
-				return (new PassThroughRenderer($basePath))->setOwner($owner)->render();
-			}
-		}
-
 		$preProcessor = new PreProcessor();
 		$data = $preProcessor->getData($owner, $path, $view);
 		$content = $owner->getRenderer($path)->render($view, $data);

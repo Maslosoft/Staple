@@ -60,6 +60,11 @@ class Staple implements RequestAwareInterface
 		'php.md' => PhpMdRenderer::class,
 		'md' => MdRenderer::class,
 		'html' => HtmlRenderer::class,
+		'jpg' => PassThroughRenderer::class,
+		'gif' => PassThroughRenderer::class,
+		'png' => PassThroughRenderer::class,
+		'svg' => PassThroughRenderer::class,
+		'pdf' => PassThroughRenderer::class,
 	];
 	public $preProcessors = [
 		DataJsonExtractor::class,
@@ -214,18 +219,14 @@ class Staple implements RequestAwareInterface
 			{
 				$renderer = $this->_di->apply($config);
 				/* @var $renderer RendererInterface */
+				if ($renderer instanceof Interfaces\RendererExtensionInterface)
+				{
+					$renderer->setExtension($extension);
+				}
 				$renderer->setOwner($this);
 				return $renderer;
 			}
 		}
-		// Fallback to null renderer if not found
-		return new PassThroughRenderer($fileName);
-		/**
-		 * TODO Change to ErrorRenderer, this should display error code and error message.
-		 * TODO Or pass any content as is.
-		 * ```
-		 * ```
-		 */
 		new ErrorRenderer(500, sprintf('Unsupported file extension: `%s`', $ext));
 	}
 
