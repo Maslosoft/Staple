@@ -22,7 +22,7 @@ class FbLikeBox
 
 	public $options = [
 		'href' => '',
-		'width' => 340,
+		'width' => 500,
 		'height' => 500,
 		'hide_cover' => false,
 		'show_facepile' => true,
@@ -33,13 +33,17 @@ class FbLikeBox
 	];
 	private static $initialized = false;
 
-	public function __construct($href, $options = [])
+	public function __construct($options = [])
 	{
+		if (is_string($options))
+		{
+			$this->options['href'] = $options;
+			unset($options);
+		}
 		if (!empty($options))
 		{
-			$this->options = $options;
+			$this->options = array_merge($this->options, $options);
 		}
-		$this->options['href'] = $href;
 	}
 
 	public function __toString()
@@ -59,11 +63,18 @@ INIT;
 		{
 			$html = $init;
 		}
+		$options = [];
+		foreach ($this->options as $key => $value)
+		{
+			$options[] = sprintf('data-%s="%s"', $key, $value);
+		}
 
-
+		$params = implode(' ', $options);
 
 		$tpl = <<<TPL
-		<div class="fb-page" $params></div>
+		<div class="text-center">
+			<div class="fb-page" style="max-width: 100% !important;" $params></div>
+		</div>
 TPL;
 		return $html . $tpl;
 	}
