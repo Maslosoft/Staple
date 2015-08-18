@@ -106,7 +106,7 @@ class Staple implements RequestAwareInterface
 	 */
 	public function __construct($rootPath = '')
 	{
-		$this->_di = new EmbeDi();
+		$this->_di = EmbeDi::fly();
 		$this->setRootPath($rootPath);
 	}
 

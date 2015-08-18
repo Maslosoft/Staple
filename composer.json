@@ -1,15 +1,15 @@
 {
 	"name": "maslosoft/staple",
-	"description": "Staple is \"Static Page Lightweight Enchancer\"",
+	"description": "Static Page Lightweight Enchancer",
 	"require": {
 		"maslosoft/miniview": "*",
 		"fxp/composer-asset-plugin": "*",
 		"maslosoft/embedi": "*",
-		"erusev/parsedown": "^1.5",
+		"erusev/parsedown": "^1",
 		"bower-asset/bootstrap": "~3",
 		"bower-asset/jquery": "~2",
 		"bower-asset/fontawesome": "~4",
-		"masterexploder/phpthumb": "2.0"
+		"masterexploder/phpthumb": "~2"
 	},
 	"require-dev": {
 		"maslosoft/hedron": "*"

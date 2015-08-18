@@ -12,8 +12,35 @@ use Maslosoft\Staple\Interfaces\PreProcessorInterface;
 use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 
 /**
- * TagExtractor
+ * ##Tag Extractor##
  *
+ * This class extracts selected tags from view and pass it to layout.
+ *
+ * Tags can have any name, they do *not* have to be html compliant,
+ * as they are used only internally.
+ *
+ * Tags will be removed from view. Should not contain any attributes,
+ * as they are extracted in a very simple and not recommended (but fast) method.
+ *
+ * If tag contains any attribute it will not be processed.
+ *
+ * Example tags:
+ * ```html
+ * <title>My page title</title>
+ * ```
+ * This will be passed to template and can be used, for instance in document head as a title:
+ * ```php
+ * <head>
+ * 		<title><?= $this->data->title;?></title>
+ * </head>
+ * ```
+ *
+ * This can also be used with Template Applier to use different template for any page:
+ * ```html
+ * <template>product</template>
+ * ```
+ * This will lookup for `product.php` file in your layouts directory. If template
+ * exists it will be used by Template Applier (if it's enabled).
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 class TagExtractor implements PreProcessorInterface

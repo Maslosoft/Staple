@@ -31,7 +31,7 @@ class TemplateApplier implements PostProcessorInterface
 		$content = $view->render($template, [
 			'data' => (object) $data,
 			'view' => $view,
-		]);
+				], true);
 	}
 
 }

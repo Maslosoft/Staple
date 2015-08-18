@@ -12,8 +12,10 @@ use Maslosoft\Staple\Interfaces\PreProcessorInterface;
 use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 
 /**
- * DataJsonExtractor
+ * ##Data Json Extractor##
  *
+ * This extracts json data from content folder.
+ * By default it's name is `data.json`
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 class DataJsonExtractor implements PreProcessorInterface
