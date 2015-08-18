@@ -411,16 +411,16 @@
     "packages-dev": [
         {
             "name": "maslosoft/hedron",
-            "version": "1.1.6",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Hedron.git",
-                "reference": "e5fde0a4e917075282ed06d44fa40831fd313052"
+                "reference": "cb2551a3c61eaac8d70693b40b6035fa8bf62dd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Hedron/zipball/e5fde0a4e917075282ed06d44fa40831fd313052",
-                "reference": "e5fde0a4e917075282ed06d44fa40831fd313052",
+                "url": "https://api.github.com/repos/Maslosoft/Hedron/zipball/cb2551a3c61eaac8d70693b40b6035fa8bf62dd7",
+                "reference": "cb2551a3c61eaac8d70693b40b6035fa8bf62dd7",
                 "shasum": ""
             },
             "require": {
@@ -452,7 +452,7 @@
             ],
             "description": "PHP source code class header applier",
             "homepage": "http://maslosoft.com/hedron/",
-            "time": "2015-03-19 11:05:06"
+            "time": "2015-08-18 06:54:17"
         },
         {
             "name": "phpunit/php-code-coverage",

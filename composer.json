@@ -19,7 +19,10 @@
 			"Maslosoft\\Staple\\": "src"
 		}
 	},
-	"license": "AGLP",
+	"license": [
+	    "AGLP",
+	    "Commercial"
+	],
 	"authors": [
 		{
 			"name": "Peter Maselkowski",
