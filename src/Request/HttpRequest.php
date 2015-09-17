@@ -23,7 +23,7 @@ class HttpRequest implements RequestInterface
 
 	public function dispatch(RequestAwareInterface $owner)
 	{
-		$urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		$urlPath = $this->getPath();
 		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizeUrl($urlPath));
 		$path = null;
 		$view = null;
@@ -34,19 +34,27 @@ class HttpRequest implements RequestInterface
 			$extRegexp = preg_quote($ext);
 			if (false !== $path)
 			{
-				$view = $this->_sanitizeUrl(preg_replace("~\.$extRegexp$~", '', $urlPath));
+				$view = $this->_sanitizeUrl(preg_replace("~\.$extRegexp$~i", '', $urlPath));
 				break;
 			}
 
 			// Check for index if folder like url
-			$path = $this->_getFilename(sprintf('%s/index.%s', $basePath, $ext), $ext);
-			if (false !== $path)
+			if (is_dir($basePath))
 			{
-				$view = $this->_sanitizeUrl(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~", '', basename($path))));
-				break;
+				$path = $this->_getFilename(sprintf('%s/index.%s', $basePath, $ext), $ext);
+				if (false !== $path)
+				{
+					$view = $this->_sanitizeUrl(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~i", '', basename($path))));
+					break;
+				}
 			}
 		}
 		return (new RequestHandler)->handle($owner, $basePath, $path, $view);
+	}
+
+	protected function getPath()
+	{
+		return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 	}
 
 	/**
@@ -58,12 +66,9 @@ class HttpRequest implements RequestInterface
 	private function _getFilename($path, $ext)
 	{
 		$extRegexp = preg_quote($ext);
-		if (preg_match("~$extRegexp$~", $path))
+		if (preg_match("~$extRegexp$~i", $path))
 		{
-			if (file_exists($path))
-			{
-				return $path;
-			}
+			return $path;
 		}
 		return false;
 	}

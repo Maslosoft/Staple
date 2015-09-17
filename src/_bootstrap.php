@@ -9,4 +9,4 @@ use Maslosoft\Staple\Request\HttpRequest;
 
 require __DIR__ . '/vendor/autoload.php';
 
-echo (new Staple(__DIR__))->handle(new HttpRequest);
+echo Staple::fly(__DIR__)->handle(new HttpRequest);

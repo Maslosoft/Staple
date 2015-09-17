@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d00a25183997d614032297381327bd0d",
+    "hash": "7dd10e9764448379267a333c39792b82",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -233,16 +233,16 @@
         },
         {
             "name": "maslosoft/embedi",
-            "version": "1.0.10",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/EmbeDi.git",
-                "reference": "debf2e6522cdcadcec2286958b598e958b46feb8"
+                "reference": "dda3b7ba533ccaa0fe368a89438c4d671d8af29f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/debf2e6522cdcadcec2286958b598e958b46feb8",
-                "reference": "debf2e6522cdcadcec2286958b598e958b46feb8",
+                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/dda3b7ba533ccaa0fe368a89438c4d671d8af29f",
+                "reference": "dda3b7ba533ccaa0fe368a89438c4d671d8af29f",
                 "shasum": ""
             },
             "require-dev": {
@@ -270,20 +270,20 @@
                 }
             ],
             "description": "Embedded DI container",
-            "time": "2015-08-11 10:54:18"
+            "time": "2015-09-10 08:51:23"
         },
         {
             "name": "maslosoft/miniview",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/MiniView.git",
-                "reference": "690f41c969dd7d32c9a4b49c81e4cad5d79dd70a"
+                "reference": "c5b22e07ae26e52aef145ff249b39402d4ab25a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/MiniView/zipball/690f41c969dd7d32c9a4b49c81e4cad5d79dd70a",
-                "reference": "690f41c969dd7d32c9a4b49c81e4cad5d79dd70a",
+                "url": "https://api.github.com/repos/Maslosoft/MiniView/zipball/c5b22e07ae26e52aef145ff249b39402d4ab25a1",
+                "reference": "c5b22e07ae26e52aef145ff249b39402d4ab25a1",
                 "shasum": ""
             },
             "require-dev": {
@@ -308,25 +308,24 @@
             ],
             "description": "Mini view is minimal template rendering library based on Yii controller renderer",
             "homepage": "http://maslosoft.com/miniview/",
-            "time": "2015-05-28 11:21:52"
+            "time": "2015-08-24 18:09:00"
         },
         {
             "name": "masterexploder/phpthumb",
-            "version": "v2.0",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/masterexploder/PHPThumb.git",
-                "reference": "69fe4dbef9c70915ee16652339395deadb1509cb"
+                "reference": "01f6aa65aa3d136e175f67da2b4ea3e316770d02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/masterexploder/PHPThumb/zipball/69fe4dbef9c70915ee16652339395deadb1509cb",
-                "reference": "69fe4dbef9c70915ee16652339395deadb1509cb",
+                "url": "https://api.github.com/repos/masterexploder/PHPThumb/zipball/01f6aa65aa3d136e175f67da2b4ea3e316770d02",
+                "reference": "01f6aa65aa3d136e175f67da2b4ea3e316770d02",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0",
-                "symfony/filesystem": "2.2.*"
+                "php": ">=5.3.0"
             },
             "type": "library",
             "autoload": {
@@ -341,14 +340,12 @@
             ],
             "authors": [
                 {
-                    "name": "Ian Selby",
-                    "email": "ian@gxdlabs.com",
-                    "homepage": "http://www.gen-x-design.com/",
-                    "role": "Developer"
-                },
-                {
                     "name": "Jarrod Nettles",
                     "email": "jarrod.nettles@icloud.com"
+                },
+                {
+                    "name": "Ian Selby",
+                    "email": "ian@gxdlabs.com"
                 }
             ],
             "description": "A library for manipulating images in PHP.",
@@ -358,54 +355,7 @@
                 "resize",
                 "rotate"
             ],
-            "time": "2013-07-12 17:57:58"
-        },
-        {
-            "name": "symfony/filesystem",
-            "version": "v2.2.11",
-            "target-dir": "Symfony/Component/Filesystem",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "dffe0df31d16718f36ef40e7441f5a8d3e31625a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/dffe0df31d16718f36ef40e7441f5a8d3e31625a",
-                "reference": "dffe0df31d16718f36ef40e7441f5a8d3e31625a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Filesystem\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "Symfony Filesystem Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-09-18 07:27:26"
+            "time": "2015-09-08 22:55:44"
         }
     ],
     "packages-dev": [
@@ -456,16 +406,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c"
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2d7c03c0e4e080901b8f33b2897b0577be18a13c",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
                 "shasum": ""
             },
             "require": {
@@ -514,7 +464,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-04 03:42:39"
+            "time": "2015-09-14 06:51:16"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -740,16 +690,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.3",
+            "version": "v2.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e"
+                "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/d6cf02fe73634c96677e428f840704bfbcaec29e",
-                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/9ff9032151186bd66ecee727d728f1319f52d1d8",
+                "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8",
                 "shasum": ""
             },
             "require": {
@@ -793,20 +743,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-28 15:18:12"
+            "time": "2015-09-03 11:40:38"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.7.3",
+            "version": "v2.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "ae0f363277485094edc04c9f3cbe595b183b78e4"
+                "reference": "fff4b0c362640a0ab7355e2647b3d461608e9065"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/ae0f363277485094edc04c9f3cbe595b183b78e4",
-                "reference": "ae0f363277485094edc04c9f3cbe595b183b78e4",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/fff4b0c362640a0ab7355e2647b3d461608e9065",
+                "reference": "fff4b0c362640a0ab7355e2647b3d461608e9065",
                 "shasum": ""
             },
             "require": {
@@ -842,20 +792,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:07:40"
+            "time": "2015-08-26 17:56:37"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.3",
+            "version": "v2.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "71340e996171474a53f3d29111d046be4ad8a0ff"
+                "reference": "2dc7b06c065df96cc686c66da2705e5e18aef661"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/71340e996171474a53f3d29111d046be4ad8a0ff",
-                "reference": "71340e996171474a53f3d29111d046be4ad8a0ff",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/2dc7b06c065df96cc686c66da2705e5e18aef661",
+                "reference": "2dc7b06c065df96cc686c66da2705e5e18aef661",
                 "shasum": ""
             },
             "require": {
@@ -891,7 +841,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-28 14:07:07"
+            "time": "2015-08-24 07:13:45"
         },
         {
             "name": "zordius/lightncandy",

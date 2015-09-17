@@ -15,10 +15,12 @@ namespace Maslosoft\Staple;
 use Maslosoft\EmbeDi\EmbeDi;
 use Maslosoft\Staple\Interfaces\PostProcessorInterface;
 use Maslosoft\Staple\Interfaces\PreProcessorInterface;
+use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Maslosoft\Staple\Interfaces\RequestAwareInterface;
 use Maslosoft\Staple\Interfaces\RequestInterface;
 use Maslosoft\Staple\Processors\Post\TemplateApplier;
+use Maslosoft\Staple\Processors\Pre\CascadingDataJsonExtractor;
 use Maslosoft\Staple\Processors\Pre\DataJsonExtractor;
 use Maslosoft\Staple\Processors\Pre\TagExtractor;
 use Maslosoft\Staple\Processors\Pre\ViewJsonExtractor;
@@ -28,10 +30,14 @@ use Maslosoft\Staple\Renderers\MdRenderer;
 use Maslosoft\Staple\Renderers\PassThroughRenderer;
 use Maslosoft\Staple\Renderers\PhpMdRenderer;
 use Maslosoft\Staple\Renderers\PhpRenderer;
+use Maslosoft\Staple\Renderers\ThumbRenderer;
 
 class Staple implements RequestAwareInterface
 {
 
+	use \Maslosoft\EmbeDi\Traits\FlyTrait;
+
+	const DefaultInstanceId = '.';
 	const BootstrapName = '_bootstrap.php';
 	const ContentPath = '_content';
 	const LayoutPath = '_layout';
@@ -40,7 +46,7 @@ class Staple implements RequestAwareInterface
 	 * Version number holder
 	 * @var string
 	 */
-	private static $_version;
+	private static $version;
 
 	/**
 	 * Renderers configuration. Keys are file extensions,
@@ -67,9 +73,12 @@ class Staple implements RequestAwareInterface
 	 */
 	public $renderers = [
 		'php' => PhpRenderer::class,
-		'php.md' => PhpMdRenderer::class,
+		'md.php' => PhpMdRenderer::class,
 		'md' => MdRenderer::class,
 		'html' => HtmlRenderer::class,
+		'thumb.jpg' => ThumbRenderer::class,
+		'thumb.gif' => ThumbRenderer::class,
+		'thumb.png' => ThumbRenderer::class,
 		'jpg' => PassThroughRenderer::class,
 		'gif' => PassThroughRenderer::class,
 		'png' => PassThroughRenderer::class,
@@ -78,6 +87,7 @@ class Staple implements RequestAwareInterface
 	];
 	public $preProcessors = [
 		DataJsonExtractor::class,
+		CascadingDataJsonExtractor::class,
 		ViewJsonExtractor::class,
 		TagExtractor::class
 	];
@@ -90,25 +100,25 @@ class Staple implements RequestAwareInterface
 	 * This should be path where your main index file resides.
 	 * @var string
 	 */
-	private $_rootPath = '';
+	private $rootPath = '';
 
 	/**
 	 * Relative path to content files. This defaults to `_content`
 	 * @var string
 	 */
-	private $_contentPath = self::ContentPath;
+	private $contentPath = self::ContentPath;
 
 	/**
 	 * Relative path to layout files. This defaults to `_layout`
 	 * @var string
 	 */
-	private $_layoutPath = self::LayoutPath;
+	private $layoutPath = self::LayoutPath;
 
 	/**
 	 * DI container
 	 * @var EmbeDi
 	 */
-	private $_di = null;
+	private $di = null;
 
 	/**
 	 *
@@ -116,8 +126,13 @@ class Staple implements RequestAwareInterface
 	 */
 	public function __construct($rootPath = '')
 	{
-		$this->_di = EmbeDi::fly();
+		$this->di = EmbeDi::fly();
 		$this->setRootPath($rootPath);
+	}
+
+	public static function fly($instanceId = null)
+	{
+		parent::fly($instanceId);
 	}
 
 	/**
@@ -129,7 +144,7 @@ class Staple implements RequestAwareInterface
 		$post = [];
 		foreach ($this->postProcessors as $config)
 		{
-			$post[] = $this->_di->apply($config);
+			$post[] = $this->di->apply($config);
 		}
 		return $post;
 	}
@@ -143,7 +158,7 @@ class Staple implements RequestAwareInterface
 		$pre = [];
 		foreach ($this->preProcessors as $config)
 		{
-			$pre[] = $this->_di->apply($config);
+			$pre[] = $this->di->apply($config);
 		}
 		return $pre;
 	}
@@ -155,7 +170,7 @@ class Staple implements RequestAwareInterface
 	 */
 	public function setRootPath($path)
 	{
-		$this->_rootPath = $path;
+		$this->rootPath = $path;
 		return $this;
 	}
 
@@ -166,32 +181,32 @@ class Staple implements RequestAwareInterface
 	public function getRootPath()
 	{
 		// Guess if empty
-		if (empty($this->_rootPath))
+		if (empty($this->rootPath))
 		{
-			$this->_rootPath = __DIR__ . '../../../../';
+			$this->rootPath = __DIR__ . '../../../../';
 		}
-		return $this->_rootPath;
+		return $this->rootPath;
 	}
 
 	public function getContentPath()
 	{
-		return $this->_contentPath;
+		return $this->contentPath;
 	}
 
 	public function setContentPath($contentPath)
 	{
-		$this->_contentPath = $contentPath;
+		$this->contentPath = $contentPath;
 		return $this;
 	}
 
 	public function getLayoutPath()
 	{
-		return $this->_layoutPath;
+		return $this->layoutPath;
 	}
 
 	public function setLayoutPath($layoutPath)
 	{
-		$this->_layoutPath = $layoutPath;
+		$this->layoutPath = $layoutPath;
 		return $this;
 	}
 
@@ -201,11 +216,11 @@ class Staple implements RequestAwareInterface
 	 */
 	public function getVersion()
 	{
-		if (null === self::$_version)
+		if (null === self::$version)
 		{
-			self::$_version = require __DIR__ . '/version.php';
+			self::$version = require __DIR__ . '/version.php';
 		}
-		return self::$_version;
+		return self::$version;
 	}
 
 	/**
@@ -225,11 +240,11 @@ class Staple implements RequestAwareInterface
 		foreach ($renderers as $extension => $config)
 		{
 			$ext = preg_quote($extension);
-			if (preg_match("~$ext$~", $fileName))
+			if (preg_match("~$ext$~i", $fileName))
 			{
-				$renderer = $this->_di->apply($config);
+				$renderer = $this->di->apply($config);
 				/* @var $renderer RendererInterface */
-				if ($renderer instanceof Interfaces\RendererExtensionInterface)
+				if ($renderer instanceof RendererExtensionInterface)
 				{
 					$renderer->setExtension($extension);
 				}

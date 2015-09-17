@@ -71,13 +71,20 @@ class TagExtractor implements PreProcessorInterface
 
 	public function getData(RendererAwareInterface $owner, $filename, $view)
 	{
+		$data = [];
 		$content = '';
 		if (!empty($filename))
 		{
-			$content = file_get_contents($filename);
+			if (file_exists($filename))
+			{
+				$content = file_get_contents($filename);
+			}
+			else
+			{
+				return $data;
+			}
 		}
 
-		$data = [];
 		foreach ($this->tags as $tag)
 		{
 			$matches = [];

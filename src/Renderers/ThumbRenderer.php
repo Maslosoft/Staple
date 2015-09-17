@@ -14,6 +14,8 @@ namespace Maslosoft\Staple\Renderers;
 
 use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
+use Maslosoft\Staple\Interfaces\VirtualInterface;
+use PHPThumb\GD;
 
 /**
  * ThumbRenderer
@@ -23,17 +25,31 @@ use Maslosoft\Staple\Interfaces\RendererInterface;
  * 4. Should be implemented somewhat similar to PassThroughRenderer
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class ThumbRenderer extends AbstractRenderer implements RendererInterface, RendererExtensionInterface
+class ThumbRenderer extends AbstractRenderer implements RendererInterface, RendererExtensionInterface, VirtualInterface
 {
+
+	private $extension = '';
+	public $width = 300;
+	public $height = 200;
 
 	public function render($view = 'index', $data = array())
 	{
+		$rootPath = $this->getOwner()->getContentPath();
 
+		$thumbName = sprintf('%s.%s', $view, $this->extension);
+
+		$fileName = sprintf('%s/%s.%s', $rootPath, $view, 'JPG');
+
+		$image = new GD($fileName);
+		$image->adaptiveResize($this->width, $this->height);
+//		$image->save($thumbName);
+		$image->show();
+		exit();
 	}
 
 	public function setExtension($extension)
 	{
-
+		$this->extension = $extension;
 	}
 
 }
