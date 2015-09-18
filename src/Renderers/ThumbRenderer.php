@@ -12,6 +12,7 @@
 
 namespace Maslosoft\Staple\Renderers;
 
+use Maslosoft\Staple\Exceptions\NotFoundException;
 use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Maslosoft\Staple\Interfaces\VirtualInterface;
@@ -34,15 +35,45 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 
 	public function render($view = 'index', $data = array())
 	{
-		$rootPath = $this->getOwner()->getContentPath();
+		$contentPath = $this->getOwner()->getContentPath();
+		$rootPath = $this->getOwner()->getRootPath();
 
-		$thumbName = sprintf('%s.%s', $view, $this->extension);
+		$matches = [];
+		if (preg_match('~@\((\d+)x(\d+)\)$~', $view, $matches))
+		{
+			$this->width = $matches[1];
+			$this->height = $matches[2];
+			$pattern = preg_quote($matches[0]);
+			$view = preg_replace("~$pattern$~", '', $view);
+		}
 
-		$fileName = sprintf('%s/%s.%s', $rootPath, $view, 'JPG');
+		$thumbName = sprintf('%s/%s.%s', $rootPath, $view, $this->extension);
+
+		// Get thumbnail dir for later use
+		$thumbDir = dirname($thumbName);
+
+		// Try to make a thumbnail dir
+		if (!file_exists($thumbDir))
+		{
+			@mkdir($thumbDir, 0777, true);
+		}
+
+		$fileName = sprintf('%s/%s.%s', $contentPath, $view, 'JPG');
+
+
+		if (!file_exists($fileName))
+		{
+			throw new NotFoundException(sprintf('File not found: `%s`', $fileName));
+		}
 
 		$image = new GD($fileName);
 		$image->adaptiveResize($this->width, $this->height);
-//		$image->save($thumbName);
+
+		// ensure we can write into dir or overwrite a file
+		if (is_writeable($thumbDir) || is_writeable($thumbName))
+		{
+			$image->save($thumbName);
+		}
 		$image->show();
 		exit();
 	}

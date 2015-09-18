@@ -12,8 +12,10 @@
 
 namespace Maslosoft\Staple\Renderers;
 
+use Maslosoft\Staple\Exceptions\NotFoundException;
 use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
+use RuntimeException;
 
 /**
  * PassThroughRenderer
@@ -37,7 +39,11 @@ class PassThroughRenderer extends AbstractRenderer implements RendererInterface,
 		$line = 0;
 		if (headers_sent($file, $line))
 		{
-			throw new \RuntimeException(sprintf('Could not send file, headers already send. Output started in: %s:%s', $file, $line));
+			throw new RuntimeException(sprintf('Could not send file, headers already send. Output started in: %s:%s', $file, $line));
+		}
+		if (!file_exists($fileName))
+		{
+			throw new NotFoundException(sprintf('File `%s` not found', $fileName));
 		}
 		header("X-Sendfile: $fileName");
 		header('Content-Description: File Transfer');

@@ -130,11 +130,6 @@ class Staple implements RequestAwareInterface
 		$this->setRootPath($rootPath);
 	}
 
-	public static function fly($instanceId = null)
-	{
-		parent::fly($instanceId);
-	}
-
 	/**
 	 * Get Post processors
 	 * @return PostProcessorInterface[]
@@ -239,14 +234,16 @@ class Staple implements RequestAwareInterface
 		array_multisort($keys, SORT_DESC, $renderers);
 		foreach ($renderers as $extension => $config)
 		{
+			$matches = [];
 			$ext = preg_quote($extension);
-			if (preg_match("~$ext$~i", $fileName))
+			if (preg_match("~$ext$~i", $fileName, $matches))
 			{
 				$renderer = $this->di->apply($config);
 				/* @var $renderer RendererInterface */
 				if ($renderer instanceof RendererExtensionInterface)
 				{
-					$renderer->setExtension($extension);
+					// Use $matches[0] here to ensure extension letters case
+					$renderer->setExtension($matches[0]);
 				}
 				$renderer->setOwner($this);
 				return $renderer;

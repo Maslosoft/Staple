@@ -15,9 +15,10 @@ namespace Maslosoft\Staple\Widgets;
  */
 class SubNav
 {
+
 	public $options = [
 		'folder' => '',
-		'items' = ''
+		'items' => ''
 	];
 
 	/**
