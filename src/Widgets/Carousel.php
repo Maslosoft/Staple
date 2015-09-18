@@ -8,6 +8,10 @@
 
 namespace Maslosoft\Staple\Widgets;
 
+use Maslosoft\EmbeDi\EmbeDi;
+use Maslosoft\MiniView\MiniView;
+use Maslosoft\Staple\Widgets\Vo\CarouselItem;
+
 /**
  * Carousel
  *
@@ -18,21 +22,21 @@ class Carousel
 
 	const DefaultId = 'carousel';
 
-	public $id = self::DefaultId;
-	private static $idCounter = 0;
-
 	/**
 	 * Default image width and height. Should fit nicely on layouts
 	 */
 	const DefaultWidth = 1600;
 	const DefaultHeight = 1200;
 
+	public $id = self::DefaultId;
 	public $width = self::DefaultWidth;
 	public $height = self::DefaultHeight;
+	public $items = [];
 	public $options = [
 		'id' => self::DefaultId,
 		'width' => self::DefaultWidth,
 		'height' => self::DefaultHeight,
+		'items' => []
 	];
 
 	/**
@@ -40,6 +44,7 @@ class Carousel
 	 * @var MiniView
 	 */
 	private $mv = null;
+	private static $idCounter = 0;
 
 	public function __construct($options = [])
 	{
@@ -63,12 +68,20 @@ class Carousel
 
 	public function getItems()
 	{
-		
+		foreach ($this->items as $item)
+		{
+			yield new CarouselItem($item, $this);
+		}
 	}
 
 	public function getId()
 	{
 		return $this->id;
+	}
+
+	public function __toString()
+	{
+		return $this->mv->render('carousel', [], true);
 	}
 
 }

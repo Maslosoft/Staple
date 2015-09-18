@@ -1,41 +1,35 @@
 <?php
 
-use Maslosoft\Ilmatar\Widgets\Form\ActiveForm;
-use Maslosoft\Ilmatar\Components\Controller;
+use Maslosoft\Staple\Widgets\Carousel;
+use Maslosoft\Staple\Widgets\Vo\CarouselItem;
 ?>
 <?php
-/* @var $this Controller */
-/* @var $form ActiveForm */
+/* @var $this Carousel */
+/* @var $item CarouselItem */
 ?>
 
 <div id="<?= $this->getId(); ?>" class="carousel slide" data-ride="carousel">
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
-		<li data-target="#<?= $this->getId(); ?>" data-slide-to="0" class="active"></li>
-		<li data-target="#<?= $this->getId(); ?>" data-slide-to="1"></li>
-		<li data-target="#<?= $this->getId(); ?>" data-slide-to="2"></li>
+		<?php foreach ($this->getItems() as $id => $item): ?>
+			<li data-target="#<?= $this->getId(); ?>" data-slide-to="<?= $id; ?>" class="active"></li>
+		<?php endforeach; ?>
 	</ol>
 
 	<!-- Wrapper for slides -->
 	<div class="carousel-inner" role="listbox">
-		<div class="item active" style="background-image:url('/sources/carousel/IMG_1769.JPG');">
-			<div class="carousel-caption">
-				<h3>Surfing</h3>
-				<p>Wyjazdy na surfing</p>
+		<?php foreach ($this->getItems() as $id => $item): ?>
+			<div class="item <?php if ($id == 0): ?>active<?php endif; ?>" style="background-image:url('<?= $item->getImage(); ?>');">
+				<div class="carousel-caption">
+					<?php if ($item->getTitle()): ?>
+						<h3><?= $item->getTitle(); ?></h3>
+					<?php endif; ?>
+					<?php if ($item->getCaption()): ?>
+						<p><?= $item->getCaption(); ?></p>
+					<?php endif; ?>
+				</div>
 			</div>
-		</div>
-		<div class="item" style="background-image:url('/sources/carousel/IMG_1803.JPG');">
-			<div class="carousel-caption">
-				<h3>Snowboard</h3>
-				<p>Wyjazdy na snowboard</p>
-			</div>
-		</div>
-		<div class="item" style="background-image:url('/sources/carousel/IMG_1751.JPG');">
-			<div class="carousel-caption">
-				<h3>Longboard</h3>
-				<p>Treningi longboard</p>
-			</div>
-		</div>
+		<?php endforeach; ?>
 	</div>
 
 	<!-- Controls -->
