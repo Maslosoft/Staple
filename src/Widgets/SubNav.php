@@ -8,6 +8,10 @@
 
 namespace Maslosoft\Staple\Widgets;
 
+use Maslosoft\EmbeDi\EmbeDi;
+use Maslosoft\MiniView\MiniView;
+use Maslosoft\Staple\Widgets\Vo\SubNavItem;
+
 /**
  * SubNav
  * TODO If items are set, init from items.
@@ -16,8 +20,8 @@ namespace Maslosoft\Staple\Widgets;
 class SubNav
 {
 
+	public $items = [];
 	public $options = [
-		'folder' => '',
 		'items' => ''
 	];
 
@@ -29,21 +33,29 @@ class SubNav
 
 	public function __construct($options = [])
 	{
-		if (is_string($options))
-		{
-			$this->options['folder'] = $options;
-			unset($options);
-		}
 		if (!empty($options))
 		{
 			$this->options = array_merge($this->options, $options);
 		}
+
+		// Apply configuration
+		EmbeDi::fly()->apply($this->options, $this);
+
+		// Setup view
 		$this->mv = new MiniView($this);
+	}
+
+	public function getItems()
+	{
+		foreach ($this->items as $url => $title)
+		{
+			yield new SubNavItem($url, $title, $this);
+		}
 	}
 
 	public function __toString()
 	{
-		;
+		return $this->mv->render('sub-nav', [], true);
 	}
 
 }

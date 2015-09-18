@@ -36,21 +36,23 @@ class CascadingDataJsonExtractor
 	{
 		$data = [];
 		$rootPath = realpath($owner->getRootPath());
-		$path = sprintf('%s/%s/%s', $rootPath, $owner->getContentPath(), $this->filename);
+		$path = dirname($filename);
 		$parts = explode('/', $path);
 
 		foreach ($parts as $part)
 		{
-			$path = realpath($path . '/../');
-			if (file_exists($path))
+			$filePath = sprintf('%s/%s', $path, $this->filename);
+			if (file_exists($filePath))
 			{
-				$data = array_merge((array) json_decode(file_get_contents($path)), $data);
+				$data = array_merge_recursive((array) json_decode(file_get_contents($filePath), false), $data);
 			}
+			$path = realpath($path . '/../');
 			if ($path === $rootPath)
 			{
 				break;
 			}
 		}
+
 		return $data;
 	}
 
