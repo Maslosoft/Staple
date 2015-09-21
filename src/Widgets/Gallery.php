@@ -91,6 +91,7 @@ class Gallery
 
 	public function getFiles()
 	{
+		$files = [];
 		$dirIt = new DirectoryIterator($this->path);
 		foreach ($dirIt as $file)
 		{
@@ -101,14 +102,24 @@ class Gallery
 			$ext = strtolower($file->getExtension());
 			if (in_array($ext, ['jpg', 'gif', 'png']))
 			{
-				yield new GalleryFile($file, $this);
+				$files[$file->getFilename()] = new GalleryFile($file, $this);
 			}
 		}
+		ksort($files);
+		$files = array_values($files);
+		return $files;
 	}
 
 	public function __toString()
 	{
-		return $this->mv->render('gallery', [], true);
+		try
+		{
+			return $this->mv->render('gallery', [], true);
+		}
+		catch (Exception $exc)
+		{
+			echo $exc->getTraceAsString();
+		}
 	}
 
 }

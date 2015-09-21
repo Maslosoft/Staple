@@ -8,11 +8,11 @@ use Maslosoft\Staple\Widgets\Vo\CarouselItem;
 /* @var $item CarouselItem */
 ?>
 
-<div id="<?= $this->getId(); ?>" class="carousel slide" data-ride="carousel">
+<div id="<?= $this->getId(); ?>" class="carousel slide <?php if ($this->classic): ?>carousel-classic<?php endif; ?>" data-ride="carousel">
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
 		<?php foreach ($this->getItems() as $id => $item): ?>
-			<li data-target="#<?= $this->getId(); ?>" data-slide-to="<?= $id; ?>" class="active"></li>
+			<li data-target="#<?= $this->getId(); ?>" data-slide-to="<?= $id; ?>" class="<?php if ($id == 0): ?>active<?php endif; ?>"></li>
 		<?php endforeach; ?>
 	</ol>
 
@@ -20,6 +20,9 @@ use Maslosoft\Staple\Widgets\Vo\CarouselItem;
 	<div class="carousel-inner" role="listbox">
 		<?php foreach ($this->getItems() as $id => $item): ?>
 			<div class="item <?php if ($id == 0): ?>active<?php endif; ?>" style="background-image:url('<?= $item->getImage(); ?>');">
+				<?php if ($item->getUrl()): ?>
+					<a class="landing" href="<?= $item->getUrl(); ?>"></a>
+				<?php endif; ?>
 				<div class="carousel-caption">
 					<?php if ($item->getTitle()): ?>
 						<h3><?= $item->getTitle(); ?></h3>

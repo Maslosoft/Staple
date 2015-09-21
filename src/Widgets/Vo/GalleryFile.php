@@ -27,6 +27,7 @@ class GalleryFile
 	public function __construct(SplFileInfo $file, Gallery $gallery)
 	{
 		$this->file = $file;
+
 		$ext = preg_quote($this->file->getExtension());
 		$this->extension = $this->file->getExtension();
 		$this->baseName = preg_replace("~\.$ext$~", '', $this->file->getFilename());

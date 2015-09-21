@@ -44,7 +44,7 @@ class CascadingDataJsonExtractor
 			$filePath = sprintf('%s/%s', $path, $this->filename);
 			if (file_exists($filePath))
 			{
-				$data = array_merge_recursive((array) json_decode(file_get_contents($filePath), false), $data);
+				$data = array_merge((array) json_decode(file_get_contents($filePath), false), $data);
 			}
 			$path = realpath($path . '/../');
 			if ($path === $rootPath)

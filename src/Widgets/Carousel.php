@@ -29,6 +29,7 @@ class Carousel
 	const DefaultHeight = 1200;
 
 	public $id = self::DefaultId;
+	public $classic = false;
 	public $width = self::DefaultWidth;
 	public $height = self::DefaultHeight;
 	public $items = [];

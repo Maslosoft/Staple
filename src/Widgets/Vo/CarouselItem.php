@@ -21,6 +21,7 @@ class CarouselItem
 	private $title = '';
 	private $caption = '';
 	private $image = '';
+	private $url = '';
 
 	public function __construct($data, Carousel $carousel)
 	{
@@ -40,6 +41,14 @@ class CarouselItem
 		{
 			$this->image = $data['image'];
 		}
+		if (!empty($data['url']))
+		{
+			$this->url = $data['url'];
+		}
+
+		// Decorate
+		$this->decorate($this->title);
+		$this->decorate($this->caption);
 	}
 
 	public function getTitle()
@@ -55,6 +64,19 @@ class CarouselItem
 	public function getImage()
 	{
 		return $this->image;
+	}
+
+	public function getUrl()
+	{
+		return $this->url;
+	}
+
+	private function decorate(&$text)
+	{
+		if (!empty($this->url))
+		{
+			$text = sprintf('<a href="%s">%s</a>', $this->url, $text);
+		}
 	}
 
 }

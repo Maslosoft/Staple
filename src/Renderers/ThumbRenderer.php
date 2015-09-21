@@ -35,6 +35,7 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 
 	public function render($view = 'index', $data = array())
 	{
+		$view = urldecode($view);
 		$contentPath = $this->getOwner()->getContentPath();
 		$rootPath = $this->getOwner()->getRootPath();
 
@@ -58,7 +59,8 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 			@mkdir($thumbDir, 0777, true);
 		}
 
-		$fileName = sprintf('%s/%s.%s', $contentPath, $view, 'JPG');
+		$baseExt = str_replace('thumb.', '', $this->extension);
+		$fileName = sprintf('%s/%s.%s', $contentPath, $view, $baseExt);
 
 
 		if (!file_exists($fileName))
