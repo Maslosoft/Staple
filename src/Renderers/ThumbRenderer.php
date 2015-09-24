@@ -17,6 +17,7 @@ use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Maslosoft\Staple\Interfaces\VirtualInterface;
 use PHPThumb\GD;
+use SplFileInfo;
 
 /**
  * ThumbRenderer
@@ -72,10 +73,28 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 		$image->adaptiveResize($this->width, $this->height);
 
 		// ensure we can write into dir or overwrite a file
+		$size = 0;
 		if (is_writeable($thumbDir) || is_writeable($thumbName))
 		{
 			$image->save($thumbName);
+			$size = filesize($thumbName);
 		}
+
+		$info = new SplFileInfo($fileName);
+
+		if ($size > 0)
+		{
+			header(sprintf('Content-Length: %d', $size));
+		}
+		header(sprintf('ETag: %s', md5($thumbName)));
+		header(sprintf('Last-Modified: %s', gmdate('D, d M Y H:i:s \G\M\T', $info->getMTime())));
+		header(sprintf('Content-Disposition: filename="%s"', basename($fileName)));
+
+		// Cache it
+		header('Pragma: public');
+		header('Cache-Control: max-age=86400');
+		header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
+
 		$image->show();
 		exit();
 	}
