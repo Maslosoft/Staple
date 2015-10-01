@@ -13,6 +13,7 @@
 namespace Maslosoft\Staple\Renderers;
 
 use Maslosoft\MiniView\MiniView;
+use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Parsedown;
 
@@ -21,7 +22,7 @@ use Parsedown;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class PhpMdRenderer extends AbstractRenderer implements RendererInterface
+class PhpMdRenderer extends AbstractRenderer implements RendererInterface, RendererExtensionInterface
 {
 
 	public $extension = 'php.md';
@@ -32,6 +33,11 @@ class PhpMdRenderer extends AbstractRenderer implements RendererInterface
 		$fileName = sprintf('%s/%s/%s.%s', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $view, $this->extension);
 		$content = $mv->renderFile($fileName, $data, true);
 		return (new Parsedown)->text($content);
+	}
+
+	public function setExtension($extension)
+	{
+		$this->extension = $extension;
 	}
 
 }

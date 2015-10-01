@@ -15,8 +15,6 @@ namespace Maslosoft\Staple\Request;
 use Maslosoft\Staple\Helpers\RequestHandler;
 use Maslosoft\Staple\Interfaces\RequestAwareInterface;
 use Maslosoft\Staple\Interfaces\RequestInterface;
-use Maslosoft\Staple\Renderers\ErrorRenderer;
-use Maslosoft\Staple\Renderers\PassThroughRenderer;
 
 class HttpRequest implements RequestInterface
 {
@@ -42,7 +40,7 @@ class HttpRequest implements RequestInterface
 			if (is_dir($basePath))
 			{
 				$path = $this->_getFilename(sprintf('%s/index.%s', $basePath, $ext), $ext);
-				if (false !== $path)
+				if (false !== $path && file_exists($path))
 				{
 					$view = $this->_sanitizeUrl(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~i", '', basename($path))));
 					break;
