@@ -11,15 +11,15 @@ use Maslosoft\Staple\Widgets\ContactForm;
 	<body>
 		<h4>Contact Form Message from <a href="http://<?= $_SERVER['HTTP_HOST']; ?>"><?= $_SERVER['HTTP_HOST']; ?></a></h4>
 
-		<b>From: <?= $data->name ?></b> (<a href="mailto:<?= $data->email ?>"><?= $data->email ?></a>)
+		<b>From: <?= htmlspecialchars($data->name) ?></b> (<a href="mailto:<?= htmlspecialchars($data->email) ?>"><?= htmlspecialchars($data->email) ?></a>)
 
-		<h3><?= $data->subject; ?></h3>
+		<h3><?= htmlspecialchars($data->subject); ?></h3>
 
 		<blockquote>
-			<?= $data->body; ?>
+			<?= nl2br(htmlspecialchars($data->body)); ?>
 		</blockquote>
 		<p>
-			Recipient of this message is: <b><?= $this->to ?></b> (<?= $this->email ?>).
+			Recipient of this message is: <b><?= $this->to ?></b> (<?= htmlspecialchars($this->email) ?>).
 		</p>
 	</body>
 </html>

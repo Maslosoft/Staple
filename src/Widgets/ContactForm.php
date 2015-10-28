@@ -29,9 +29,11 @@ class ContactForm
 	public $lang = self::DefaultLang;
 	public $email = '';
 	public $to = '';
+	public $fields = ['name', 'email', 'subject', 'body'];
 	public $options = [
 		'lang' => self::DefaultLang,
 		'email' => '',
+		'fields' => ['name', 'email', 'subject', 'body']
 	];
 	public $error = [];
 
@@ -68,6 +70,14 @@ class ContactForm
 		if (!empty($_POST['ContactForm']))
 		{
 			$data = (object) $_POST['ContactForm'];
+			if (!isset($data->name))
+			{
+				$data->name = $data->email;
+			}
+			if (!isset($data->subject))
+			{
+				$data->subject = substr($data->body, 0, 32);
+			}
 			if ($this->validate($data))
 			{
 				$email = $this->mv->render(sprintf('%s/%s', $this->lang, 'contact-email'), ['data' => $data], true);
@@ -82,6 +92,11 @@ class ContactForm
 		}
 	}
 
+	public function hasfield($field)
+	{
+		return in_array($field, $this->fields);
+	}
+
 	public function isSuccess()
 	{
 		return $this->success;
@@ -90,7 +105,7 @@ class ContactForm
 	protected function validate($data)
 	{
 		$this->error = [];
-		foreach (['name', 'email', 'subject', 'body'] as $field)
+		foreach ($this->fields as $field)
 		{
 			if (empty($data->$field))
 			{

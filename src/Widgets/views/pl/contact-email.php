@@ -11,16 +11,16 @@ use Maslosoft\Staple\Widgets\ContactForm;
 	<body>
 		<h4>Wiadomość z Formularza Kontaktowego z <a href="http://<?= $_SERVER['HTTP_HOST']; ?>"><?= $_SERVER['HTTP_HOST']; ?></a></h4>
 
-		<b>Od: <?= $data->name ?></b> (<a href="mailto:<?= $data->email ?>"><?= $data->email ?></a>)
+		<b>Od: <?= htmlspecialchars($data->name) ?></b> (<a href="mailto:<?= htmlspecialchars($data->email); ?>"><?= htmlspecialchars($data->email); ?></a>)
 
-		<h3><?= $data->subject; ?></h3>
+		<h3><?= htmlspecialchars($data->subject); ?></h3>
 
 
 		<blockquote>
-			<?= $data->body; ?>
+			<?= nl2br(htmlspecialchars($data->body)); ?>
 		</blockquote>
 		<p>
-			Odbiorcą tej wiadomości jest: <b><?= $this->to ?></b> (<?= $this->email ?>).
+			Odbiorcą tej wiadomości jest: <b><?= $this->to ?></b> (<?= htmlspecialchars($this->email); ?>).
 		</p>
 	</body>
 </html>

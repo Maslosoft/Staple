@@ -36,7 +36,7 @@ $value = (object) @$_POST['ContactForm'];
 <div class="form">
 	<?php if ($this->isSuccess()): ?>
 		<div class="alert alert-success">
-			<?= sprintf($label->success, $value->name); ?>
+			<?= sprintf($label->success, htmlspecialchars(@$value->name)); ?>
 		</div>
 		<?php
 		// Reset values upon successfull send
@@ -49,27 +49,35 @@ $value = (object) @$_POST['ContactForm'];
 		</div>
 	<?php endif; ?>
 	<form action="" method="post">
-		<div class="form-group" id="msff_l_gid">
-			<label class="control-label" for="msff_l"><?= $label->name; ?></label>
-			<input id="msff_l" name="ContactForm[name]" value="<?= @$value->name; ?>" class=" form-control" type="text" />
-			<span class="help-block error" id="msff_l_em"><?= @$error->name; ?></span>
-		</div>
-		<div class="form-group" id="msff_m_gid">
-			<label class="control-label" for="msff_m"><?= $label->email; ?></label>
-			<input id="msff_m" name="ContactForm[email]" value="<?= @$value->email; ?>" class=" form-control" type="text" />
-			<span class="help-block error" id="msff_m_em"><?= @$error->email; ?></span>
-			<span class="help-block error" id="msff_m_em2"><?= @$error->emailFormat; ?></span>
-		</div>
-		<div class="form-group" id="msff_n_gid">
-			<label class="control-label" for="msff_n"><?= $label->subject; ?></label>
-			<input id="msff_n" name="ContactForm[subject]" value="<?= @$value->subject; ?>" class=" form-control" type="text" />
-			<span class="help-block error" id="msff_n_em"><?= @$error->subject; ?></span>
-		</div>
-		<div class="form-group" id="msff_o_gid">
-			<label class="control-label" for="msff_o"><?= $label->body; ?></label>
-			<textarea id="msff_o" name="ContactForm[body]" class=" form-control" style="min-height:8em;"><?= @$value->body; ?></textarea>
-			<span class="help-block error" id="msff_o_em"><?= @$error->body; ?></span>
-		</div>
+		<?php if ($this->hasField('name')): ?>
+			<div class="form-group" id="msff_l_gid">
+				<label class="control-label" for="msff_l"><?= $label->name; ?></label>
+				<input id="msff_l" name="ContactForm[name]" value="<?= @$value->name; ?>" class=" form-control" type="text" />
+				<span class="help-block error" id="msff_l_em"><?= @$error->name; ?></span>
+			</div>
+		<?php endif; ?>
+		<?php if ($this->hasField('email')): ?>
+			<div class="form-group" id="msff_m_gid">
+				<label class="control-label" for="msff_m"><?= $label->email; ?></label>
+				<input id="msff_m" name="ContactForm[email]" value="<?= @$value->email; ?>" class=" form-control" type="text" />
+				<span class="help-block error" id="msff_m_em"><?= @$error->email; ?></span>
+				<span class="help-block error" id="msff_m_em2"><?= @$error->emailFormat; ?></span>
+			</div>
+		<?php endif; ?>
+		<?php if ($this->hasField('subject')): ?>
+			<div class="form-group" id="msff_n_gid">
+				<label class="control-label" for="msff_n"><?= $label->subject; ?></label>
+				<input id="msff_n" name="ContactForm[subject]" value="<?= @$value->subject; ?>" class=" form-control" type="text" />
+				<span class="help-block error" id="msff_n_em"><?= @$error->subject; ?></span>
+			</div>
+		<?php endif; ?>
+		<?php if ($this->hasField('body')): ?>
+			<div class="form-group" id="msff_o_gid">
+				<label class="control-label" for="msff_o"><?= $label->body; ?></label>
+				<textarea id="msff_o" name="ContactForm[body]" class=" form-control" style="min-height:8em;"><?= @$value->body; ?></textarea>
+				<span class="help-block error" id="msff_o_em"><?= @$error->body; ?></span>
+			</div>
+		<?php endif; ?>
 		<div class=" submit">
 			<input class="btn btn-primary btn-lg btn-success" type="submit" name="yt0" value="<?= $label->submit; ?>" />
 		</div>
