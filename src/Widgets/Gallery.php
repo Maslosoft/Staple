@@ -35,6 +35,7 @@ class Gallery
 	 */
 	const DefaultThumbWidth = 192;
 	const DefaultThumbHeight = 150;
+	const DefaultThumbCss = 'img-thumbnail img-margins img-responsive';
 
 	/**
 	 * Path relative to application root
@@ -45,19 +46,25 @@ class Gallery
 	public $height = self::DefaultHeight;
 	public $thumbWidth = self::DefaultThumbWidth;
 	public $thumbHeight = self::DefaultThumbHeight;
+	public $thumbCss = self::DefaultThumbCss;
+	public $lg = null;
+	public $md = 4;
+	public $sm = 2;
+	public $xs = 2;
 	public $options = [
 		'path' => self::DefaultPath,
 		'width' => self::DefaultWidth,
 		'height' => self::DefaultHeight,
 		'thumbWidth' => self::DefaultThumbWidth,
-		'thumbHeight' => self::DefaultThumbHeight
+		'thumbHeight' => self::DefaultThumbHeight,
+		'thumbCss' => self::DefaultThumbCss
 	];
 
 	/**
 	 * View
 	 * @var MiniView
 	 */
-	private $mv = null;
+	public $view = null;
 
 	public function __construct($options = [])
 	{
@@ -79,7 +86,7 @@ class Gallery
 		EmbeDi::fly()->apply($this->options, $this);
 
 		// Setup view
-		$this->mv = new MiniView($this);
+		$this->view = new MiniView($this);
 
 		$this->path = sprintf('%s/%s', Staple::fly()->getContentPath(), $this->options['path']);
 	}
@@ -110,11 +117,36 @@ class Gallery
 		return $files;
 	}
 
+	public function getSizes()
+	{
+		$sizes = [];
+		$names = ['lg', 'md', 'sm', 'xs'];
+		foreach ($names as $size)
+		{
+			if ($this->{$size} === null)
+			{
+				continue;
+			}
+			$value = (int) $this->{$size};
+			if (12 % $value > 0)
+			{
+				throw new \InvalidArgumentException(sprintf('Value for `%s` must divide number 12 equally, `%s` given', $size, $value));
+			}
+			if ($value < 1 || $value > 12)
+			{
+				throw new \InvalidArgumentException(sprintf('Value for `%s` must be between 1 and 12, `%s` given', $size, $value));
+			}
+			$sizes[] = sprintf('col-%s-%s', $size, 12 / $value);
+		}
+
+		return implode(' ', $sizes);
+	}
+
 	public function __toString()
 	{
 		try
 		{
-			return $this->mv->render('gallery', [], true);
+			return $this->view->render('gallery', [], true);
 		}
 		catch (Exception $exc)
 		{
