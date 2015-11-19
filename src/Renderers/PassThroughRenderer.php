@@ -16,6 +16,7 @@ use Maslosoft\Staple\Exceptions\NotFoundException;
 use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use RuntimeException;
+use SplFileInfo;
 
 /**
  * PassThroughRenderer
@@ -54,6 +55,17 @@ class PassThroughRenderer extends AbstractRenderer implements RendererInterface,
 		}
 		header('Pragma: public');
 		header('Content-Length: ' . filesize($fileName));
+
+		$info = new SplFileInfo($fileName);
+
+		header(sprintf('ETag: %s', md5($fileName)));
+		header(sprintf('Last-Modified: %s', gmdate('D, d M Y H:i:s \G\M\T', $info->getMTime())));
+
+		// Cache it
+		header('Cache-Control: max-age=86400');
+		header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
+
+
 		echo file_get_contents($fileName);
 		exit;
 	}
