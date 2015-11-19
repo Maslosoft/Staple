@@ -13,6 +13,9 @@
 		"bower-asset/maslosoft-playlist": "*",
 		"bower-asset/magnific-popup": "*"
 	},
+	"bin": [
+		"signals"
+	],
 	"require-dev": {
 		"maslosoft/hedron": "*"
 	},
@@ -22,8 +25,8 @@
 		}
 	},
 	"license": [
-	    "AGLP",
-	    "Commercial"
+		"AGPL",
+		"Commercial"
 	],
 	"authors": [
 		{
