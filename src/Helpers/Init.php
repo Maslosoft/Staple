@@ -18,7 +18,7 @@ class Init
 
 	public $dir = '';
 
-	public static function __construct($dir = null)
+	public function __construct($dir = null)
 	{
 		if (null === $dir)
 		{
