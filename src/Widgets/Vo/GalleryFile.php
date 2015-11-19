@@ -8,6 +8,7 @@
 
 namespace Maslosoft\Staple\Widgets\Vo;
 
+use Maslosoft\Staple\Renderers\ThumbRenderer;
 use Maslosoft\Staple\Widgets\Gallery;
 use SplFileInfo;
 
@@ -41,12 +42,12 @@ class GalleryFile
 
 	public function getThumbUrl()
 	{
-		return $this->getUrlAt($this->gallery->thumbWidth, $this->gallery->thumbHeight);
+		return $this->getUrlAt($this->gallery->thumbWidth, $this->gallery->thumbHeight, ThumbRenderer::OptionCrop);
 	}
 
-	private function getUrlAt($width, $height)
+	private function getUrlAt($width, $height, $options = '')
 	{
-		return sprintf('/%s/%s@(%dx%d).thumb.%s', $this->gallery->getBaseUrl(), $this->baseName, $width, $height, $this->extension);
+		return sprintf('/%s/%s@(%dx%d)%s.thumb.%s', $this->gallery->getBaseUrl(), $this->baseName, $width, $height, $options, $this->extension);
 	}
 
 }

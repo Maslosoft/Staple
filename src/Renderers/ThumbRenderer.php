@@ -30,9 +30,12 @@ use SplFileInfo;
 class ThumbRenderer extends AbstractRenderer implements RendererInterface, RendererExtensionInterface, VirtualInterface
 {
 
+	const OptionCrop = 'c';
+
 	private $extension = '';
 	public $width = 300;
 	public $height = 200;
+	public $options = [];
 
 	public function render($view = 'index', $data = array())
 	{
@@ -41,10 +44,15 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 		$rootPath = $this->getOwner()->getRootPath();
 
 		$matches = [];
-		if (preg_match('~@\((\d+)x(\d+)\)$~', $view, $matches))
+
+		if (preg_match('~@\((\d+)x(\d+)\)([a-z]{1})?$~', $view, $matches))
 		{
 			$this->width = $matches[1];
 			$this->height = $matches[2];
+			if (isset($matches[3]))
+			{
+				$this->options = preg_split('~~', $matches[3], PREG_SPLIT_NO_EMPTY);
+			}
 			$pattern = preg_quote($matches[0]);
 			$view = preg_replace("~$pattern$~", '', $view);
 		}
@@ -70,7 +78,14 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 		}
 
 		$image = new GD($fileName);
-		$image->adaptiveResize($this->width, $this->height);
+		if (in_array(self::OptionCrop, $this->options))
+		{
+			$image->adaptiveResize($this->width, $this->height);
+		}
+		else
+		{
+			$image->resize($this->width, $this->height);
+		}
 
 		// ensure we can write into dir or overwrite a file
 		$size = 0;

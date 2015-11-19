@@ -33,8 +33,8 @@ class Gallery
 	/**
 	 * Default thumbnail width and height, should fit nicely in layout
 	 */
-	const DefaultThumbWidth = 192;
-	const DefaultThumbHeight = 150;
+	const DefaultThumbWidth = 237;
+	const DefaultThumbHeight = 237;
 	const DefaultThumbCss = 'img-thumbnail img-margins img-responsive';
 
 	/**
