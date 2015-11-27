@@ -54,9 +54,8 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 				$this->options = preg_split('~~', $matches[3], PREG_SPLIT_NO_EMPTY);
 			}
 			$pattern = preg_quote($matches[0]);
-			$view = preg_replace("~$pattern$~", '', $view);
+			$baseView = preg_replace("~$pattern$~", '', $view);
 		}
-
 		$thumbName = sprintf('%s/%s.%s', $rootPath, $view, $this->extension);
 
 		// Get thumbnail dir for later use
@@ -69,7 +68,7 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 		}
 
 		$baseExt = str_replace('thumb.', '', $this->extension);
-		$fileName = sprintf('%s/%s.%s', $contentPath, $view, $baseExt);
+		$fileName = sprintf('%s/%s.%s', $contentPath, $baseView, $baseExt);
 
 
 		if (!file_exists($fileName))
@@ -77,30 +76,48 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 			throw new NotFoundException(sprintf('File not found: `%s`', $fileName));
 		}
 
-		$image = new GD($fileName);
-		if (in_array(self::OptionCrop, $this->options))
+		if (!file_exists($thumbName))
 		{
-			$image->adaptiveResize($this->width, $this->height);
-		}
-		else
-		{
-			$image->resize($this->width, $this->height);
+			$image = new GD($fileName);
+			if (in_array(self::OptionCrop, $this->options))
+			{
+				$image->adaptiveResize($this->width, $this->height);
+			}
+			else
+			{
+				$image->resize($this->width, $this->height);
+			}
+
+			// ensure we can write into dir or overwrite a file
+			if (is_writeable($thumbDir) || is_writeable($thumbName))
+			{
+				$image->save($thumbName);
+			}
 		}
 
-		// ensure we can write into dir or overwrite a file
-		$size = 0;
-		if (is_writeable($thumbDir) || is_writeable($thumbName))
-		{
-			$image->save($thumbName);
-			$size = filesize($thumbName);
-		}
-
-		$info = new SplFileInfo($fileName);
+		$info = new SplFileInfo($thumbName);
+		$size = $info->getSize();
 
 		if ($size > 0)
 		{
 			header(sprintf('Content-Length: %d', $size));
 		}
+
+
+		switch (strtolower($info->getExtension()))
+		{
+			case 'gif':
+				header('Content-type: image/gif');
+				break;
+			case 'jpg':
+				header('Content-type: image/jpeg');
+				break;
+			case 'png':
+			case 'string':
+				header('Content-type: image/png');
+				break;
+		}
+
 		header(sprintf('ETag: %s', md5($thumbName)));
 		header(sprintf('Last-Modified: %s', gmdate('D, d M Y H:i:s \G\M\T', $info->getMTime())));
 		header(sprintf('Content-Disposition: filename="%s"', basename($fileName)));
@@ -109,8 +126,7 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 		header('Pragma: public');
 		header('Cache-Control: max-age=86400');
 		header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
-
-		$image->show();
+		echo file_get_contents($thumbName);
 		exit();
 	}
 

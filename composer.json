@@ -14,7 +14,7 @@
 		"bower-asset/magnific-popup": "*"
 	},
 	"bin": [
-		"signals"
+		"staple"
 	],
 	"require-dev": {
 		"maslosoft/hedron": "*"
