@@ -13,6 +13,7 @@
 namespace Maslosoft\Staple\Renderers;
 
 use Maslosoft\MiniView\MiniView;
+use Maslosoft\Staple\Interfaces\NavigableInterface;
 use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Parsedown;
@@ -22,7 +23,7 @@ use Parsedown;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class PhpMdRenderer extends AbstractRenderer implements RendererInterface, RendererExtensionInterface
+class PhpMdRenderer extends AbstractRenderer implements RendererInterface, RendererExtensionInterface, NavigableInterface
 {
 
 	public $extension = 'php.md';

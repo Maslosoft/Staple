@@ -12,6 +12,7 @@
 
 namespace Maslosoft\Staple\Renderers;
 
+use Maslosoft\Staple\Interfaces\NavigableInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Parsedown;
 
@@ -20,7 +21,7 @@ use Parsedown;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class MdRenderer extends AbstractRenderer implements RendererInterface
+class MdRenderer extends AbstractRenderer implements RendererInterface, NavigableInterface
 {
 
 	/**

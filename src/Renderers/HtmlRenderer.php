@@ -12,12 +12,15 @@
 
 namespace Maslosoft\Staple\Renderers;
 
+use Maslosoft\Staple\Interfaces\NavigableInterface;
+use Maslosoft\Staple\Interfaces\RendererInterface;
+
 /**
  * HtmlRenderer
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class HtmlRenderer extends AbstractRenderer implements \Maslosoft\Staple\Interfaces\RendererInterface
+class HtmlRenderer extends AbstractRenderer implements RendererInterface, NavigableInterface
 {
 
 	/**

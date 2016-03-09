@@ -13,9 +13,10 @@
 namespace Maslosoft\Staple\Renderers;
 
 use Maslosoft\MiniView\MiniView;
+use Maslosoft\Staple\Interfaces\NavigableInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 
-class PhpRenderer extends AbstractRenderer implements RendererInterface
+class PhpRenderer extends AbstractRenderer implements RendererInterface, NavigableInterface
 {
 
 	public function render($view = 'index', $data = [])
