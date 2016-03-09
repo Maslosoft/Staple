@@ -32,6 +32,9 @@ use Maslosoft\Staple\Renderers\PhpMdRenderer;
 use Maslosoft\Staple\Renderers\PhpRenderer;
 use Maslosoft\Staple\Renderers\ThumbRenderer;
 
+/**
+ * @method Staple fly() Get staple flyweight instance
+ */
 class Staple implements RequestAwareInterface
 {
 
@@ -183,8 +186,12 @@ class Staple implements RequestAwareInterface
 		return $this->rootPath;
 	}
 
-	public function getContentPath()
+	public function getContentPath($absolute = false)
 	{
+		if ($absolute)
+		{
+			return sprintf('%s/%s', $this->getRootPath(), $this->contentPath);
+		}
 		return $this->contentPath;
 	}
 
