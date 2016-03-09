@@ -11,7 +11,9 @@
 		"bower-asset/fontawesome": "~4",
 		"masterexploder/phpthumb": "~2",
 		"bower-asset/maslosoft-playlist": "*",
-		"bower-asset/magnific-popup": "*"
+		"bower-asset/magnific-popup": "*",
+		"symfony/yaml": "~3",
+		"symfony/finder": "~3"
 	},
 	"bin": [
 		"staple"
