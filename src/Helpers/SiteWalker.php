@@ -13,9 +13,8 @@ use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 use Maslosoft\Staple\Models\RequestItem;
 use Maslosoft\Staple\Staple;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use SplFileInfo;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use UnexpectedValueException;
 
 /**
@@ -94,11 +93,24 @@ class SiteWalker implements RendererAwareInterface, ProcessorAwareInterface
 
 	public function scan()
 	{
-		$directoryIterator = new RecursiveDirectoryIterator($this->path);
-		$iterator = new RecursiveIteratorIterator($directoryIterator);
-		$iterator->setMaxDepth($this->depth);
+		$this->item->url = '/';
+		$this->scanFiles($this->path, $this->item);
+		return $this;
+	}
 
-		foreach ($iterator as $entity)
+	private function scanFiles($path, $parent)
+	{
+		$finder = new Finder();
+		$finder->in($path);
+		$finder->files();
+		$finder->ignoreDotFiles(true);
+		$finder->depth(0);
+		$finder->sortByName();
+
+		$items = [];
+		$index = null;
+
+		foreach ($finder as $entity)
 		{
 			/* @var $entity SplFileInfo */
 			$name = $entity->getFilename();
@@ -114,11 +126,22 @@ class SiteWalker implements RendererAwareInterface, ProcessorAwareInterface
 			{
 				continue;
 			}
+
+			$isIndex = false;
+			if (preg_match('~^index\.~', basename($name)))
+			{
+				$isIndex = true;
+			}
+
+			$item = new RequestItem;
+
 			$path = $entity->getPathname();
 			$url = $this->relativePath . str_replace($this->path, '', $path);
-			if (preg_match('~^index\.~', basename($url)))
+			if ($isIndex)
 			{
 				$url = dirname($url) . '/';
+				$index = $item;
+				$this->scanFolders(dirname($path), $index);
 			}
 			$renderer = $this->staple->getRenderer($path);
 
@@ -130,12 +153,41 @@ class SiteWalker implements RendererAwareInterface, ProcessorAwareInterface
 
 			$data = (object) (new PreProcessor)->getData($this, $path, $entity->getBasename());
 
-			$item = new RequestItem;
 			$item->url = $url;
 			$item->title = !empty($data->title) ? $data->title : '* ' . ucfirst(basename($url));
-			$this->item->items[] = $item;
+			$parent->items[] = $item;
 		}
-		return $this;
+		return $index;
+	}
+
+	private function scanFolders($path, $parent)
+	{
+		$finder = new Finder();
+		$finder->in($path);
+		$finder->directories();
+		$finder->ignoreDotFiles(true);
+		$finder->depth(0);
+		$finder->sortByName();
+
+		foreach ($finder as $entity)
+		{
+			/* @var $entity SplFileInfo */
+			$name = $entity->getFilename();
+
+			// Skip items starting with underscore
+			if (preg_match('~^_~', $name))
+			{
+				continue;
+			}
+
+			// Skip items starting with dot
+			if (preg_match('~^\.~', $name))
+			{
+				continue;
+			}
+
+			$this->scanFiles($entity->getPathname(), $parent);
+		}
 	}
 
 	/**

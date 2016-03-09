@@ -19,6 +19,8 @@ use Maslosoft\Staple\Interfaces\RequestInterface;
 class HttpRequest implements RequestInterface
 {
 
+	private $handler = null;
+
 	public function dispatch(RequestAwareInterface $owner)
 	{
 		$urlPath = $this->getPath();
@@ -47,7 +49,14 @@ class HttpRequest implements RequestInterface
 				}
 			}
 		}
-		return (new RequestHandler)->handle($owner, $basePath, $path, $view);
+
+		$this->handler = new RequestHandler;
+		return $this->handler->handle($owner, $basePath, $path, $view);
+	}
+
+	public function getData()
+	{
+		return $this->handler ? $this->handler->getData() : [];
 	}
 
 	protected function getPath()

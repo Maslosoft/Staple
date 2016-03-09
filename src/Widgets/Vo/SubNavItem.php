@@ -18,8 +18,9 @@ use Maslosoft\Staple\Widgets\SubNav;
 class SubNavItem
 {
 
-	private $title = '';
-	private $url = '';
+	public $title = '';
+	public $url = '';
+	public $items = [];
 
 	public function __construct($url, $title, SubNav $nav)
 	{

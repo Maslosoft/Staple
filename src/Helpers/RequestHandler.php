@@ -22,17 +22,24 @@ use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 class RequestHandler
 {
 
+	private $data = [];
+
 	public function handle(ProcessorAwareInterface $owner, $basePath, $path, $view)
 	{
 
 		$preProcessor = new PreProcessor();
-		$data = $preProcessor->getData($owner, $path, $view);
-		$content = $owner->getRenderer($path)->render($view, $data);
-		$preProcessor->decorate($owner, $content, $data);
-		(new PostProcessor())->decorate($owner, $content, $data);
+		$this->data = $preProcessor->getData($owner, $path, $view);
+		$content = $owner->getRenderer($path)->render($view, $this->data);
+		$preProcessor->decorate($owner, $content, $this->data);
+		(new PostProcessor())->decorate($owner, $content, $this->data);
 
 
 		return $content;
+	}
+
+	public function getData()
+	{
+		return $this->data;
 	}
 
 }
