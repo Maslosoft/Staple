@@ -23,35 +23,21 @@ class HttpRequest implements RequestInterface
 
 	public function dispatch(RequestAwareInterface $owner)
 	{
-		$urlPath = $this->getPath();
-		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizeUrl($urlPath));
 		$path = null;
 		$view = null;
-		foreach ($owner->getExtensions() as $ext)
-		{
-			// Check for file
-			$path = $this->_getFilename($basePath, $ext);
-			$extRegexp = preg_quote($ext);
-			if (false !== $path)
-			{
-				$view = $this->_sanitizeUrl(preg_replace("~\.$extRegexp$~i", '', $urlPath));
-				break;
-			}
-
-			// Check for index if folder like url
-			if (is_dir($basePath))
-			{
-				$path = $this->_getFilename(sprintf('%s/index.%s', $basePath, $ext), $ext);
-				if (false !== $path && file_exists($path))
-				{
-					$view = $this->_sanitizeUrl(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~i", '', basename($path))));
-					break;
-				}
-			}
-		}
-
+		$urlPath = $this->getPath();
+		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizeUrl($urlPath));
+		$this->resolve($owner, $path, $view);
 		$this->handler = new RequestHandler;
 		return $this->handler->handle($owner, $basePath, $path, $view);
+	}
+
+	public function canHandle(RequestAwareInterface $owner)
+	{
+		$path = null;
+		$view = null;
+		$this->resolve($owner, $path, $view);
+		return $view || $path;
 	}
 
 	public function getData()
@@ -94,6 +80,36 @@ class HttpRequest implements RequestInterface
 			'~^/~' => ''
 		];
 		return preg_replace(array_keys($patterns), array_values($patterns), $urlPath);
+	}
+
+	private function resolve($owner, &$path, &$view)
+	{
+		$urlPath = $this->getPath();
+		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizeUrl($urlPath));
+		$path = null;
+		$view = null;
+		foreach ($owner->getExtensions() as $ext)
+		{
+			// Check for file
+			$path = $this->_getFilename($basePath, $ext);
+			$extRegexp = preg_quote($ext);
+			if (false !== $path)
+			{
+				$view = $this->_sanitizeUrl(preg_replace("~\.$extRegexp$~i", '', $urlPath));
+				break;
+			}
+
+			// Check for index if folder like url
+			if (is_dir($basePath))
+			{
+				$path = $this->_getFilename(sprintf('%s/index.%s', $basePath, $ext), $ext);
+				if (false !== $path && file_exists($path))
+				{
+					$view = $this->_sanitizeUrl(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~i", '', basename($path))));
+					break;
+				}
+			}
+		}
 	}
 
 }
