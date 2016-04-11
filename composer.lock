@@ -95,36 +95,22 @@
         },
         {
             "name": "bower-asset/jquery",
-            "version": "2.1.4",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery.git",
-                "reference": "7751e69b615c6eca6f783a81e292a55725af6b85"
+                "url": "https://github.com/jquery/jquery-dist.git",
+                "reference": "af22a351b2ea5801ffb1695abb3bb34d5bed9198"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jquery/jquery/zipball/7751e69b615c6eca6f783a81e292a55725af6b85",
-                "reference": "7751e69b615c6eca6f783a81e292a55725af6b85",
+                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/af22a351b2ea5801ffb1695abb3bb34d5bed9198",
+                "reference": "af22a351b2ea5801ffb1695abb3bb34d5bed9198",
                 "shasum": ""
-            },
-            "require-dev": {
-                "bower-asset/qunit": "1.14.0",
-                "bower-asset/requirejs": "2.1.10",
-                "bower-asset/sinon": "1.8.1",
-                "bower-asset/sizzle": "2.1.1-patch2"
             },
             "type": "bower-asset-library",
             "extra": {
                 "bower-asset-main": "dist/jquery.js",
                 "bower-asset-ignore": [
-                    "**/.*",
-                    "build",
-                    "dist/cdn",
-                    "speed",
-                    "test",
-                    "*.md",
-                    "AUTHORS.txt",
-                    "Gruntfile.js",
                     "package.json"
                 ]
             },
@@ -132,6 +118,7 @@
                 "MIT"
             ],
             "keywords": [
+                "browser",
                 "javascript",
                 "jquery",
                 "library"
@@ -139,16 +126,16 @@
         },
         {
             "name": "bower-asset/magnific-popup",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dimsemenov/Magnific-Popup.git",
-                "reference": "886f9bac171ee97eacabeff398a2b5150dac300a"
+                "reference": "6b7a8088783cbce01034414c1fd2d8e1889093ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dimsemenov/Magnific-Popup/zipball/886f9bac171ee97eacabeff398a2b5150dac300a",
-                "reference": "886f9bac171ee97eacabeff398a2b5150dac300a",
+                "url": "https://api.github.com/repos/dimsemenov/Magnific-Popup/zipball/6b7a8088783cbce01034414c1fd2d8e1889093ae",
+                "reference": "6b7a8088783cbce01034414c1fd2d8e1889093ae",
                 "shasum": ""
             },
             "require": {
@@ -170,17 +157,22 @@
         },
         {
             "name": "bower-asset/maslosoft-playlist",
-            "version": "1.0.2",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Playlist.git",
-                "reference": "2b540aace03657cc7d5310270c6edd3a3934141a"
+                "reference": "576fb17bca920558afc1b74eb9a4f62dfbc04cfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Playlist/zipball/2b540aace03657cc7d5310270c6edd3a3934141a",
-                "reference": "2b540aace03657cc7d5310270c6edd3a3934141a",
+                "url": "https://api.github.com/repos/Maslosoft/Playlist/zipball/576fb17bca920558afc1b74eb9a4f62dfbc04cfa",
+                "reference": "576fb17bca920558afc1b74eb9a4f62dfbc04cfa",
                 "shasum": ""
+            },
+            "require": {
+                "bower-asset/bootstrap": "~3",
+                "bower-asset/fontawesome": "~4",
+                "bower-asset/jquery": "~2"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -246,11 +238,11 @@
         },
         {
             "name": "fxp/composer-asset-plugin",
-            "version": "v1.1.2",
+            "version": "v1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/francoispluchino/composer-asset-plugin.git",
-                "reference": "bae7a15712e9339a2439aeca3b7c5ecf65b087d1",
+                "reference": "62d2cdc302de2534f3985a1a2f5d4a783de4a5eb",
                 "mirrors": [
                     {
                         "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
@@ -260,8 +252,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francoispluchino/composer-asset-plugin/zipball/bae7a15712e9339a2439aeca3b7c5ecf65b087d1",
-                "reference": "bae7a15712e9339a2439aeca3b7c5ecf65b087d1",
+                "url": "https://api.github.com/repos/francoispluchino/composer-asset-plugin/zipball/62d2cdc302de2534f3985a1a2f5d4a783de4a5eb",
+                "reference": "62d2cdc302de2534f3985a1a2f5d4a783de4a5eb",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -310,21 +302,33 @@
                 "npm",
                 "package"
             ],
-            "time": "2016-02-25 16:35:08"
+            "time": "2016-04-01 15:27:16"
         },
         {
             "name": "maslosoft/embedi",
-            "version": "1.0.12",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/EmbeDi.git",
-                "reference": "dda3b7ba533ccaa0fe368a89438c4d671d8af29f"
+                "reference": "eaa6c54035b4d356620c43d709dcdee08655aa25",
+                "mirrors": [
+                    {
+                        "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/dda3b7ba533ccaa0fe368a89438c4d671d8af29f",
-                "reference": "dda3b7ba533ccaa0fe368a89438c4d671d8af29f",
-                "shasum": ""
+                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/eaa6c54035b4d356620c43d709dcdee08655aa25",
+                "reference": "eaa6c54035b4d356620c43d709dcdee08655aa25",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "http://pkg.home/repo/packagist/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require-dev": {
                 "maslosoft/embeditest": "dev-master",
@@ -351,7 +355,7 @@
                 }
             ],
             "description": "Embedded DI container",
-            "time": "2015-09-10 08:51:23"
+            "time": "2016-03-15 19:29:57"
         },
         {
             "name": "maslosoft/miniview",
@@ -452,11 +456,11 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "623bda0abd9aa29e529c8e9c08b3b84171914723",
+                "reference": "c54e407b35bc098916704e9fd090da21da4c4f52",
                 "mirrors": [
                     {
                         "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
@@ -466,8 +470,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/623bda0abd9aa29e529c8e9c08b3b84171914723",
-                "reference": "623bda0abd9aa29e529c8e9c08b3b84171914723",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/c54e407b35bc098916704e9fd090da21da4c4f52",
+                "reference": "c54e407b35bc098916704e9fd090da21da4c4f52",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -509,15 +513,15 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-27 05:14:46"
+            "time": "2016-03-10 11:13:05"
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "b5ba64cd67ecd6887f63868fa781ca094bd1377c",
+                "reference": "0047c8366744a16de7516622c5b7355336afae96",
                 "mirrors": [
                     {
                         "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
@@ -527,8 +531,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/b5ba64cd67ecd6887f63868fa781ca094bd1377c",
-                "reference": "b5ba64cd67ecd6887f63868fa781ca094bd1377c",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/0047c8366744a16de7516622c5b7355336afae96",
+                "reference": "0047c8366744a16de7516622c5b7355336afae96",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -570,7 +574,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-23 15:16:06"
+            "time": "2016-03-04 07:55:57"
         }
     ],
     "packages-dev": [
@@ -929,11 +933,11 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "2ed5e2706ce92313d120b8fe50d1063bcfd12e04",
+                "reference": "6b1175135bc2a74c08a28d89761272de8beed8cd",
                 "mirrors": [
                     {
                         "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
@@ -943,8 +947,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/2ed5e2706ce92313d120b8fe50d1063bcfd12e04",
-                "reference": "2ed5e2706ce92313d120b8fe50d1063bcfd12e04",
+                "url": "https://api.github.com/repos/symfony/console/zipball/6b1175135bc2a74c08a28d89761272de8beed8cd",
+                "reference": "6b1175135bc2a74c08a28d89761272de8beed8cd",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -997,11 +1001,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-28 16:24:34"
+            "time": "2016-03-16 17:00:50"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
