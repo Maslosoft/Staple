@@ -21,6 +21,12 @@ class HttpRequest implements RequestInterface
 
 	private $handler = null;
 
+	/**
+	 * Request path
+	 * @var string
+	 */
+	private $path = null;
+
 	public function dispatch(RequestAwareInterface $owner)
 	{
 		$path = null;
@@ -45,9 +51,28 @@ class HttpRequest implements RequestInterface
 		return $this->handler ? $this->handler->getData() : [];
 	}
 
-	protected function getPath()
+	/**
+	 * Request path, will auto detect if not set.
+	 * @return string
+	 */
+	public function getPath()
 	{
-		return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		if (null === $this->path)
+		{
+			$this->path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		}
+		return $this->path;
+	}
+
+	/**
+	 * Set request path. If not set, it will take from $_SERVER vars
+	 * @param string $path
+	 * @return \Maslosoft\Staple\Request\HttpRequest
+	 */
+	public function setPath($path)
+	{
+		$this->path = $path;
+		return $this;
 	}
 
 	/**
