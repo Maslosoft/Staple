@@ -12,6 +12,7 @@ use Maslosoft\Staple\Interfaces\NavigableInterface;
 use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 use Maslosoft\Staple\Models\RequestItem;
+use Maslosoft\Staple\Request\HttpRequest;
 use Maslosoft\Staple\Staple;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -81,8 +82,14 @@ class SiteWalker implements RendererAwareInterface, ProcessorAwareInterface
 	 */
 	public function start($dir, $depth = -1)
 	{
+		$url = (new HttpRequest())->getPath();
 		$this->path = realpath($this->path . DIRECTORY_SEPARATOR . trim($dir, '/\\'));
-		$this->relativePath = str_replace($this->basePath, '', $this->path);
+
+		$urlParts = preg_split('~/~', trim($url, '/'));
+		$pathParts = preg_split('~/~', trim($this->path, '/'));
+		$relativeUrl = '/' . implode('/', array_intersect($pathParts, $urlParts));
+
+		$this->relativePath = $relativeUrl;
 		$this->depth = (int) $depth;
 		if ($this->depth === 0)
 		{
@@ -106,6 +113,7 @@ class SiteWalker implements RendererAwareInterface, ProcessorAwareInterface
 		$finder->ignoreDotFiles(true);
 		$finder->depth(0);
 		$finder->sortByName();
+		$finder->followLinks();
 
 		$items = [];
 		$index = null;
