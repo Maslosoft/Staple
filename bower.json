@@ -6,7 +6,7 @@
   ],
   "description": "Static Page Lightweight Enchancer",
   "main": "",
-  "license": "MIT",
+  "license": "AGPL/Commercial",
   "ignore": [
     "**/.*",
     "node_modules",

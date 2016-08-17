@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This software package is licensed under `AGLP, Commercial` license[s].
+ * This software package is licensed under AGPL or Commercial license.
  *
  * @package maslosoft/staple
- * @license AGLP, Commercial
- *
- * @copyright Copyright (c) Peter Maselkowski <pmaselkowski@gmail.com>
- *
+ * @licence AGPL or Commercial
+ * @copyright Copyright (c) Piotr Masełkowski <pmaselkowski@gmail.com>
+ * @copyright Copyright (c) Maslosoft
+ * @link http://maslosoft.com/staple/
  */
 
 namespace Maslosoft\Staple\Widgets;
