@@ -46,6 +46,14 @@ class HttpRequest implements RequestInterface
 		return $view || $path;
 	}
 
+	public function getFileName(RequestAwareInterface $owner)
+	{
+		$path = null;
+		$view = null;
+		$this->resolve($owner, $path, $view);
+		return $path;
+	}
+
 	public function getData()
 	{
 		return $this->handler ? $this->handler->getData() : [];
