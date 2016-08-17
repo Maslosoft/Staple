@@ -1,0 +1,26 @@
+{
+  "name": "staple",
+  "homepage": "http://maslosoft.com/staple/",
+  "authors": [
+    "Peter Maselkowski <pmaselkowski@gmail.com>"
+  ],
+  "description": "Static Page Lightweight Enchancer",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+	"bootstrap": "~3",
+	"jquery": "~2",
+	"fontawesome": "~4",
+	"maslosoft-playlist": "*",
+	"magnific-popup": "*",
+	"awe-share":"*",
+	"sticky-kit": "~1"
+  }
+}

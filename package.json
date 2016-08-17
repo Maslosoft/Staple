@@ -1,0 +1,16 @@
+{
+  "description": "Static Page Lightweight Enchancer",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Maslosoft/Staple.git"
+  },
+  "license": "Proprietary",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-concat-css": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-cssmin": "*"
+  }
+}
