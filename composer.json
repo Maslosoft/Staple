@@ -3,15 +3,9 @@
 	"description": "Static Page Lightweight Enchancer",
 	"require": {
 		"maslosoft/miniview": "*",
-		"fxp/composer-asset-plugin": "*",
 		"maslosoft/embedi": "*",
 		"erusev/parsedown": "^1",
-		"bower-asset/bootstrap": "~3",
-		"bower-asset/jquery": "~2",
-		"bower-asset/fontawesome": "~4",
 		"masterexploder/phpthumb": "~2",
-		"bower-asset/maslosoft-playlist": "*",
-		"bower-asset/magnific-popup": "*",
 		"symfony/yaml": "~3",
 		"symfony/finder": "~3"
 	},
