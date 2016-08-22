@@ -3,6 +3,7 @@
 	"description": "Static Page Lightweight Enchancer",
 	"homepage": "http://maslosoft.com/staple/",
 	"require": {
+		"maslosoft/addendum": "*",
 		"maslosoft/miniview": "*",
 		"maslosoft/embedi": "*",
 		"erusev/parsedown": "^1",

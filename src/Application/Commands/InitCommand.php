@@ -12,6 +12,7 @@
 
 namespace Maslosoft\Staple\Application\Commands;
 
+use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Sitcom\Command;
 use Maslosoft\Staple\Helpers\Init;
 use Symfony\Component\Console\Command\Command as ConsoleCommand;
@@ -23,7 +24,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class InitCommand extends ConsoleCommand
+class InitCommand extends ConsoleCommand implements AnnotatedInterface
 {
 
 	protected function configure()
