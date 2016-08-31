@@ -15,7 +15,9 @@ namespace Maslosoft\Staple\Widgets;
 use Maslosoft\EmbeDi\EmbeDi;
 use Maslosoft\MiniView\MiniView;
 use Maslosoft\Staple\Helpers\SiteWalker;
+use Maslosoft\Staple\Models\RequestItem;
 use Maslosoft\Staple\Widgets\Vo\SubNavItem;
+use Maslosoft\Staple\Widgets\Vo\SubNavSeparator;
 
 /**
  * SubNavRecursive
@@ -26,6 +28,12 @@ class SubNavRecursive extends SubNav
 {
 
 	public $items = [];
+
+	/**
+	 * How many level from top to skip
+	 * @var int
+	 */
+	public $skipLevel = 0;
 
 	/**
 	 * Root path
@@ -63,17 +71,64 @@ class SubNavRecursive extends SubNav
 		$this->mv = new MiniView($this);
 	}
 
+	/**
+	 * Get view instance
+	 * Used by items
+	 * @return MiniView
+	 */
+	public function getView()
+	{
+		return $this->mv;
+	}
+
 	public function getItems()
 	{
 		$w = new SiteWalker($this->root);
 		$w->start($this->path)->scan();
 
 		$items = [];
-		foreach ($this->items as $url => $title)
+		if (!empty($this->items))
 		{
-			$items[] = new SubNavItem($url, $title, $this);
+			foreach ($this->items as $url => $title)
+			{
+				if ($title === '--')
+				{
+					$items[] = new SubNavSeparator();
+				}
+				else
+				{
+					$items[] = new SubNavItem($url, $title, $this);
+				}
+			}
 		}
-		return array_merge($items, $w->get()->items);
+		$rootItem = $w->get();
+		if ($this->skipLevel > 0)
+		{
+			for ($i = -1; $i < $this->skipLevel; $i++)
+			{
+				$walkerItems = $rootItem->items;
+				$rootItem = $walkerItems[0];
+			}
+		}
+		else
+		{
+			$walkerItems = $rootItem->items;
+		}
+
+		return array_merge($items, $this->convertItems($walkerItems));
+	}
+
+	private function convertItems($walkerItems)
+	{
+		$items = [];
+		foreach ($walkerItems as $requestItem)
+		{
+			/* @var $requestItem RequestItem */
+			$item = new SubNavItem($requestItem->url, $requestItem->title, $this);
+			$item->items = $this->convertItems($requestItem->items);
+			$items[] = $item;
+		}
+		return $items;
 	}
 
 	public function __toString()

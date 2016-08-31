@@ -13,7 +13,7 @@ use Maslosoft\Staple\Models\RequestItem;
 	<?php if (!empty($item->items)): ?>
 		<ul>
 			<?php foreach ($item->items as $sub): ?>
-				<?= $this->mv->render('sub-nav-recursive/item', ['item' => $sub], true) ?>
+				<?= $sub; ?>
 			<?php endforeach; ?>
 		</ul>
 	<?php endif; ?>

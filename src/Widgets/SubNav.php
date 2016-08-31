@@ -49,6 +49,16 @@ class SubNav
 		$this->mv = new MiniView($this);
 	}
 
+	/**
+	 * Get view instance
+	 * Used by items
+	 * @return MiniView
+	 */
+	public function getView()
+	{
+		return $this->mv;
+	}
+
 	public function getItems()
 	{
 		foreach ($this->items as $url => $title)

@@ -12,7 +12,7 @@ use Maslosoft\Staple\Widgets\Vo\SubNavItem;
 <nav class="sub-nav">
 	<ul>
 		<?php foreach ($this->getItems() as $item): ?>
-			<?= $this->mv->render('sub-nav-recursive/item', ['item' => $item], true) ?>
+			<?= $item; ?>
 		<?php endforeach; ?>
 	</ul>
 </nav>

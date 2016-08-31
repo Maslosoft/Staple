@@ -13,6 +13,7 @@
 namespace Maslosoft\Staple\Widgets\Vo;
 
 use Maslosoft\Staple\Widgets\SubNav;
+use Maslosoft\Staple\Widgets\SubNavRecursive;
 
 /**
  * SubNavItem
@@ -26,8 +27,15 @@ class SubNavItem
 	public $url = '';
 	public $items = [];
 
+	/**
+	 *
+	 * @var SubNav
+	 */
+	private $owner = null;
+
 	public function __construct($url, $title, SubNav $nav)
 	{
+		$this->owner = $nav;
 		$this->url = $url;
 		$this->title = $title;
 	}
@@ -40,6 +48,11 @@ class SubNavItem
 	public function getUrl()
 	{
 		return $this->url;
+	}
+
+	public function __toString()
+	{
+		return $this->owner->getView()->render('sub-nav-recursive/item', ['item' => $this], true);
 	}
 
 }
