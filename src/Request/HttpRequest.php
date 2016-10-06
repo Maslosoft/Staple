@@ -27,6 +27,44 @@ class HttpRequest implements RequestInterface
 	 */
 	private $path = null;
 
+	/**
+	 * Return true if is secure connection
+	 * @return bool
+	 */
+	public function isSecure()
+	{
+		return isset($_SERVER['HTTPS']) && (strcasecmp($_SERVER['HTTPS'], 'on') === 0 || $_SERVER['HTTPS'] == 1) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') === 0;
+	}
+
+	/**
+	 * Get current website host name
+	 * @return boolean|string
+	 */
+	public function getHost()
+	{
+		if (isset($_SERVER['HTTP_HOST']))
+		{
+			return $_SERVER['HTTP_HOST'];
+		}
+		if (isset($_SERVER['SERVER_NAME']))
+		{
+			return $_SERVER['SERVER_NAME'];
+		}
+		return false;
+	}
+
+	/**
+	 * Enforce secure connection
+	 */
+	public function forceSecure()
+	{
+		if (!$this->isSecure())
+		{
+			$url = sprintf('https://%s%s', $this->getHost(), $_SERVER['REQUEST_URI']);
+			header("Location: $url", true, 301);
+		}
+	}
+
 	public function dispatch(RequestAwareInterface $owner)
 	{
 		$path = null;
