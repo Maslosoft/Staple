@@ -13,6 +13,7 @@
 namespace Maslosoft\Staple;
 
 use Maslosoft\EmbeDi\EmbeDi;
+use Maslosoft\EmbeDi\Traits\FlyTrait;
 use Maslosoft\Staple\Interfaces\PostProcessorInterface;
 use Maslosoft\Staple\Interfaces\PreProcessorInterface;
 use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
@@ -38,7 +39,7 @@ use Maslosoft\Staple\Renderers\ThumbRenderer;
 class Staple implements RequestAwareInterface
 {
 
-	use \Maslosoft\EmbeDi\Traits\FlyTrait;
+	use FlyTrait;
 
 	const DefaultInstanceId = '.';
 	const BootstrapName = '_bootstrap.php';
@@ -76,7 +77,9 @@ class Staple implements RequestAwareInterface
 	 */
 	public $renderers = [
 		'php' => PhpRenderer::class,
+		'mkd.php' => PhpMdRenderer::class,
 		'md.php' => PhpMdRenderer::class,
+		'mkd' => MdRenderer::class,
 		'md' => MdRenderer::class,
 		'html' => HtmlRenderer::class,
 		'thumb.jpg' => ThumbRenderer::class,
