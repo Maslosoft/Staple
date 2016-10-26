@@ -48,6 +48,12 @@ module.exports = (grunt) ->
 			cwd: "#{bowerPath}/bootstrap/fonts/"
 			src: "*"
 			dest: "#{distPath}/fonts"
+		aweshare:
+			expand:true
+			nonull: true
+			cwd: "#{bowerPath}/awe-share/dist/lang/"
+			src: "*"
+			dest: "#{distPath}/js/awe-share"
 	}
 
 
