@@ -30,6 +30,7 @@ module.exports = (grunt) ->
 	css = [
 		"#{bowerPath}/bootstrap/dist/css/bootstrap.min.css"
 		"#{bowerPath}/bootstrap/dist/css/bootstrap-theme.min.css"
+		"#{bowerPath}/magnific-popup/dist/magnific-popup.css"
 		"#{bowerPath}/font-awesome/css/font-awesome.min.css"
 		"#{bowerPath}/maslosoft-playlist/dist/playlist.css"
 		"#{bowerPath}/awe-share/dist/awe-share.min.css"
