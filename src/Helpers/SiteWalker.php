@@ -102,6 +102,10 @@ class SiteWalker implements RendererAwareInterface, ProcessorAwareInterface
 		return $this;
 	}
 
+	/**
+	 *
+	 * @return static
+	 */
 	public function scan()
 	{
 		$this->item->url = '/';
