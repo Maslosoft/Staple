@@ -107,6 +107,10 @@ class SubNavRecursive extends SubNav
 			for ($i = -1; $i < $this->skipLevel; $i++)
 			{
 				$walkerItems = $rootItem->items;
+				if(!isset($walkerItems[0]))
+				{
+					continue;
+				}
 				$rootItem = $walkerItems[0];
 			}
 		}
