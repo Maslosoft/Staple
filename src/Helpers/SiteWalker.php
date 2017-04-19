@@ -27,7 +27,8 @@ use UnexpectedValueException;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class SiteWalker implements RendererAwareInterface, ProcessorAwareInterface
+class SiteWalker implements RendererAwareInterface,
+		ProcessorAwareInterface
 {
 
 	/**
@@ -74,6 +75,10 @@ class SiteWalker implements RendererAwareInterface, ProcessorAwareInterface
 			$path = $this->staple->getContentPath(true);
 		}
 		$this->path = realpath(rtrim($path, '/\\'));
+		if (empty($this->path))
+		{
+			throw new UnexpectedValueException("Path `$path` does not exists");
+		}
 		$this->basePath = $this->path;
 		$this->item = new RequestItem;
 	}

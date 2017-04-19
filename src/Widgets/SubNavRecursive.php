@@ -27,6 +27,8 @@ use Maslosoft\Staple\Widgets\Vo\SubNavSeparator;
 class SubNavRecursive extends SubNav
 {
 
+	public $baseUrl = '';
+	public $urlSuffix = '';
 	public $items = [];
 
 	/**
@@ -176,7 +178,7 @@ class SubNavRecursive extends SubNav
 		foreach ($walkerItems as $requestItem)
 		{
 			/* @var $requestItem RequestItem */
-			$item = new SubNavItem($requestItem->url, $requestItem->title, $this);
+			$item = new SubNavItem($this->baseUrl . $requestItem->url . $this->urlSuffix, $requestItem->title, $this);
 			$item->items = $this->convertItems($requestItem->items);
 			$items[] = $item;
 		}
