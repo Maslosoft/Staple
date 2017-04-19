@@ -107,7 +107,7 @@ class SubNavRecursive extends SubNav
 			for ($i = -1; $i < $this->skipLevel; $i++)
 			{
 				$walkerItems = $rootItem->items;
-				if(!isset($walkerItems[0]))
+				if (!isset($walkerItems[0]))
 				{
 					continue;
 				}
@@ -119,7 +119,53 @@ class SubNavRecursive extends SubNav
 			$walkerItems = $rootItem->items;
 		}
 
-		return array_merge($items, $this->convertItems($walkerItems));
+		$allItems = array_merge($items, $this->convertItems($walkerItems));
+
+		return $this->sort($allItems);
+	}
+
+	private function sort($items)
+	{
+		if (empty($items))
+		{
+			return $items;
+		}
+		$sorted = [];
+		$groups = [];
+		$groupId = 0;
+		$groups[$groupId] = [];
+		foreach ($items as $item)
+		{
+			if ($item instanceof SubNavSeparator)
+			{
+				$groupId++;
+				$groups[$groupId] = [];
+				continue;
+			}
+			$item->items = $this->sort($item->items);
+			$groups[$groupId][] = $item;
+		}
+		$lastId = count($groups) - 1;
+		foreach ($groups as $id => $group)
+		{
+			usort($group, [$this, 'sortGroup']);
+
+			// Do not add separator to the last group
+			$sep = [];
+			if ($id !== $lastId)
+			{
+				$sep = [
+					new SubNavSeparator()
+				];
+			}
+			$sorted = array_merge($sorted, $group, $sep);
+		}
+		return $sorted;
+	}
+
+	public function sortGroup($one, $two)
+	{
+		return $one->title > $two->title;
 	}
 
 	private function convertItems($walkerItems)
