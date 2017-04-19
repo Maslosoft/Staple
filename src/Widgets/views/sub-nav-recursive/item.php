@@ -8,7 +8,7 @@ use Maslosoft\Staple\Models\RequestItem;
 /* @var $item RequestItem */
 ?>
 
-<li>
+<li style="<?= $item->style; ?>">
 	<a href="<?= $item->url; ?>"><?= $item->title; ?></a>
 	<?php if (!empty($item->items)): ?>
 		<ul>

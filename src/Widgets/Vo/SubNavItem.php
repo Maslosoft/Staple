@@ -26,6 +26,7 @@ class SubNavItem
 	public $title = '';
 	public $url = '';
 	public $items = [];
+	public $style = '';
 
 	/**
 	 *
@@ -37,6 +38,12 @@ class SubNavItem
 	{
 		$this->owner = $nav;
 		$this->url = $url;
+		$pattern = "~^\s*\d+\.\s*~";
+		if (preg_match($pattern, $title))
+		{
+			$this->style .= 'list-style-type: decimal;';
+			$title = preg_replace($pattern, '', $title);
+		}
 		$this->title = $title;
 	}
 
