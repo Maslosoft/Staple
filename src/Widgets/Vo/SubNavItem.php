@@ -38,18 +38,17 @@ class SubNavItem
 	{
 		$this->owner = $nav;
 		$this->url = $url;
-		$pattern = "~^\s*\d+\.\s*~";
-		if (preg_match($pattern, $title))
+		$this->pattern = "~^\s*\d+\.\s*~";
+		if (preg_match($this->pattern, $title))
 		{
 			$this->style .= 'list-style-type: decimal;';
-			$title = preg_replace($pattern, '', $title);
 		}
 		$this->title = $title;
 	}
 
 	public function getTitle()
 	{
-		return $this->title;
+		return preg_replace($this->pattern, '', $this->title);
 	}
 
 	public function getUrl()

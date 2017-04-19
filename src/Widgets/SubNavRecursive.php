@@ -119,9 +119,11 @@ class SubNavRecursive extends SubNav
 			$walkerItems = $rootItem->items;
 		}
 
-		$allItems = array_merge($items, $this->convertItems($walkerItems));
+		$walkerItems = $this->convertItems($walkerItems);
+		$walkerItems = $this->sort($walkerItems);
+		$allItems = array_merge($items, $walkerItems);
 
-		return $this->sort($allItems);
+		return $allItems;
 	}
 
 	private function sort($items)
@@ -165,7 +167,7 @@ class SubNavRecursive extends SubNav
 
 	public function sortGroup($one, $two)
 	{
-		return $one->title > $two->title;
+		return strcmp($one->title, $two->title);
 	}
 
 	private function convertItems($walkerItems)
