@@ -22,6 +22,13 @@ use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 class PreProcessor
 {
 
+	/**
+	 *
+	 * @param ProcessorAwareInterface $owner
+	 * @param string $path Full file system path to view
+	 * @param string $view View file name
+	 * @return mixed
+	 */
 	public function getData(ProcessorAwareInterface $owner, $path, $view)
 	{
 		$data = [];
