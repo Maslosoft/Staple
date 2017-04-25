@@ -27,61 +27,14 @@ use UnexpectedValueException;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class SiteWalker implements RendererAwareInterface,
-		ProcessorAwareInterface
+class SiteWalker extends AbstractWalker
 {
-
-	/**
-	 * Scanning path
-	 * @var string
-	 */
-	private $path = '';
-
-	/**
-	 * Base path, as set in constructor
-	 * @var string
-	 */
-	private $basePath = '';
-
-	/**
-	 * Path relative to base path
-	 * @var string
-	 */
-	private $relativePath = '';
 
 	/**
 	 * Scanning depth
 	 * @var int
 	 */
 	private $depth = -1;
-
-	/**
-	 * Staple instance
-	 * @var Staple
-	 */
-	private $staple = null;
-
-	/**
-	 * Root item instance
-	 * @var RequestItem
-	 */
-	private $item = null;
-
-	public function __construct($path = '')
-	{
-		$this->staple = Staple::fly();
-		if (empty($path))
-		{
-			$path = $this->staple->getContentPath(true);
-		}
-		$this->path = realpath(rtrim($path, '/\\'));
-		if (empty($this->path))
-		{
-			throw new UnexpectedValueException("Path `$path` does not exists");
-		}
-		$this->basePath = $this->path;
-		$this->item = new RequestItem;
-	}
 
 	/**
 	 * Starting dir, relative to base website path
@@ -218,41 +171,6 @@ class SiteWalker implements RendererAwareInterface,
 	public function get()
 	{
 		return $this->item;
-	}
-
-	public function getContentPath()
-	{
-		return $this->path;
-	}
-
-	public function getLayoutPath()
-	{
-		return $this->staple->getLayoutPath();
-	}
-
-	public function getPostProcessors()
-	{
-		return $this->staple->getPostProcessors();
-	}
-
-	public function getPreProcessors()
-	{
-		return $this->staple->getPreProcessors();
-	}
-
-	public function getRenderer($filename)
-	{
-		return $this->staple->getRenderer($filename);
-	}
-
-	public function getRootPath()
-	{
-		return $this->path;
-	}
-
-	public function setLayoutPath($layoutPath)
-	{
-		$this->staple->setLayoutPath($layoutPath);
 	}
 
 }
