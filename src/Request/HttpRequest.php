@@ -113,7 +113,7 @@ class HttpRequest implements RequestInterface
 	/**
 	 * Set request path. If not set, it will take from $_SERVER vars
 	 * @param string $path
-	 * @return \Maslosoft\Staple\Request\HttpRequest
+	 * @return static
 	 */
 	public function setPath($path)
 	{
@@ -177,7 +177,7 @@ class HttpRequest implements RequestInterface
 				if (false !== $path && file_exists($path))
 				{
 					$view = $this->_sanitizeUrl(sprintf('%s/%s', $urlPath, preg_replace("~\.$extRegexp$~i", '', basename($path))));
-					break;
+					return;
 				}
 			}
 		}
