@@ -27,7 +27,18 @@ class RootWalker extends AbstractWalker implements RequestAwareInterface
 
 			if (isset($data->title))
 			{
-				$sanitizedUrl = rtrim($url, '/') . '/';
+				$fileBaseName = basename($filePath);
+				$urlBaseName = basename($url);
+				if($fileBaseName === $urlBaseName)
+				{
+					$suffix = '';
+				}
+				else
+				{
+					$suffix = '/';
+				}
+
+				$sanitizedUrl = rtrim($url, '/') . $suffix;
 				$items[$sanitizedUrl] = $data->title;
 			}
 			$url = dirname($url);
