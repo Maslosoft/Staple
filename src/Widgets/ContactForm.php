@@ -70,9 +70,13 @@ class ContactForm
 		// Setup view
 		$this->mv = new MiniView($this);
 
-//		var_dump($_POST);
 		if (!empty($_POST['ContactForm']))
 		{
+			if(!empty($_POST['email']))
+			{
+				$this->success = true;
+				return;
+			}
 			$data = (object) $_POST['ContactForm'];
 			if (!isset($data->name))
 			{
