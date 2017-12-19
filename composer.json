@@ -1,15 +1,15 @@
 {
 	"name": "maslosoft/staple",
 	"description": "Static Page Lightweight Enchancer",
-	"homepage": "http://maslosoft.com/staple/",
+	"homepage": "https://maslosoft.com/staple/",
 	"require": {
 		"maslosoft/addendum": "*",
 		"maslosoft/miniview": "*",
 		"maslosoft/embedi": "*",
 		"erusev/parsedown": "^1",
-		"masterexploder/phpthumb": "~2",
-		"symfony/yaml": "~3",
-		"symfony/finder": "~3"
+		"masterexploder/phpthumb": "^2",
+		"symfony/yaml": ">=2.7 <5.0",
+		"symfony/finder": ">=2.7 <5.0"
 	},
 	"bin": [
 		"staple"
@@ -29,7 +29,8 @@
 	"authors": [
 		{
 			"name": "Peter Maselkowski",
-			"email": "pmaselkowski@gmail.com"
+			"email": "pmaselkowski@gmail.com",
+			"homepage": "https://maslosoft.com"
 		}
 	]
 }
