@@ -7,7 +7,7 @@
  * @licence AGPL or Commercial
  * @copyright Copyright (c) Piotr Masełkowski <pmaselkowski@gmail.com>
  * @copyright Copyright (c) Maslosoft
- * @link http://maslosoft.com/staple/
+ * @link https://maslosoft.com/staple/
  */
 
 namespace Maslosoft\Staple;

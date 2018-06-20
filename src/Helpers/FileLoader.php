@@ -1,9 +1,13 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: peter
- * Date: 20.06.18
- * Time: 18:02
+ * This software package is licensed under AGPL or Commercial license.
+ *
+ * @package maslosoft/staple
+ * @licence AGPL or Commercial
+ * @copyright Copyright (c) Piotr Masełkowski <pmaselkowski@gmail.com>
+ * @copyright Copyright (c) Maslosoft
+ * @link https://maslosoft.com/staple/
  */
 
 namespace Maslosoft\Staple\Helpers;
