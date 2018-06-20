@@ -12,6 +12,7 @@
 
 namespace Maslosoft\Staple\Renderers;
 
+use Maslosoft\Staple\Helpers\FileLoader;
 use Maslosoft\Staple\Interfaces\NavigableInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Parsedown;
@@ -33,7 +34,7 @@ class MdRenderer extends AbstractRenderer implements RendererInterface, Navigabl
 	public function render($view = 'index', $data = [])
 	{
 		$path = sprintf('%s/%s/%s.%s', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $view, $this->extension);
-		$text = file_get_contents($path);
+		$text = FileLoader::load($path);
 		return (new Parsedown)->text($text);
 	}
 

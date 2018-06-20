@@ -41,6 +41,8 @@ class Gallery
 	const DefaultThumbHeight = 237;
 	const DefaultThumbCss = 'img-thumbnail img-margins img-responsive';
 
+	public static $ogTags = '';
+
 	/**
 	 * Path relative to application root
 	 * @var string
@@ -113,7 +115,9 @@ class Gallery
 			$ext = strtolower($file->getExtension());
 			if (in_array($ext, ['jpg', 'gif', 'png']))
 			{
-				$files[$file->getFilename()] = new GalleryFile($file, $this);
+				$galleryFile = new GalleryFile($file, $this);
+				self::$ogTags .= sprintf('<meta property="og:image" content="http://dredy.pl%s"></meta>', $galleryFile->getUrl());
+				$files[$file->getFilename()] = $galleryFile;
 			}
 		}
 		ksort($files);

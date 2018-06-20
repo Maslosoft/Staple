@@ -12,6 +12,7 @@
 
 namespace Maslosoft\Staple\Renderers;
 
+use Maslosoft\Staple\Helpers\FileLoader;
 use Maslosoft\Staple\Interfaces\NavigableInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 
@@ -24,14 +25,16 @@ class HtmlRenderer extends AbstractRenderer implements RendererInterface, Naviga
 {
 
 	/**
-	 * HTML file extension used in temlates
+	 * HTML file extension used in templates
 	 * @var string
 	 */
 	public $extension = 'html';
 
 	public function render($view = 'index', $data = [])
 	{
-		return file_get_contents(sprintf('%s/%s/%s.%s', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $view, $this->extension));
+		$path = sprintf('%s/%s/%s.%s', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $view, $this->extension);
+
+		return FileLoader::load($path);
 	}
 
 }

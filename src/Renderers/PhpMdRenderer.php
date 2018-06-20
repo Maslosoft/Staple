@@ -13,6 +13,7 @@
 namespace Maslosoft\Staple\Renderers;
 
 use Maslosoft\MiniView\MiniView;
+use Maslosoft\Staple\Helpers\FileLoader;
 use Maslosoft\Staple\Interfaces\NavigableInterface;
 use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
@@ -32,6 +33,7 @@ class PhpMdRenderer extends AbstractRenderer implements RendererInterface, Rende
 	{
 		$mv = new MiniView($this);
 		$fileName = sprintf('%s/%s/%s.%s', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $view, $this->extension);
+		FileLoader::load($fileName);
 		$content = $mv->renderFile($fileName, $data, true);
 		return (new Parsedown)->text($content);
 	}
