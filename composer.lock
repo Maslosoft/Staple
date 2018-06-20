@@ -8,19 +8,20 @@
     "packages": [
         {
             "name": "erusev/parsedown",
-            "version": "1.6.4",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "fbe3fe878f4fe69048bb8a52783a09802004f548"
+                "reference": "92e9c27ba0e74b8b028b111d1b6f956a15c01fc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/fbe3fe878f4fe69048bb8a52783a09802004f548",
-                "reference": "fbe3fe878f4fe69048bb8a52783a09802004f548",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/92e9c27ba0e74b8b028b111d1b6f956a15c01fc1",
+                "reference": "92e9c27ba0e74b8b028b111d1b6f956a15c01fc1",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
@@ -49,20 +50,20 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2017-11-14T20:44:03+00:00"
+            "time": "2018-03-08T01:11:30+00:00"
         },
         {
             "name": "maslosoft/addendum",
-            "version": "5.0.15",
+            "version": "5.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Addendum.git",
-                "reference": "60fc22824ded3f0fd06b7c3531a9a12a92fa2d45"
+                "reference": "702c50b463681db7973096e9219a7caa36350e18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Addendum/zipball/60fc22824ded3f0fd06b7c3531a9a12a92fa2d45",
-                "reference": "60fc22824ded3f0fd06b7c3531a9a12a92fa2d45",
+                "url": "https://api.github.com/repos/Maslosoft/Addendum/zipball/702c50b463681db7973096e9219a7caa36350e18",
+                "reference": "702c50b463681db7973096e9219a7caa36350e18",
                 "shasum": ""
             },
             "require": {
@@ -76,8 +77,9 @@
             },
             "require-dev": {
                 "codeception/codeception": "*",
-                "codeception/specify": "0.4.*",
-                "maslosoft/hedron": "*"
+                "codeception/specify": "^0",
+                "maslosoft/hedron": "*",
+                "maslosoft/zamm": "*"
             },
             "suggest": {
                 "monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services"
@@ -90,26 +92,27 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "AGPL",
-                "Commercial"
+                "AGPL-3.0-only",
+                "proprietary"
             ],
             "authors": [
                 {
                     "name": "Peter Maselkowski",
-                    "email": "pmaselkowski@gmail.com",
-                    "homepage": "http://maslosoft.com",
+                    "email": "peter@maslosoft.com",
+                    "homepage": "https://maslosoft.com",
                     "role": "Developer"
                 }
             ],
-            "description": "Easy to use php annotations",
+            "description": "Powerful and easy to use PHP annotations",
             "homepage": "https://maslosoft.com/addendum/",
             "keywords": [
                 "addendum",
                 "annotation",
                 "annotations",
-                "metadata"
+                "metadata",
+                "php"
             ],
-            "time": "2017-12-19T11:39:13+00:00"
+            "time": "2018-02-01T15:26:17+00:00"
         },
         {
             "name": "maslosoft/cache",
@@ -155,16 +158,16 @@
         },
         {
             "name": "maslosoft/cli-shared",
-            "version": "0.0.20",
+            "version": "0.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/CLIShared.git",
-                "reference": "88b9a89eb551537c2123784d4bac5364dff8ec57"
+                "reference": "b62490b85013a07393454af2bdefdcbdbce3d6ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/CLIShared/zipball/88b9a89eb551537c2123784d4bac5364dff8ec57",
-                "reference": "88b9a89eb551537c2123784d4bac5364dff8ec57",
+                "url": "https://api.github.com/repos/Maslosoft/CLIShared/zipball/b62490b85013a07393454af2bdefdcbdbce3d6ce",
+                "reference": "b62490b85013a07393454af2bdefdcbdbce3d6ce",
                 "shasum": ""
             },
             "require": {
@@ -183,8 +186,8 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "AGPL",
-                "Commercial"
+                "AGPL-3.0-only",
+                "proprietary"
             ],
             "authors": [
                 {
@@ -193,7 +196,13 @@
                 }
             ],
             "description": "Shared CLI application components",
-            "time": "2017-12-19T10:35:15+00:00"
+            "keywords": [
+                "cli",
+                "command-line",
+                "helpers",
+                "php"
+            ],
+            "time": "2018-02-13T13:02:13+00:00"
         },
         {
             "name": "maslosoft/embedi",
@@ -325,16 +334,16 @@
         },
         {
             "name": "maslosoft/signals",
-            "version": "2.0.16",
+            "version": "2.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Signals.git",
-                "reference": "6f7dec70156a964789648184834e01eff7a07054"
+                "reference": "ce4a722003313857c52001fa9b9b38faf792585b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Signals/zipball/6f7dec70156a964789648184834e01eff7a07054",
-                "reference": "6f7dec70156a964789648184834e01eff7a07054",
+                "url": "https://api.github.com/repos/Maslosoft/Signals/zipball/ce4a722003313857c52001fa9b9b38faf792585b",
+                "reference": "ce4a722003313857c52001fa9b9b38faf792585b",
                 "shasum": ""
             },
             "require": {
@@ -363,8 +372,8 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "AGPL",
-                "Commercial"
+                "AGPL-3.0-only",
+                "proprietary"
             ],
             "authors": [
                 {
@@ -384,7 +393,7 @@
                 "slot",
                 "slots"
             ],
-            "time": "2017-12-19T11:36:39+00:00"
+            "time": "2018-03-29T14:40:19+00:00"
         },
         {
             "name": "masterexploder/phpthumb",
@@ -482,16 +491,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.0.2",
+            "version": "v4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "de8cf039eacdec59d83f7def67e3b8ff5ed46714"
+                "reference": "2d5d973bf9933d46802b01010bd25c800c87c242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/de8cf039eacdec59d83f7def67e3b8ff5ed46714",
-                "reference": "de8cf039eacdec59d83f7def67e3b8ff5ed46714",
+                "url": "https://api.github.com/repos/symfony/console/zipball/2d5d973bf9933d46802b01010bd25c800c87c242",
+                "reference": "2d5d973bf9933d46802b01010bd25c800c87c242",
                 "shasum": ""
             },
             "require": {
@@ -511,7 +520,7 @@
                 "symfony/process": "~3.4|~4.0"
             },
             "suggest": {
-                "psr/log": "For using the console logger",
+                "psr/log-implementation": "For using the console logger",
                 "symfony/event-dispatcher": "",
                 "symfony/lock": "",
                 "symfony/process": ""
@@ -519,7 +528,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -546,20 +555,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-12-14T19:48:22+00:00"
+            "time": "2018-05-30T07:26:09+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v4.0.2",
+            "version": "v4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "c9cdda4dc4a3182d8d6daeebce4a25fef078ea4c"
+                "reference": "087e2ee0d74464a4c6baac4e90417db7477dc238"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/c9cdda4dc4a3182d8d6daeebce4a25fef078ea4c",
-                "reference": "c9cdda4dc4a3182d8d6daeebce4a25fef078ea4c",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/087e2ee0d74464a4c6baac4e90417db7477dc238",
+                "reference": "087e2ee0d74464a4c6baac4e90417db7477dc238",
                 "shasum": ""
             },
             "require": {
@@ -568,7 +577,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -595,20 +604,75 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2018-05-16T14:33:22+00:00"
         },
         {
-            "name": "symfony/polyfill-mbstring",
-            "version": "v1.6.0",
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296"
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
-                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
+                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "time": "2018-04-30T19:57:29+00:00"
+        },
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171",
                 "shasum": ""
             },
             "require": {
@@ -620,7 +684,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6-dev"
+                    "dev-master": "1.8-dev"
                 }
             },
             "autoload": {
@@ -654,24 +718,25 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-10-11T12:05:26+00:00"
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v4.0.2",
+            "version": "v4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "a5ee52d155f06ad23b19eb63c31228ff56ad1116"
+                "reference": "80e4bfa9685fc4a09acc4a857ec16974a9cd944e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/a5ee52d155f06ad23b19eb63c31228ff56ad1116",
-                "reference": "a5ee52d155f06ad23b19eb63c31228ff56ad1116",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/80e4bfa9685fc4a09acc4a857ec16974a9cd944e",
+                "reference": "80e4bfa9685fc4a09acc4a857ec16974a9cd944e",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3"
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
             },
             "conflict": {
                 "symfony/console": "<3.4"
@@ -685,7 +750,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -712,7 +777,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-12-12T08:41:51+00:00"
+            "time": "2018-05-30T07:26:09+00:00"
         }
     ],
     "packages-dev": [
@@ -764,16 +829,16 @@
         },
         {
             "name": "zordius/lightncandy",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zordius/lightncandy.git",
-                "reference": "f96eb18212a0b4e04360b84323f3e8f23fd018c7"
+                "reference": "448cb2855d7301fa5380d8228255d46e9be92903"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zordius/lightncandy/zipball/f96eb18212a0b4e04360b84323f3e8f23fd018c7",
-                "reference": "f96eb18212a0b4e04360b84323f3e8f23fd018c7",
+                "url": "https://api.github.com/repos/zordius/lightncandy/zipball/448cb2855d7301fa5380d8228255d46e9be92903",
+                "reference": "448cb2855d7301fa5380d8228255d46e9be92903",
                 "shasum": ""
             },
             "require": {
@@ -785,7 +850,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.1-dev"
+                    "dev-master": "1.2.3-dev"
                 }
             },
             "autoload": {
@@ -812,7 +877,7 @@
                 "php",
                 "template"
             ],
-            "time": "2017-10-13T08:42:32+00:00"
+            "time": "2018-03-19T07:06:10+00:00"
         }
     ],
     "aliases": [],
