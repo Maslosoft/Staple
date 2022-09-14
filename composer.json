@@ -1,11 +1,11 @@
 {
 	"name": "maslosoft/staple",
-	"description": "Static Page Lightweight Enchancer",
+	"description": "Static Page Lightweight Enhancer",
 	"homepage": "https://maslosoft.com/staple/",
 	"require": {
-		"maslosoft/addendum": "*",
-		"maslosoft/miniview": "*",
-		"maslosoft/embedi": "*",
+		"maslosoft/miniview": "^1",
+		"maslosoft/cli-shared": "^1",
+		"maslosoft/embedi": "^2",
 		"erusev/parsedown": "^1",
 		"masterexploder/phpthumb": "^2",
 		"symfony/yaml": ">=2.7 <5.0",
@@ -15,7 +15,7 @@
 		"staple"
 	],
 	"require-dev": {
-		"maslosoft/hedron": "*"
+		"roave/security-advisories": "dev-latest"
 	},
 	"autoload": {
 		"psr-4": {
