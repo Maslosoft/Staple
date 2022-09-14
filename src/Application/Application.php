@@ -24,7 +24,7 @@ use Symfony\Component\Console\Application as ConsoleApplication;
 class Application extends ConsoleApplication
 {
 
-	const Logo = <<<LOGO
+	public const Logo = <<<LOGO
    _____ __              __
   / ___// /_____ _____  / /__
   \__ \/ __/ __ `/ __ \/ / _ \
