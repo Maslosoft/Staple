@@ -24,38 +24,40 @@ use Maslosoft\MiniView\MiniView;
 class ContactForm
 {
 
-	const DefaultLang = 'en';
+	public const DefaultLang = 'en';
 
 	/**
 	 * Language
 	 * @var string
 	 */
-	public $lang = self::DefaultLang;
-	public $email = '';
-	public $to = '';
-	public $fields = ['name', 'email', 'subject', 'body'];
-	public $options = [
+	public string $lang = self::DefaultLang;
+	public string $email = '';
+	public string $to = '';
+	public array $fields = ['name', 'email', 'subject', 'body'];
+	public array $options = [
 		'lang' => self::DefaultLang,
 		'email' => '',
 		'fields' => ['name', 'email', 'subject', 'body']
 	];
-	public $error = [];
+	public array $error = [];
 
 	/**
 	 * View
 	 * @var MiniView
 	 */
-	private $mv = null;
-	private $success = false;
+	private MiniView $mv;
+	private bool $success = false;
 
-	public function __construct($options = [])
+	/**
+	 * @param array|string $options
+	 */
+	public function __construct(array|string $options = [])
 	{
 		if (is_string($options))
 		{
 			$this->options['email'] = $options;
-			unset($options);
 		}
-		if (!empty($options))
+		elseif (!empty($options))
 		{
 			$this->options = array_merge($this->options, $options);
 		}
@@ -96,21 +98,25 @@ class ContactForm
 				$headers .= "Reply-to: $data->name <$data->email>" . "\r\n";
 
 				$this->success = mail($this->email, $data->subject, $email, $headers);
+				if(!$this->success)
+				{
+					$this->error[] = 'notSent';
+				}
 			}
 		}
 	}
 
-	public function hasfield($field)
+	public function hasField($field): bool
 	{
-		return in_array($field, $this->fields);
+		return in_array($field, $this->fields, true);
 	}
 
-	public function isSuccess()
+	public function isSuccess(): bool
 	{
 		return $this->success;
 	}
 
-	protected function validate($data)
+	protected function validate($data): bool
 	{
 		$this->error = [];
 		foreach ($this->fields as $field)

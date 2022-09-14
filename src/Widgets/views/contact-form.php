@@ -20,6 +20,7 @@ use Maslosoft\Staple\Widgets\ContactForm;
   'body' => 'Message body is required',
   ];
  */
+/* @var $this ContactForm */
 /* @var $errorLabels array */
 /* @var $label object */
 $error = new stdClass;
@@ -27,6 +28,7 @@ foreach ($this->error as $errId)
 {
 	$error->$errId = $errorLabels[$errId];
 }
+var_dump($error, $label, $this->isSuccess());
 $value = (object)@$_POST['ContactForm'];
 ?>
 

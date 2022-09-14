@@ -22,6 +22,7 @@ $errorLabels = [
 	'emailFormat' => 'E-mail is not properly formatted',
 	'subject' => 'Message subject is required',
 	'body' => 'Message body is required',
+	'notSent' => 'Could not send because of server error'
 ];
 ?>
 <?php
