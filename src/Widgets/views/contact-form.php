@@ -28,7 +28,6 @@ foreach ($this->error as $errId)
 {
 	$error->$errId = $errorLabels[$errId];
 }
-var_dump($error, $label, $this->isSuccess());
 $value = (object)@$_POST['ContactForm'];
 ?>
 
