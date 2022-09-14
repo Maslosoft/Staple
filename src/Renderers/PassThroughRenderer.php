@@ -26,16 +26,18 @@ use SplFileInfo;
 class PassThroughRenderer extends AbstractRenderer implements RendererInterface, RendererExtensionInterface
 {
 
-	const DispositionAuto = null;
-	const DispositionInline = 'inline';
-	const DispositionAttachment = 'attachment';
+	public const DispositionAuto = null;
+	public const DispositionInline = 'inline';
+	public const DispositionAttachment = 'attachment';
 
-	private $_extension = '';
-	public $disposition = self::DispositionAuto;
+	private string $_extension = '';
+	public ?string $disposition = self::DispositionAuto;
 
-	public function render($view = 'index', $data = [])
+	public function render($view = 'index', $data = []): never
 	{
-		$fileName = sprintf('%s/%s/%s.%s', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $view, $this->_extension);
+		$owner = $this->getOwner();
+		assert($owner !== null);
+		$fileName = sprintf('%s/%s/%s.%s', $owner->getRootPath(), $owner->getContentPath(), $view, $this->_extension);
 		$file = '';
 		$line = 0;
 		if (headers_sent($file, $line))
@@ -70,7 +72,7 @@ class PassThroughRenderer extends AbstractRenderer implements RendererInterface,
 		exit;
 	}
 
-	public function setExtension($extension)
+	public function setExtension($extension): void
 	{
 		$this->_extension = $extension;
 	}
