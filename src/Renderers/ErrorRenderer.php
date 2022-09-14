@@ -32,7 +32,7 @@ class ErrorRenderer extends AbstractRenderer implements RendererInterface
 		$this->_message = $message;
 	}
 
-	public function render($view = 'index', $data = [])
+	public function render($view = 'index', $data = []): string
 	{
 		$message = $this->_code;
 		if (!empty($this->_message))
@@ -40,11 +40,13 @@ class ErrorRenderer extends AbstractRenderer implements RendererInterface
 			$message .= ": $this->_message";
 		}
 		header("HTTP/1.0 $this->_code");
-		$path = sprintf('%s/%s/_%s.php', $this->getOwner()->getRootPath(), $this->getOwner()->getContentPath(), $this->_code);
+		$owner = $this->getOwner();
+		assert($owner !== null);
+		$path = sprintf('%s/%s/_%s.php', $owner->getRootPath(), $owner->getContentPath(), $this->_code);
 		if (file_exists($path))
 		{
-			$mv = new MiniView($this, $this->getOwner()->getRootPath());
-			$mv->setViewsPath($this->getOwner()->getContentPath());
+			$mv = new MiniView($this, $owner->getRootPath());
+			$mv->setViewsPath($owner->getContentPath());
 			return $mv->render(sprintf('_%s', $this->_code), [
 						'code' => $this->_code,
 						'message' => $this->_message
