@@ -15,14 +15,17 @@ namespace Maslosoft\Staple\Renderers;
 use Maslosoft\MiniView\MiniView;
 use Maslosoft\Staple\Interfaces\NavigableInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
+use function assert;
 
 class PhpRenderer extends AbstractRenderer implements RendererInterface, NavigableInterface
 {
 
-	public function render($view = 'index', $data = [])
+	public function render($view = 'index', $data = []): string
 	{
-		$mv = new MiniView($this, $this->getOwner()->getRootPath());
-		$mv->setViewsPath($this->getOwner()->getContentPath());
+		$owner = $this->getOwner();
+		assert($owner !== null);
+		$mv = new MiniView($this, $owner->getRootPath());
+		$mv->setViewsPath($owner->getContentPath());
 		return $mv->render($view, $data, true);
 	}
 
