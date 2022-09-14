@@ -69,7 +69,7 @@ class SubNav
 
 	public function __toString()
 	{
-		return $this->mv->render('sub-nav', [], true);
+		return (string)$this->mv->render('sub-nav', [], true);
 	}
 
 }

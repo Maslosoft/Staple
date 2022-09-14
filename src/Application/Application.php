@@ -40,7 +40,7 @@ LOGO;
 		$this->add(new InitCommand());
 	}
 
-	public function getHelp()
+	public function getHelp(): string
 	{
 		return self::Logo . parent::getHelp();
 	}

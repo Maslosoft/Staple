@@ -20,9 +20,10 @@ class FileLoader
 	/**
 	 * Load file if possible
 	 * @param $path
+	 * @return string
 	 * @throws NotFoundException
 	 */
-	public static function load($path)
+	public static function load($path): string
 	{
 		if (!file_exists($path))
 		{

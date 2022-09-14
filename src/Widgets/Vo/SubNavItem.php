@@ -58,7 +58,7 @@ class SubNavItem
 
 	public function __toString()
 	{
-		return $this->owner->getView()->render('sub-nav-recursive/item', ['item' => $this], true);
+		return (string)$this->owner->getView()->render('sub-nav-recursive/item', ['item' => $this], true);
 	}
 
 }

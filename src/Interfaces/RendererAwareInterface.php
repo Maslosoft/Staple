@@ -16,15 +16,16 @@ interface RendererAwareInterface
 {
 
 	/**
+	 * @param $filename
 	 * @return RendererInterface
 	 */
-	public function getRenderer($filename);
+	public function getRenderer($filename): RendererInterface;
 
-	public function getRootPath();
+	public function getRootPath(): string;
 
-	public function getContentPath();
+	public function getContentPath(): string;
 
-	public function getLayoutPath();
+	public function getLayoutPath(): string;
 
-	public function setLayoutPath($layoutPath);
+	public function setLayoutPath($layoutPath): void;
 }

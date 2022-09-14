@@ -14,6 +14,7 @@ namespace Maslosoft\Staple\Helpers;
 
 use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 use Maslosoft\Staple\Interfaces\RendererAwareInterface;
+use Maslosoft\Staple\Interfaces\RendererInterface;
 use Maslosoft\Staple\Models\RequestItem;
 use Maslosoft\Staple\Staple;
 use UnexpectedValueException;
@@ -80,37 +81,37 @@ class AbstractWalker implements RendererAwareInterface,
 		$this->item = new RequestItem;
 	}
 
-	public function getContentPath()
+	public function getContentPath(): string
 	{
 		return $this->staple->getContentPath();
 	}
 
-	public function getLayoutPath()
+	public function getLayoutPath(): string
 	{
 		return $this->staple->getLayoutPath();
 	}
 
-	public function getPostProcessors()
+	public function getPostProcessors(): array
 	{
 		return $this->staple->getPostProcessors();
 	}
 
-	public function getPreProcessors()
+	public function getPreProcessors(): array
 	{
 		return $this->staple->getPreProcessors();
 	}
 
-	public function getRenderer($filename)
+	public function getRenderer($filename): RendererInterface
 	{
 		return $this->staple->getRenderer($filename);
 	}
 
-	public function getRootPath()
+	public function getRootPath(): string
 	{
 		return $this->staple->getRootPath();
 	}
 
-	public function setLayoutPath($layoutPath)
+	public function setLayoutPath($layoutPath): void
 	{
 		$this->staple->setLayoutPath($layoutPath);
 	}

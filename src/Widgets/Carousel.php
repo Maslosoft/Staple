@@ -86,7 +86,7 @@ class Carousel
 
 	public function __toString()
 	{
-		return $this->mv->render('carousel', [], true);
+		return (string)$this->mv->render('carousel', [], true);
 	}
 
 }

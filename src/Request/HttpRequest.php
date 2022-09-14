@@ -23,24 +23,24 @@ class HttpRequest implements RequestInterface
 
 	/**
 	 * Request path
-	 * @var string
+	 * @var string|null
 	 */
-	private $path = null;
+	private ?string $path = null;
 
 	/**
 	 * Return true if is secure connection
 	 * @return bool
 	 */
-	public function isSecure()
+	public function isSecure(): bool
 	{
-		return isset($_SERVER['HTTPS']) && (strcasecmp($_SERVER['HTTPS'], 'on') === 0 || $_SERVER['HTTPS'] == 1) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') === 0;
+		return (isset($_SERVER['HTTPS']) && (strcasecmp($_SERVER['HTTPS'], 'on') === 0 || (int)$_SERVER['HTTPS'] === 1)) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') === 0);
 	}
 
 	/**
 	 * Get current website host name
 	 * @return boolean|string
 	 */
-	public function getHost()
+	public function getHost(): bool|string
 	{
 		if (isset($_SERVER['HTTP_HOST']))
 		{
@@ -56,7 +56,7 @@ class HttpRequest implements RequestInterface
 	/**
 	 * Enforce secure connection
 	 */
-	public function forceSecure()
+	public function forceSecure(): void
 	{
 		if (!$this->isSecure())
 		{
@@ -65,7 +65,7 @@ class HttpRequest implements RequestInterface
 		}
 	}
 
-	public function dispatch(RequestAwareInterface $owner)
+	public function dispatch(RequestAwareInterface $owner): string
 	{
 		$path = null;
 		$view = null;
@@ -76,7 +76,7 @@ class HttpRequest implements RequestInterface
 		return $this->handler->handle($owner, $basePath, $path, $view);
 	}
 
-	public function canHandle(RequestAwareInterface $owner)
+	public function canHandle(RequestAwareInterface $owner): bool
 	{
 		$path = null;
 		$view = null;
@@ -84,7 +84,7 @@ class HttpRequest implements RequestInterface
 		return $view || $path;
 	}
 
-	public function getFileName(RequestAwareInterface $owner)
+	public function getFileName(RequestAwareInterface $owner): string
 	{
 		$path = null;
 		$view = null;
@@ -92,16 +92,16 @@ class HttpRequest implements RequestInterface
 		return $path;
 	}
 
-	public function getData()
+	public function getData(): array
 	{
 		return $this->handler ? $this->handler->getData() : [];
 	}
 
 	/**
-	 * Request path, will auto detect if not set.
+	 * Request path, will auto-detect if not set.
 	 * @return string
 	 */
-	public function getPath()
+	public function getPath(): string
 	{
 		if (null === $this->path)
 		{
@@ -113,12 +113,10 @@ class HttpRequest implements RequestInterface
 	/**
 	 * Set request path. If not set, it will take from $_SERVER vars
 	 * @param string $path
-	 * @return static
 	 */
-	public function setPath($path)
+	public function setPath(string $path): void
 	{
 		$this->path = $path;
-		return $this;
 	}
 
 	/**
@@ -127,9 +125,9 @@ class HttpRequest implements RequestInterface
 	 * @param string $ext
 	 * @return boolean|string
 	 */
-	private function _getFilename($path, $ext)
+	private function _getFilename(string $path, string $ext): bool|string
 	{
-		$extRegexp = preg_quote($ext);
+		$extRegexp = preg_quote($ext, '~');
 		if (preg_match("~$extRegexp$~i", $path))
 		{
 			return $path;
@@ -139,11 +137,10 @@ class HttpRequest implements RequestInterface
 
 	/**
 	 * Sanitize path. Remove double slashes and trailing slash.
-	 * @param RequestAwareInterface $owner
 	 * @param string $urlPath
 	 * @return string
 	 */
-	private function _sanitizeUrl($urlPath)
+	private function _sanitizeUrl(string $urlPath): string
 	{
 		$patterns = [
 			'~/+~' => '/',
@@ -153,7 +150,7 @@ class HttpRequest implements RequestInterface
 		return preg_replace(array_keys($patterns), array_values($patterns), $urlPath);
 	}
 
-	private function resolve($owner, &$path, &$view)
+	private function resolve($owner, &$path, &$view): void
 	{
 		$urlPath = $this->getPath();
 		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizeUrl($urlPath));
@@ -163,7 +160,7 @@ class HttpRequest implements RequestInterface
 		{
 			// Check for file
 			$path = $this->_getFilename($basePath, $ext);
-			$extRegexp = preg_quote($ext);
+			$extRegexp = preg_quote($ext, '~');
 			if (false !== $path)
 			{
 				$view = $this->_sanitizeUrl(preg_replace("~\.$extRegexp$~i", '', $urlPath));

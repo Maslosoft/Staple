@@ -12,6 +12,7 @@
 
 namespace Maslosoft\Staple\Renderers;
 
+use Maslosoft\Cli\Shared\Io;
 use Maslosoft\Staple\Exceptions\NotFoundException;
 use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
@@ -30,14 +31,14 @@ use SplFileInfo;
 class ThumbRenderer extends AbstractRenderer implements RendererInterface, RendererExtensionInterface, VirtualInterface
 {
 
-	const OptionCrop = 'c';
+	public const OptionCrop = 'c';
 
-	private $extension = '';
-	public $width = 300;
-	public $height = 200;
-	public $options = [];
+	private string $extension = '';
+	public int $width = 300;
+	public int $height = 200;
+	public array $options = [];
 
-	public function render($view = 'index', $data = array())
+	public function render($view = 'index', $data = array()): never
 	{
 		$view = urldecode($view);
 		$contentPath = $this->getOwner()->getContentPath();
@@ -53,7 +54,7 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 			{
 				$this->options = preg_split('~~', $matches[3], PREG_SPLIT_NO_EMPTY);
 			}
-			$pattern = preg_quote($matches[0]);
+			$pattern = preg_quote($matches[0], '~');
 			$baseView = preg_replace("~$pattern$~", '', $view);
 		}
 		$thumbName = sprintf('%s/%s.%s', $rootPath, $view, $this->extension);
@@ -64,7 +65,7 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 		// Try to make a thumbnail dir
 		if (!file_exists($thumbDir))
 		{
-			@mkdir($thumbDir, 0777, true);
+			Io::mkdir($thumbDir);
 		}
 
 		$baseExt = str_replace('thumb.', '', $this->extension);
@@ -79,7 +80,7 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 		if (!file_exists($thumbName))
 		{
 			$image = new GD($fileName);
-			if (in_array(self::OptionCrop, $this->options))
+			if (in_array(self::OptionCrop, $this->options, true))
 			{
 				$image->adaptiveResize($this->width, $this->height);
 			}
@@ -89,7 +90,7 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 			}
 
 			// ensure we can write into dir or overwrite a file
-			if (is_writeable($thumbDir) || is_writeable($thumbName))
+			if (is_writable($thumbDir) || is_writable($thumbName))
 			{
 				$image->save($thumbName);
 			}
@@ -130,7 +131,7 @@ class ThumbRenderer extends AbstractRenderer implements RendererInterface, Rende
 		exit();
 	}
 
-	public function setExtension($extension)
+	public function setExtension($extension): void
 	{
 		$this->extension = $extension;
 	}

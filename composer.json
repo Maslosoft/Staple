@@ -3,14 +3,15 @@
 	"description": "Static Page Lightweight Enhancer",
 	"homepage": "https://maslosoft.com/staple/",
 	"require": {
-		"maslosoft/miniview": "^1",
+		"maslosoft/miniview": "^2",
 		"maslosoft/cli-shared": "^1",
 		"maslosoft/embedi": "^2",
 		"erusev/parsedown": "^1",
 		"masterexploder/phpthumb": "^2",
 		"symfony/yaml": ">=2.7 <5.0",
-		"symfony/finder": ">=2.7 <5.0"
-	},
+		"symfony/finder": ">=2.7 <5.0",
+      "ext-fileinfo": "*"
+    },
 	"bin": [
 		"staple"
 	],

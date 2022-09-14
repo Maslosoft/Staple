@@ -1,14 +1,7 @@
 <?php
 
-use Maslosoft\Ilmatar\Widgets\Form\ActiveForm;
 use Maslosoft\Staple\Widgets\ContactForm;
 
-?>
-<?php
-/* @var $this ContactForm */
-/* @var $form ActiveForm */
-?>
-<?php
 /*
   This should be in language specific file:
   $label = (object) [
@@ -27,6 +20,8 @@ use Maslosoft\Staple\Widgets\ContactForm;
   'body' => 'Message body is required',
   ];
  */
+/* @var $errorLabels array */
+/* @var $label object */
 $error = new stdClass;
 foreach ($this->error as $errId)
 {
@@ -41,7 +36,7 @@ $value = (object)@$_POST['ContactForm'];
 			<?= sprintf($label->success, htmlspecialchars(@$value->name)); ?>
         </div>
 		<?php
-		// Reset values upon successfull send
+		// Reset values upon successfully send
 		$value = new stdClass;
 		?>
 	<?php endif; ?>
@@ -100,7 +95,7 @@ $value = (object)@$_POST['ContactForm'];
         head = document.head || document.getElementsByTagName('head')[0],
             style = document.createElement('style');
 
-        style.type = 'text/css';
+        style.setAttribute('type', 'text/css')
         if (style.styleSheet) {
             style.styleSheet.cssText = css;
         } else {

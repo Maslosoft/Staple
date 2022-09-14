@@ -34,23 +34,23 @@ use Maslosoft\Staple\Renderers\PhpRenderer;
 use Maslosoft\Staple\Renderers\ThumbRenderer;
 
 /**
- * @method Staple fly() Get staple flyweight instance
+ * @method static Staple fly() Get staple flyweight instance
  */
 class Staple implements RequestAwareInterface
 {
 
 	use FlyTrait;
 
-	const DefaultInstanceId = '.';
-	const BootstrapName = '_bootstrap.php';
-	const ContentPath = '_content';
-	const LayoutPath = '_layout';
+	public const DefaultInstanceId = '.';
+	public const BootstrapName = '_bootstrap.php';
+	public const ContentPath = '_content';
+	public const LayoutPath = '_layout';
 
 	/**
 	 * Version number holder
 	 * @var string
 	 */
-	private static $version;
+	private static string $version;
 
 	/**
 	 * Renderers configuration. Keys are file extensions,
@@ -73,9 +73,9 @@ class Staple implements RequestAwareInterface
 	 * 		],
 	 * 	];
 	 * ```
-	 * @var mixed[]
+	 * @var array
 	 */
-	public $renderers = [
+	public array $renderers = [
 		'php' => PhpRenderer::class,
 		'mkd.php' => PhpMdRenderer::class,
 		'md.php' => PhpMdRenderer::class,
@@ -91,13 +91,13 @@ class Staple implements RequestAwareInterface
 		'svg' => PassThroughRenderer::class,
 		'pdf' => PassThroughRenderer::class,
 	];
-	public $preProcessors = [
+	public array $preProcessors = [
 		DataJsonExtractor::class,
 		CascadingDataJsonExtractor::class,
 		ViewJsonExtractor::class,
 		TagExtractor::class
 	];
-	public $postProcessors = [
+	public array $postProcessors = [
 		TemplateApplier::class
 	];
 
@@ -106,31 +106,31 @@ class Staple implements RequestAwareInterface
 	 * This should be path where your main index file resides.
 	 * @var string
 	 */
-	private $rootPath = '';
+	private string $rootPath;
 
 	/**
 	 * Relative path to content files. This defaults to `_content`
 	 * @var string
 	 */
-	private $contentPath = self::ContentPath;
+	private string $contentPath = self::ContentPath;
 
 	/**
 	 * Relative path to layout files. This defaults to `_layout`
 	 * @var string
 	 */
-	private $layoutPath = self::LayoutPath;
+	private string $layoutPath = self::LayoutPath;
 
 	/**
 	 * DI container
 	 * @var EmbeDi
 	 */
-	private $di = null;
+	private EmbeDi $di;
 
 	/**
 	 *
 	 * @param string $rootPath
 	 */
-	public function __construct($rootPath = '')
+	public function __construct(string $rootPath = '')
 	{
 		$this->di = EmbeDi::fly();
 		$this->setRootPath($rootPath);
@@ -140,7 +140,7 @@ class Staple implements RequestAwareInterface
 	 * Get Post processors
 	 * @return PostProcessorInterface[]
 	 */
-	public function getPostProcessors()
+	public function getPostProcessors(): array
 	{
 		$post = [];
 		foreach ($this->postProcessors as $config)
@@ -154,7 +154,7 @@ class Staple implements RequestAwareInterface
 	 * Get Pre Processors
 	 * @return PreProcessorInterface[]
 	 */
-	public function getPreProcessors()
+	public function getPreProcessors(): array
 	{
 		$pre = [];
 		foreach ($this->preProcessors as $config)
@@ -167,19 +167,17 @@ class Staple implements RequestAwareInterface
 	/**
 	 * Set absolute root path
 	 * @param string $path
-	 * @return Staple
 	 */
-	public function setRootPath($path)
+	public function setRootPath(string $path): void
 	{
 		$this->rootPath = $path;
-		return $this;
 	}
 
 	/**
 	 * Get root path. Will try to autodetect if empty.
 	 * @return string
 	 */
-	public function getRootPath()
+	public function getRootPath(): string
 	{
 		// Guess if empty
 		if (empty($this->rootPath))
@@ -189,7 +187,7 @@ class Staple implements RequestAwareInterface
 		return $this->rootPath;
 	}
 
-	public function getContentPath($absolute = false)
+	public function getContentPath($absolute = false): string
 	{
 		if ($absolute)
 		{
@@ -198,28 +196,26 @@ class Staple implements RequestAwareInterface
 		return $this->contentPath;
 	}
 
-	public function setContentPath($contentPath)
+	public function setContentPath($contentPath): void
 	{
 		$this->contentPath = $contentPath;
-		return $this;
 	}
 
-	public function getLayoutPath()
+	public function getLayoutPath(): string
 	{
 		return $this->layoutPath;
 	}
 
-	public function setLayoutPath($layoutPath)
+	public function setLayoutPath($layoutPath): void
 	{
 		$this->layoutPath = $layoutPath;
-		return $this;
 	}
 
 	/**
 	 * Get current staple version
 	 * @return string
 	 */
-	public function getVersion()
+	public function getVersion(): string
 	{
 		if (null === self::$version)
 		{
@@ -230,23 +226,26 @@ class Staple implements RequestAwareInterface
 
 	/**
 	 * Get renderer
-	 * @param string $fileName
+	 * @param string $filename
 	 * @return RendererInterface
 	 */
-	public function getRenderer($fileName)
+	public function getRenderer($filename): RendererInterface
 	{
-		if (empty($fileName))
+		if (empty($filename))
 		{
-			return (new ErrorRenderer('404', 'File not found'))->setOwner($this);
+			$er = new ErrorRenderer('404', 'File not found');
+			$er->setOwner($this);
+			return $er;
 		}
 		$renderers = $this->renderers;
 		$keys = array_map('strlen', array_keys($renderers));
 		array_multisort($keys, SORT_DESC, $renderers);
+		$ext = '';
 		foreach ($renderers as $extension => $config)
 		{
 			$matches = [];
-			$ext = preg_quote($extension);
-			if (preg_match("~$ext$~i", $fileName, $matches))
+			$ext = preg_quote($extension, '~');
+			if (preg_match("~$ext$~i", $filename, $matches))
 			{
 				$renderer = $this->di->apply($config);
 				/* @var $renderer RendererInterface */
@@ -259,14 +258,14 @@ class Staple implements RequestAwareInterface
 				return $renderer;
 			}
 		}
-		new ErrorRenderer(500, sprintf('Unsupported file extension: `%s`', $ext));
+		return new ErrorRenderer(500, sprintf('Unsupported file extension: `%s`', $ext));
 	}
 
 	/**
 	 * Get supported file extensions, based on `renderers` configuration.
 	 * @return string[]
 	 */
-	public function getExtensions()
+	public function getExtensions(): array
 	{
 		return array_keys($this->renderers);
 	}
@@ -276,7 +275,7 @@ class Staple implements RequestAwareInterface
 	 * @param RequestInterface $request
 	 * @return string
 	 */
-	public function handle(RequestInterface $request)
+	public function handle(RequestInterface $request): string
 	{
 		return $request->dispatch($this);
 	}

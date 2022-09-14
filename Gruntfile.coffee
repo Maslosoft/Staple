@@ -1,5 +1,5 @@
 #
-# Ilmatar build file
+# Staple build file
 # 
 #
 
@@ -9,7 +9,6 @@ fs = require "fs"
 module.exports = (grunt) ->
 
 	# Some basic setup
-	# ilmatar-path, generated-path and bower-path should be set, rest is optional
 	generatedPath = grunt.option("generated-path") or "assets"
 	bowerPath = grunt.option("bower-path") or "vendor/bower-asset"
 	

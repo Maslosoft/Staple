@@ -173,7 +173,7 @@ class SubNavRecursive extends SubNav
 
 	public function __toString()
 	{
-		return $this->mv->render('sub-nav-recursive/nav', ['mv' => $this->mv], true);
+		return (string)$this->mv->render('sub-nav-recursive/nav', ['mv' => $this->mv], true);
 	}
 
 }

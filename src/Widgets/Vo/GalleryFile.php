@@ -33,7 +33,7 @@ class GalleryFile
 	{
 		$this->file = $file;
 
-		$ext = preg_quote($this->file->getExtension());
+		$ext = preg_quote($this->file->getExtension(), '~');
 		$this->extension = $this->file->getExtension();
 		$this->baseName = preg_replace("~\.$ext$~", '', $this->file->getFilename());
 		$this->gallery = $gallery;

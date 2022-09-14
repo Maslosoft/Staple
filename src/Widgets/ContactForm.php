@@ -117,12 +117,12 @@ class ContactForm
 		{
 			if (empty($data->$field))
 			{
-				array_push($this->error, $field);
+				$this->error[] = $field;
 			}
 		}
 		if (!filter_var($data->email, FILTER_VALIDATE_EMAIL))
 		{
-			array_push($this->error, 'emailFormat');
+			$this->error[] = 'emailFormat';
 		}
 		if (empty($this->error))
 		{
@@ -135,12 +135,13 @@ class ContactForm
 	{
 		try
 		{
-			return $this->mv->render(sprintf('%s/%s', $this->lang, 'contact-form'), [], true);
+			return (string)$this->mv->render(sprintf('%s/%s', $this->lang, 'contact-form'), [], true);
 		}
 		catch (Exception $exc)
 		{
 			echo $exc->getTraceAsString();
 		}
+		return '';
 	}
 
 }

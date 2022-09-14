@@ -1,11 +1,10 @@
 <?php
 
-use Maslosoft\Ilmatar\Widgets\Form\ActiveForm;
 use Maslosoft\Staple\Widgets\ContactForm;
 ?>
 <?php
 /* @var $this ContactForm */
-/* @var $form ActiveForm */
+/* @var $data object */
 ?>
 <html>
 	<body>

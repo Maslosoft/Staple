@@ -13,11 +13,8 @@
 namespace Maslosoft\Staple\Helpers;
 
 use Maslosoft\Staple\Interfaces\NavigableInterface;
-use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
-use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 use Maslosoft\Staple\Models\RequestItem;
 use Maslosoft\Staple\Request\HttpRequest;
-use Maslosoft\Staple\Staple;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use UnexpectedValueException;
@@ -34,28 +31,29 @@ class SiteWalker extends AbstractWalker
 	 * Scanning depth
 	 * @var int
 	 */
-	private $depth = -1;
+	private int $depth = -1;
 
 	/**
 	 * Starting dir, relative to base website path
 	 *
 	 * @param string $dir
+	 * @param int    $depth
 	 * @return SiteWalker
 	 */
-	public function start($dir, $depth = -1)
+	public function start(string $dir, int $depth = -1): static
 	{
 		$url = (new HttpRequest())->getPath();
 		$this->path = realpath($this->path . DIRECTORY_SEPARATOR . trim($dir, '/\\'));
 
-		$urlParts = preg_split('~/~', trim($url, '/'));
-		$pathParts = preg_split('~/~', trim($this->path, '/'));
+		$urlParts = explode('/', trim($url, '/'));
+		$pathParts = explode('/', trim($this->path, '/'));
 		$relativeUrl = '/' . implode('/', array_intersect($pathParts, $urlParts));
 
 		$this->relativePath = $relativeUrl;
 		$this->depth = (int) $depth;
 		if ($this->depth === 0)
 		{
-			throw new UnexpectedValueException('Parameter `depth` cannot be equall zero');
+			throw new UnexpectedValueException('Parameter `depth` cannot be equal to zero');
 		}
 		return $this;
 	}
@@ -90,19 +88,19 @@ class SiteWalker extends AbstractWalker
 			$name = $entity->getFilename();
 
 			// Skip items starting with underscore
-			if (preg_match('~^_~', $name))
+			if (str_starts_with($name, '_'))
 			{
 				continue;
 			}
 
 			// Skip items starting with dot
-			if (preg_match('~^\.~', $name))
+			if (str_starts_with($name, '.'))
 			{
 				continue;
 			}
 
 			$isIndex = false;
-			if (preg_match('~^index\.~', basename($name)))
+			if (str_starts_with(basename($name), 'index.'))
 			{
 				$isIndex = true;
 			}
@@ -134,7 +132,7 @@ class SiteWalker extends AbstractWalker
 		return $index;
 	}
 
-	private function scanFolders($path, $parent)
+	private function scanFolders($path, $parent): void
 	{
 		$finder = new Finder();
 		$finder->in($path);
@@ -149,13 +147,13 @@ class SiteWalker extends AbstractWalker
 			$name = $entity->getFilename();
 
 			// Skip items starting with underscore
-			if (preg_match('~^_~', $name))
+			if (str_starts_with($name, '_'))
 			{
 				continue;
 			}
 
 			// Skip items starting with dot
-			if (preg_match('~^\.~', $name))
+			if (str_starts_with($name, "."))
 			{
 				continue;
 			}
@@ -168,7 +166,7 @@ class SiteWalker extends AbstractWalker
 	 * Get root item of pages
 	 * @return RequestItem
 	 */
-	public function get()
+	public function get(): RequestItem
 	{
 		return $this->item;
 	}

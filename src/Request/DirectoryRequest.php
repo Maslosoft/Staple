@@ -26,14 +26,14 @@ class DirectoryRequest extends HttpRequest implements RequestInterface
 	 * 
 	 * @var string
 	 */
-	private $path = '';
+	private string $path;
 
 	public function __construct($path)
 	{
 		$this->path = $path;
 	}
 
-	public function getPath()
+	public function getPath(): string
 	{
 		return $this->path;
 	}

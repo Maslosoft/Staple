@@ -1,10 +1,9 @@
 <?php
 
-use Maslosoft\Ilmatar\Components\Controller;
 use Maslosoft\Staple\Widgets\Vo\SubNavItem;
 ?>
 <?php
-/* @var $this Controller */
+
 /* @var $item SubNavItem */
 ?>
 

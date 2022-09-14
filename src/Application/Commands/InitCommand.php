@@ -12,8 +12,6 @@
 
 namespace Maslosoft\Staple\Application\Commands;
 
-use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
-use Maslosoft\Sitcom\Command;
 use Maslosoft\Staple\Helpers\Init;
 use Symfony\Component\Console\Command\Command as ConsoleCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,7 +33,7 @@ class InitCommand extends ConsoleCommand implements AnnotatedInterface
 		]);
 
 		$help = <<<EOT
-The <info>init</info> command will create (if not exists) basic files nessesary to start a website.
+The <info>init</info> command will create (if not exists) basic files necessary to start a website.
 EOT;
 		$this->setHelp($help);
 	}
@@ -44,14 +42,4 @@ EOT;
 	{
 		new Init();
 	}
-
-	/**
-	 * @SlotFor(Command)
-	 * @param Command $signal
-	 */
-	public function reactOn(Command $signal)
-	{
-		$signal->add($this, 'hedron');
-	}
-
 }

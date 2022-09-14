@@ -25,26 +25,24 @@ abstract class AbstractRenderer
 
 	/**
 	 * Owner
-	 * @var RendererAwareInterface
+	 * @var RendererAwareInterface|null
 	 */
-	private $_owner = null;
+	private ?RendererAwareInterface $_owner = null;
 
 	/**
 	 * Set owner
 	 * @param RendererAwareInterface $owner
-	 * @return RendererInterface
 	 */
-	public function setOwner(RendererAwareInterface $owner)
+	public function setOwner(RendererAwareInterface $owner): void
 	{
 		$this->_owner = $owner;
-		return $this;
 	}
 
 	/**
 	 * Get owner
-	 * @return RendererAwareInterface
+	 * @return RendererAwareInterface|null
 	 */
-	public function getOwner()
+	public function getOwner(): ?RendererAwareInterface
 	{
 		return $this->_owner;
 	}

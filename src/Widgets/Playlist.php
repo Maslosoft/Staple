@@ -59,21 +59,20 @@ class Playlist
 
 	public function __toString()
 	{
-		return $this->mv->render('playlist', [], true);
+		return (string)$this->mv->render('playlist', [], true);
 	}
 
-	public static function initJs()
+	public static function initJs(): string
 	{
-		$js = <<<JS
+		return <<<JS
 				<script>
 	jQuery(document).ready(function () {
 		jQuery('.maslosoft-playlist').each(function (index) {
 			new Maslosoft.Playlist(this);
-		});
+		})
 	});
 				</script>
 JS;
-		return $js;
 	}
 
 }

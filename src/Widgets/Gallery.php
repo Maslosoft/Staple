@@ -13,6 +13,7 @@
 namespace Maslosoft\Staple\Widgets;
 
 use DirectoryIterator;
+use Exception;
 use Maslosoft\EmbeDi\EmbeDi;
 use Maslosoft\MiniView\MiniView;
 use Maslosoft\Staple\Staple;
@@ -26,22 +27,22 @@ use Maslosoft\Staple\Widgets\Vo\GalleryFile;
 class Gallery
 {
 
-	const DefaultPath = 'gallery';
+	public const DefaultPath = 'gallery';
 
 	/**
 	 * Default width and height of large image. Should fit nicely on displays
 	 */
-	const DefaultWidth = 1600;
-	const DefaultHeight = 1200;
+	public const DefaultWidth = 1600;
+	public const DefaultHeight = 1200;
 
 	/**
 	 * Default thumbnail width and height, should fit nicely in layout
 	 */
-	const DefaultThumbWidth = 237;
-	const DefaultThumbHeight = 237;
-	const DefaultThumbCss = 'img-thumbnail img-margins img-responsive';
+	public const DefaultThumbWidth = 237;
+	public const DefaultThumbHeight = 237;
+	public const DefaultThumbCss = 'img-thumbnail img-margins img-responsive';
 
-	public static $ogTags = '';
+	public static string $ogTags = '';
 
 	/**
 	 * Path relative to application root
@@ -70,16 +71,15 @@ class Gallery
 	 * View
 	 * @var MiniView
 	 */
-	public $view = null;
+	public MiniView $view;
 
-	public function __construct($options = [])
+	public function __construct(string|array $options = [])
 	{
 		if (is_string($options))
 		{
 			$this->options['path'] = $options;
-			unset($options);
 		}
-		if (!empty($options))
+		elseif (!empty($options))
 		{
 			$this->options = array_merge($this->options, $options);
 		}
@@ -102,7 +102,7 @@ class Gallery
 		return $this->options['path'];
 	}
 
-	public function getFiles()
+	public function getFiles(): array
 	{
 		$files = [];
 		$dirIt = new DirectoryIterator($this->path);
@@ -116,16 +116,15 @@ class Gallery
 			if (in_array($ext, ['jpg', 'gif', 'png']))
 			{
 				$galleryFile = new GalleryFile($file, $this);
-				self::$ogTags .= sprintf('<meta property="og:image" content="http://dredy.pl%s"></meta>', $galleryFile->getUrl());
+				self::$ogTags .= sprintf('<meta property="og:image" content="%s"></meta>', $galleryFile->getUrl());
 				$files[$file->getFilename()] = $galleryFile;
 			}
 		}
 		ksort($files);
-		$files = array_values($files);
-		return $files;
+		return array_values($files);
 	}
 
-	public function getSizes()
+	public function getSizes(): string
 	{
 		$sizes = [];
 		$names = ['lg', 'md', 'sm', 'xs'];
@@ -154,12 +153,13 @@ class Gallery
 	{
 		try
 		{
-			return $this->view->render('gallery', [], true);
+			return (string)$this->view->render('gallery', [], true);
 		}
 		catch (Exception $exc)
 		{
 			echo $exc->getTraceAsString();
 		}
+		return '';
 	}
 
 }
