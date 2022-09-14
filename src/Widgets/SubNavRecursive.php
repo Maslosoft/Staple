@@ -59,20 +59,6 @@ class SubNavRecursive extends SubNav
 	 */
 	public $mv = null;
 
-	public function __construct($options = [])
-	{
-		if (!empty($options))
-		{
-			$this->options = array_merge($this->options, $options);
-		}
-
-		// Apply configuration
-		EmbeDi::fly()->apply($this->options, $this);
-
-		// Setup view
-		$this->mv = new MiniView($this);
-	}
-
 	/**
 	 * Get view instance
 	 * Used by items
