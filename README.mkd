@@ -1,7 +1,7 @@
 <!--header-->
 <!-- Auto generated do not modify between `header` and `/header` -->
 
-# <a href="https://maslosoft.com/staple/">Maslosoft Staple</a>
+# <a href="https://maslosoft.com/staple/"><img src="https://maslosoft.com/staple/staple.svg" style="height:24px;" alt="Staple Logo"></a> <a href="https://maslosoft.com/staple/">Maslosoft Staple</a>
 <a href="https://maslosoft.com/staple/">_Static Page Lightweight Enhancer_</a>
 
 <a href="https://packagist.org/packages/maslosoft/staple" title="Latest Stable Version">
