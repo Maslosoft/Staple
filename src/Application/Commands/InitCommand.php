@@ -22,10 +22,10 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class InitCommand extends ConsoleCommand implements AnnotatedInterface
+class InitCommand extends ConsoleCommand
 {
 
-	protected function configure()
+	protected function configure(): void
 	{
 		$this->setName("init");
 		$this->setDescription("Init new website in current folder");
@@ -38,7 +38,7 @@ EOT;
 		$this->setHelp($help);
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
 		new Init();
 	}

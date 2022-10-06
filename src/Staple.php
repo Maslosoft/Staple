@@ -48,9 +48,9 @@ class Staple implements RequestAwareInterface
 
 	/**
 	 * Version number holder
-	 * @var string
+	 * @var string|null
 	 */
-	private static string $version;
+	private static ?string $version = null;
 
 	/**
 	 * Renderers configuration. Keys are file extensions,
