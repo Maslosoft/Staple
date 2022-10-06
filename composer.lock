@@ -58,16 +58,16 @@
         },
         {
             "name": "maslosoft/cli-shared",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/CLIShared.git",
-                "reference": "84e64cf78f7e74f469c7ee84a732141d18439541"
+                "reference": "c1b65518cd628e45a803abe132f1e1399a23dcbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/CLIShared/zipball/84e64cf78f7e74f469c7ee84a732141d18439541",
-                "reference": "84e64cf78f7e74f469c7ee84a732141d18439541",
+                "url": "https://api.github.com/repos/Maslosoft/CLIShared/zipball/c1b65518cd628e45a803abe132f1e1399a23dcbe",
+                "reference": "c1b65518cd628e45a803abe132f1e1399a23dcbe",
                 "shasum": ""
             },
             "require": {
@@ -77,10 +77,8 @@
                 "symfony/yaml": ">=2.7 <5.0"
             },
             "require-dev": {
-                "codeception/codeception": "^4",
-                "codeception/module-asserts": "^1.0.0",
-                "codeception/module-phpbrowser": "^1.0.0",
-                "maslosoft/hedron": "*",
+                "codeception/codeception": "^5",
+                "codeception/module-asserts": "^3",
                 "maslosoft/zamm": "*"
             },
             "type": "library",
@@ -101,6 +99,7 @@
                 }
             ],
             "description": "Shared CLI application components",
+            "homepage": "https://maslosoft.com/cli-shared/",
             "keywords": [
                 "cli",
                 "command-line",
@@ -108,10 +107,11 @@
                 "php"
             ],
             "support": {
-                "issues": "https://github.com/Maslosoft/CLIShared/issues",
-                "source": "https://github.com/Maslosoft/CLIShared/tree/1.0.8"
+                "docs": "https://maslosoft.com/cli-shared/docs/",
+                "issues": "https://github.com/Maslosoft/CliShared/issues",
+                "source": "https://github.com/Maslosoft/CLIShared/tree/1.0.9"
             },
-            "time": "2022-07-05T18:33:50+00:00"
+            "time": "2022-10-06T14:59:14+00:00"
         },
         {
             "name": "maslosoft/embedi",
