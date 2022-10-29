@@ -19,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * InitCommand
- *
+ * @buildignore
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 class InitCommand extends ConsoleCommand
@@ -38,8 +38,9 @@ EOT;
 		$this->setHelp($help);
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output): void
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		new Init();
+		return 0;
 	}
 }
