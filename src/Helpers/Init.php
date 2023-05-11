@@ -20,9 +20,9 @@ namespace Maslosoft\Staple\Helpers;
 class Init
 {
 
-	public $dir = '';
+	public string $dir = '';
 
-	public function __construct($dir = null)
+	public function __construct(string $dir = null)
 	{
 		if (null === $dir)
 		{
@@ -37,9 +37,16 @@ class Init
 		{
 			$this->copy($file);
 		}
+		$index = $this->dir . '/index.php';
+		$data = file_get_contents($index);
+		if(str_contains($data, '%s'))
+		{
+			$new = sprintf($data, '_bootstrap.php');
+			file_put_contents($index, $new);
+		}
 	}
 
-	public function copy($file)
+	public function copy($file): void
 	{
 
 		$src = __DIR__ . '/../' . $file;
