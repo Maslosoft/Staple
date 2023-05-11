@@ -8,7 +8,7 @@
 	"require": {
 		"php": ">=8.2",
 		"maslosoft/miniview": "^2",
-		"maslosoft/cli-shared": "^1",
+		"maslosoft/cli-shared": "^2",
 		"maslosoft/embedi": "^2",
 		"erusev/parsedown": "^1",
 		"masterexploder/phpthumb": "^2",
