@@ -24,20 +24,20 @@ use Maslosoft\Staple\Widgets\Vo\CarouselItem;
 class Carousel
 {
 
-	const DefaultId = 'carousel';
+	public const DefaultId = 'carousel';
 
 	/**
 	 * Default image width and height. Should fit nicely on layouts
 	 */
-	const DefaultWidth = 1600;
-	const DefaultHeight = 1200;
+	public const DefaultWidth = 1600;
+	public const DefaultHeight = 1200;
 
-	public $id = self::DefaultId;
-	public $classic = false;
-	public $width = self::DefaultWidth;
-	public $height = self::DefaultHeight;
-	public $items = [];
-	public $options = [
+	public string $id = self::DefaultId;
+	public bool $classic = false;
+	public int $width = self::DefaultWidth;
+	public int $height = self::DefaultHeight;
+	public array $items = [];
+	public array $options = [
 		'id' => self::DefaultId,
 		'width' => self::DefaultWidth,
 		'height' => self::DefaultHeight,
@@ -48,8 +48,8 @@ class Carousel
 	 * View
 	 * @var MiniView
 	 */
-	private $mv = null;
-	private static $idCounter = 0;
+	private MiniView $mv;
+	private static int $idCounter = 0;
 
 	public function __construct($options = [])
 	{
@@ -71,15 +71,17 @@ class Carousel
 		}
 	}
 
-	public function getItems()
+	public function getItems(): array
 	{
+		$items = [];
 		foreach ($this->items as $item)
 		{
-			yield new CarouselItem($item, $this);
+			$items[] = new CarouselItem($item, $this);
 		}
+		return $items;
 	}
 
-	public function getId()
+	public function getId(): string
 	{
 		return $this->id;
 	}

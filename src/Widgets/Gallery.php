@@ -48,17 +48,17 @@ class Gallery
 	 * Path relative to application root
 	 * @var string
 	 */
-	public $path = '';
-	public $width = self::DefaultWidth;
-	public $height = self::DefaultHeight;
-	public $thumbWidth = self::DefaultThumbWidth;
-	public $thumbHeight = self::DefaultThumbHeight;
-	public $thumbCss = self::DefaultThumbCss;
-	public $lg = null;
-	public $md = 4;
-	public $sm = 2;
-	public $xs = 2;
-	public $options = [
+	public string $path = '';
+	public int $width = self::DefaultWidth;
+	public int $height = self::DefaultHeight;
+	public int $thumbWidth = self::DefaultThumbWidth;
+	public int $thumbHeight = self::DefaultThumbHeight;
+	public string $thumbCss = self::DefaultThumbCss;
+	public int|null $lg = null;
+	public int|null $md = 4;
+	public int|null $sm = 2;
+	public int|null $xs = 2;
+	public array $options = [
 		'path' => self::DefaultPath,
 		'width' => self::DefaultWidth,
 		'height' => self::DefaultHeight,

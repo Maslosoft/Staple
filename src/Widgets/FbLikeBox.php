@@ -20,7 +20,7 @@ namespace Maslosoft\Staple\Widgets;
 class FbLikeBox
 {
 
-	public $options = [
+	public array $options = [
 		'href' => '',
 		'width' => 500,
 		'height' => 500,
@@ -31,16 +31,18 @@ class FbLikeBox
 		'small_header' => false,
 		'adapt_container_width' => true
 	];
-	private static $initialized = false;
+	private static bool $initialized = false;
 
-	public function __construct($options = [])
+	/**
+	 * @param array|string $options
+	 */
+	public function __construct(array|string $options = [])
 	{
 		if (is_string($options))
 		{
 			$this->options['href'] = $options;
-			unset($options);
 		}
-		if (!empty($options))
+		elseif (!empty($options))
 		{
 			$this->options = array_merge($this->options, $options);
 		}
