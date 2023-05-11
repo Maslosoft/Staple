@@ -29,7 +29,7 @@
 		}
 	},
 	"license": [
-		"AGPL",
+		"AGPL-3.0-only",
 		"proprietary"
 	],
 	"authors": [
