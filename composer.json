@@ -1,42 +1,43 @@
 {
-	"name": "maslosoft/staple",
-	"description": "Static Page Lightweight Enhancer",
-	"homepage": "https://maslosoft.com/staple/",
-	"support": {
-		"issues": "https://github.com/Maslosoft/Staple/issues"
-	},
-	"require": {
-		"php": ">=8.2",
-		"maslosoft/miniview": "^2",
-		"maslosoft/cli-shared": "^2",
-		"maslosoft/embedi": "^2",
-		"erusev/parsedown": "^1",
-		"masterexploder/phpthumb": "^2",
-		"symfony/yaml": ">=2.7 <7.0",
-		"symfony/finder": ">=2.7 <7.0",
-		"symfony/console": ">=2.7 <7.0",
-		"ext-fileinfo": "*"
-	},
-	"bin": [
-		"staple"
-	],
-	"require-dev": {
-		"roave/security-advisories": "dev-latest"
-	},
-	"autoload": {
-		"psr-4": {
-			"Maslosoft\\Staple\\": "src"
-		}
-	},
-	"license": [
-		"AGPL-3.0-only",
-		"proprietary"
-	],
-	"authors": [
-		{
-			"name": "Peter Maselkowski",
-			"email": "pmaselkowski@gmail.com",
-			"homepage": "https://maslosoft.com"
-		}
-	]
+    "name": "maslosoft/staple",
+    "version": "2.0.5",
+    "description": "Static Page Lightweight Enhancer",
+    "homepage": "https://maslosoft.com/staple/",
+    "support": {
+        "issues": "https://github.com/Maslosoft/Staple/issues"
+    },
+    "require": {
+        "php": ">=8.2",
+        "maslosoft/miniview": "^2",
+        "maslosoft/cli-shared": "^2",
+        "maslosoft/embedi": "^2",
+        "erusev/parsedown": "^1",
+        "masterexploder/phpthumb": "^2",
+        "symfony/yaml": ">=2.7 <7.0",
+        "symfony/finder": ">=2.7 <7.0",
+        "symfony/console": ">=2.7 <7.0",
+        "ext-fileinfo": "*"
+    },
+    "bin": [
+        "staple"
+    ],
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "Maslosoft\\Staple\\": "src"
+        }
+    },
+    "license": [
+        "AGPL-3.0-only",
+        "proprietary"
+    ],
+    "authors": [
+        {
+            "name": "Peter Maselkowski",
+            "email": "pmaselkowski@gmail.com",
+            "homepage": "https://maslosoft.com"
+        }
+    ]
 }
