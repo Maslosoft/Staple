@@ -46,7 +46,7 @@ class SubNavRecursive extends SubNav
 	public string $path = '';
 	public array $options = [
 		'path' => '',
-		'items' => ''
+		'items' => []
 	];
 
 	public function getItems(): array
