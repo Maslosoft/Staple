@@ -67,8 +67,8 @@ class HttpRequest implements RequestInterface
 
 	public function dispatch(RequestAwareInterface $owner): string
 	{
-		$path = null;
-		$view = null;
+		$path = '';
+		$view = '';
 		$urlPath = $this->getPath();
 		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizeUrl($urlPath));
 		$this->resolve($owner, $path, $view);
@@ -78,16 +78,16 @@ class HttpRequest implements RequestInterface
 
 	public function canHandle(RequestAwareInterface $owner): bool
 	{
-		$path = null;
-		$view = null;
+		$path = '';
+		$view = '';
 		$this->resolve($owner, $path, $view);
 		return $view || $path;
 	}
 
 	public function getFileName(RequestAwareInterface $owner): string
 	{
-		$path = null;
-		$view = null;
+		$path = '';
+		$view = '';
 		$this->resolve($owner, $path, $view);
 		return $path;
 	}
@@ -154,8 +154,8 @@ class HttpRequest implements RequestInterface
 	{
 		$urlPath = $this->getPath();
 		$basePath = sprintf('%s/%s/%s', $owner->getRootPath(), $owner->getContentPath(), $this->_sanitizeUrl($urlPath));
-		$path = null;
-		$view = null;
+		$path = '';
+		$view = '';
 		foreach ($owner->getExtensions() as $ext)
 		{
 			// Check for file
