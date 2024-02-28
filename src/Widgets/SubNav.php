@@ -12,8 +12,6 @@
 
 namespace Maslosoft\Staple\Widgets;
 
-use Maslosoft\EmbeDi\EmbeDi;
-use Maslosoft\MiniView\MiniView;
 use Maslosoft\Staple\Widgets\Vo\SubNavItem;
 
 /**
@@ -21,50 +19,20 @@ use Maslosoft\Staple\Widgets\Vo\SubNavItem;
  * TODO If items are set, init from items.
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class SubNav
+class SubNav extends Widget
 {
-
-	public $items = [];
-	public $options = [
+	public array $options = [
 		'items' => ''
 	];
 
-	/**
-	 * View
-	 * @var MiniView
-	 */
-	private $mv = null;
-
-	public function __construct($options = [])
+	public function getItems(): array
 	{
-		if (!empty($options))
-		{
-			$this->options = array_merge($this->options, $options);
-		}
-
-		// Apply configuration
-		EmbeDi::fly()->apply($this->options, $this);
-
-		// Setup view
-		$this->mv = new MiniView($this);
-	}
-
-	/**
-	 * Get view instance
-	 * Used by items
-	 * @return MiniView
-	 */
-	public function getView()
-	{
-		return $this->mv;
-	}
-
-	public function getItems()
-	{
+		$items = [];
 		foreach ($this->items as $url => $title)
 		{
-			yield new SubNavItem($url, $title, $this);
+			$items[] = new SubNavItem($url, $title, $this);
 		}
+		return $items;
 	}
 
 	public function __toString()

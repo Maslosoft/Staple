@@ -12,8 +12,6 @@
 
 namespace Maslosoft\Staple\Widgets;
 
-use Maslosoft\EmbeDi\EmbeDi;
-use Maslosoft\MiniView\MiniView;
 use Maslosoft\Staple\Helpers\SiteWalker;
 use Maslosoft\Staple\Models\RequestItem;
 use Maslosoft\Staple\Widgets\Vo\SubNavItem;
@@ -26,64 +24,32 @@ use Maslosoft\Staple\Widgets\Vo\SubNavSeparator;
  */
 class SubNavRecursive extends SubNav
 {
-
-	public $baseUrl = '';
-	public $urlSuffix = '';
-	public $items = [];
+	public string $baseUrl = '';
+	public string $urlSuffix = '';
 
 	/**
 	 * How many level from top to skip
 	 * @var int
 	 */
-	public $skipLevel = 0;
+	public int $skipLevel = 0;
 
 	/**
 	 * Root path
 	 * @var string
 	 */
-	public $root = '';
+	public string $root = '';
 
 	/**
 	 * Scan path
 	 * @var string
 	 */
-	public $path = '';
-	public $options = [
+	public string $path = '';
+	public array $options = [
 		'path' => '',
-		'items' => ''
+		'items' => []
 	];
 
-	/**
-	 * View
-	 * @var MiniView
-	 */
-	public $mv = null;
-
-	public function __construct($options = [])
-	{
-		if (!empty($options))
-		{
-			$this->options = array_merge($this->options, $options);
-		}
-
-		// Apply configuration
-		EmbeDi::fly()->apply($this->options, $this);
-
-		// Setup view
-		$this->mv = new MiniView($this);
-	}
-
-	/**
-	 * Get view instance
-	 * Used by items
-	 * @return MiniView
-	 */
-	public function getView()
-	{
-		return $this->mv;
-	}
-
-	public function getItems()
+	public function getItems(): array
 	{
 		$w = new SiteWalker($this->root);
 		$w->start($this->path)->scan();
@@ -104,6 +70,7 @@ class SubNavRecursive extends SubNav
 			}
 		}
 		$rootItem = $w->get();
+		$walkerItems = [];
 		if ($this->skipLevel > 0)
 		{
 			for ($i = -1; $i < $this->skipLevel; $i++)
@@ -123,12 +90,10 @@ class SubNavRecursive extends SubNav
 
 		$walkerItems = $this->convertItems($walkerItems);
 		$walkerItems = $this->sort($walkerItems);
-		$allItems = array_merge($items, $walkerItems);
-
-		return $allItems;
+		return array_merge($items, $walkerItems);
 	}
 
-	private function sort($items)
+	private function sort($items): array
 	{
 		if (empty($items))
 		{
@@ -167,12 +132,12 @@ class SubNavRecursive extends SubNav
 		return $sorted;
 	}
 
-	public function sortGroup($one, $two)
+	public function sortGroup($one, $two): int
 	{
 		return strcmp($one->title, $two->title);
 	}
 
-	private function convertItems($walkerItems)
+	private function convertItems($walkerItems): array
 	{
 		$items = [];
 		foreach ($walkerItems as $requestItem)
