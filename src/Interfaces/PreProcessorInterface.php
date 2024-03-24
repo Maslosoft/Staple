@@ -16,8 +16,8 @@ namespace Maslosoft\Staple\Interfaces;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface PreProcessorInterface extends PostProcessorInterface
+interface PreProcessorInterface extends PostProcessorInterface, DataExtractingProcessorInterface
 {
 
-	public function getData(RendererAwareInterface $owner, $filename, $view);
+
 }
