@@ -28,11 +28,13 @@ class RequestHandler
 	{
 
 		$preProcessor = new PreProcessor();
+		$postProcessor = new PostProcessor();
 		$this->data = $preProcessor->getData($owner, $path, $view);
 		$content = $owner->getRenderer($path)->render($view, $this->data);
+		$postData = $postProcessor->getData($owner, $path, $view, $content);
+		$this->data = array_replace_recursive($this->data, $postData);
 		$preProcessor->decorate($owner, $content, $this->data);
-		(new PostProcessor())->decorate($owner, $content, $this->data);
-
+		$postProcessor->decorate($owner, $content, $this->data);
 
 		return $content;
 	}

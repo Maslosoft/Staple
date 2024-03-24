@@ -10,8 +10,10 @@
  * @link https://maslosoft.com/staple/
  */
 
-namespace Maslosoft\Staple\Processors\Pre;
+namespace Maslosoft\Staple\Processors\Post;
 
+use Maslosoft\Staple\Interfaces\DataExtractingPostProcessorInterface;
+use Maslosoft\Staple\Interfaces\PostProcessorInterface;
 use Maslosoft\Staple\Interfaces\PreProcessorInterface;
 use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 
@@ -47,7 +49,7 @@ use Maslosoft\Staple\Interfaces\RendererAwareInterface;
  * exists it will be used by Template Applier (if it's enabled).
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class TagExtractor implements PreProcessorInterface
+class TagExtractor implements PostProcessorInterface, DataExtractingPostProcessorInterface
 {
 
 	public $tags = [
@@ -56,47 +58,29 @@ class TagExtractor implements PreProcessorInterface
 		'description'
 	];
 
-	public function decorate(RendererAwareInterface $owner, &$content, $data)
+	public function decorate(RendererAwareInterface $owner, &$content, $data): void
 	{
+
+	}
+
+	public function getData(RendererAwareInterface $owner, $filename, $view, &$content): array
+	{
+		$data = [];
+
 		foreach ($this->tags as $tag)
 		{
 			$matches = [];
 			$pattern = $this->_getPattern($tag);
 			if (preg_match($pattern, $content, $matches))
 			{
-				$content = preg_replace($pattern, '', $content);
-			}
-		}
-	}
-
-	public function getData(RendererAwareInterface $owner, $filename, $view)
-	{
-		$data = [];
-		$content = '';
-		if (!empty($filename))
-		{
-			if (file_exists($filename))
-			{
-				$content = file_get_contents($filename);
-			}
-			else
-			{
-				return $data;
-			}
-		}
-
-		foreach ($this->tags as $tag)
-		{
-			$matches = [];
-			if (preg_match($this->_getPattern($tag), $content, $matches))
-			{
 				$data[$tag] = $matches[1];
+				$content = preg_replace($pattern, '', $content);
 			}
 		}
 		return $data;
 	}
 
-	private function _getPattern($tag)
+	private function _getPattern($tag): string
 	{
 		return "~<$tag>(.+?)</$tag>~i";
 	}

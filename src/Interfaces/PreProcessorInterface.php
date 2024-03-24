@@ -16,7 +16,7 @@ namespace Maslosoft\Staple\Interfaces;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface PreProcessorInterface extends PostProcessorInterface, DataExtractingProcessorInterface
+interface PreProcessorInterface extends PostProcessorInterface, DataExtractingPreProcessorInterface
 {
 
 

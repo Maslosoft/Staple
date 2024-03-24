@@ -2,7 +2,7 @@
 
 namespace Maslosoft\Staple\Interfaces;
 
-interface DataExtractingProcessorInterface
+interface DataExtractingPreProcessorInterface
 {
 	public function getData(RendererAwareInterface $owner, $filename, $view);
 }

@@ -20,10 +20,10 @@ use Maslosoft\Staple\Interfaces\RendererExtensionInterface;
 use Maslosoft\Staple\Interfaces\RendererInterface;
 use Maslosoft\Staple\Interfaces\RequestAwareInterface;
 use Maslosoft\Staple\Interfaces\RequestInterface;
+use Maslosoft\Staple\Processors\Post\TagExtractor;
 use Maslosoft\Staple\Processors\Post\TemplateApplier;
 use Maslosoft\Staple\Processors\Pre\CascadingDataJsonExtractor;
 use Maslosoft\Staple\Processors\Pre\DataJsonExtractor;
-use Maslosoft\Staple\Processors\Pre\TagExtractor;
 use Maslosoft\Staple\Processors\Pre\ViewJsonExtractor;
 use Maslosoft\Staple\Renderers\ErrorRenderer;
 use Maslosoft\Staple\Renderers\HtmlRenderer;
@@ -95,10 +95,10 @@ class Staple implements RequestAwareInterface
 		DataJsonExtractor::class,
 		CascadingDataJsonExtractor::class,
 		ViewJsonExtractor::class,
-		TagExtractor::class
 	];
 	public array $postProcessors = [
-		TemplateApplier::class
+		TemplateApplier::class,
+		TagExtractor::class
 	];
 
 	/**

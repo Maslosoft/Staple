@@ -12,6 +12,8 @@
 
 namespace Maslosoft\Staple\Helpers;
 
+use Maslosoft\Staple\Interfaces\DataExtractingPostProcessorInterface;
+use Maslosoft\Staple\Interfaces\ProcessorAwareInterface;
 use Maslosoft\Staple\Interfaces\RendererAwareInterface;
 
 /**
@@ -30,4 +32,16 @@ class PostProcessor
 		}
 	}
 
+	public function getData(ProcessorAwareInterface $owner, string $path, string $view, string $content)
+	{
+		$data = [];
+		foreach ($owner->getPostProcessors() as $postProcessor)
+		{
+			if($postProcessor instanceof DataExtractingPostProcessorInterface)
+			{
+				$data = array_merge($data, $postProcessor->getData($owner, $path, $view, $content));
+			}
+		}
+		return $data;
+	}
 }
