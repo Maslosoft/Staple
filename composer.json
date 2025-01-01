@@ -8,14 +8,14 @@
     },
     "require": {
         "php": ">=8.2",
-        "maslosoft/miniview": "^2",
-        "maslosoft/cli-shared": "^2",
-        "maslosoft/embedi": "^2",
+        "maslosoft/miniview": "^2|^3",
+        "maslosoft/cli-shared": "^2|^3",
+        "maslosoft/embedi": "^2|^3",
         "erusev/parsedown": "^1",
         "masterexploder/phpthumb": "^2",
-        "symfony/yaml": ">=2.7 <7.0",
-        "symfony/finder": ">=2.7 <7.0",
-        "symfony/console": ">=2.7 <7.0",
+        "symfony/yaml": ">=2.7 <9.0",
+        "symfony/finder": ">=2.7 <9.0",
+        "symfony/console": ">=2.7 <9.0",
         "ext-fileinfo": "*"
     },
     "bin": [
